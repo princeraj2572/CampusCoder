@@ -123,7 +123,7 @@ export default function LandingPage() {
           >
             <div className="flex flex-col gap-6">
               <p className="border-border bg-background/70 w-fit rounded-full border px-3 py-1 text-sm font-medium backdrop-blur">
-                For our campus, by our students
+                For our department, by our department
               </p>
               <h1 className="numeral text-6xl leading-[0.88] font-extrabold sm:text-7xl lg:text-8xl">
                 Code<span style={{ color: "var(--board-dsa)" }}>.</span>
@@ -133,9 +133,9 @@ export default function LandingPage() {
                 Climb<span style={{ color: "var(--board-github)" }}>.</span>
               </h1>
               <p className="text-muted-foreground max-w-lg text-lg">
-                CampusCoders ranks our students on DSA, contests and GitHub, straight from
-                the platforms you already use. Find your name, chase the people above you,
-                and watch your streak grow.
+                CampusCoders ranks the department on DSA, contests and GitHub, straight
+                from the platforms you already use. Find your name, chase the people above
+                you, and watch your streak grow.
               </p>
               <Suspense fallback={<LandingCtaFallback />}>
                 <LandingCta />
