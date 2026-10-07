@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const BOARDS = [
-  { href: "/leaderboards/problem-solving", label: "Problem solving" },
+  { href: "/leaderboards/problem-solving", label: "DSA" },
   { href: "/leaderboards/contests", label: "Contests" },
   { href: "/leaderboards/github", label: "GitHub" },
 ];
