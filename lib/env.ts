@@ -11,6 +11,11 @@ const serverSchema = z.object({
   ADMIN_BOOTSTRAP_EMAIL: z.string().min(1).email(),
 });
 
+const serviceSchema = z.object({
+  NEXT_PUBLIC_SUPABASE_URL: z.string().min(1).url(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+});
+
 type Source = Record<string, string | undefined>;
 
 function parse<T extends z.ZodTypeAny>(schema: T, source: Source): z.infer<T> {
@@ -28,4 +33,8 @@ export function parsePublicEnv(source: Source) {
 
 export function parseServerEnv(source: Source) {
   return parse(serverSchema, source);
+}
+
+export function parseServiceEnv(source: Source) {
+  return parse(serviceSchema, source);
 }

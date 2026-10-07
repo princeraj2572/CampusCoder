@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { DOMAIN_LABELS, type Domain } from "@/lib/registration/schema";
 import { isAnonRegistrationEnabled } from "@/lib/temp-anon/flag";
-import { createServiceClient } from "@/lib/temp-anon/service-client";
+import { createServiceClient } from "@/lib/supabase/service";
 import { studentYear } from "@/lib/year";
 
 type Row = {

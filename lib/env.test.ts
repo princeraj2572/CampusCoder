@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parsePublicEnv, parseServerEnv } from "@/lib/env";
+import { parsePublicEnv, parseServerEnv, parseServiceEnv } from "@/lib/env";
 
 const validPublic = {
   NEXT_PUBLIC_SUPABASE_URL: "https://abc.supabase.co",
@@ -46,5 +46,23 @@ describe("parseServerEnv", () => {
     expect(() =>
       parseServerEnv({ ...rest, NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY: "leaked" }),
     ).toThrow(/SUPABASE_SERVICE_ROLE_KEY/);
+  });
+});
+
+describe("parseServiceEnv", () => {
+  it("needs only the URL and the service-role key", () => {
+    const env = {
+      NEXT_PUBLIC_SUPABASE_URL: "https://abc.supabase.co",
+      SUPABASE_SERVICE_ROLE_KEY: "service-key",
+    };
+    expect(parseServiceEnv(env)).toEqual(env);
+  });
+  it("names what is missing", () => {
+    expect(() =>
+      parseServiceEnv({ NEXT_PUBLIC_SUPABASE_URL: "https://abc.supabase.co" }),
+    ).toThrow(/SUPABASE_SERVICE_ROLE_KEY/);
+    expect(() => parseServiceEnv({ SUPABASE_SERVICE_ROLE_KEY: "k" })).toThrow(
+      /NEXT_PUBLIC_SUPABASE_URL/,
+    );
   });
 });
