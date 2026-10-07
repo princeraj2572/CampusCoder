@@ -1,0 +1,24 @@
+/** The fair play rules. Shown on the login page and in the Terms, so the two always say the same thing. */
+export function FairPlay() {
+  return (
+    <>
+      <p>The boards are only fun if they are honest. Please do not:</p>
+      <ul>
+        <li>
+          Inflate your scores, for example with fake or automated activity, copied work or
+          extra accounts.
+        </li>
+        <li>Use the site to harass or embarrass anyone.</li>
+        <li>
+          Scrape the site, overload it, or try to get around its security or its limits.
+        </li>
+      </ul>
+      <p>
+        <strong>
+          Anyone who breaks these rules will be banned, and their record and scores will
+          be removed.
+        </strong>
+      </p>
+    </>
+  );
+}

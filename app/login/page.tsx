@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import { redirect } from "next/navigation";
+import { FairPlay } from "@/components/fair-play";
 import { GoogleSignIn } from "@/components/google-sign-in";
 import { safeNext } from "@/lib/auth/safe-next";
 import { createClient } from "@/lib/supabase/server";
@@ -38,6 +39,21 @@ export default async function LoginPage({
           </p>
         </div>
       )}
+      <section
+        aria-labelledby="fair-play-heading"
+        className="border-border flex flex-col gap-2 rounded-2xl border p-5 text-sm [&_li]:ml-5 [&_li]:list-disc [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-1"
+        style={{
+          backgroundColor: "color-mix(in oklab, var(--board-dsa) 8%, var(--background))",
+        }}
+      >
+        <h2
+          id="fair-play-heading"
+          className="numeral text-2xl leading-none font-extrabold"
+        >
+          Fair play
+        </h2>
+        <FairPlay />
+      </section>
       <GoogleSignIn next={next} />
     </main>
   );
