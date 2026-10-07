@@ -1,3 +1,4 @@
+import type { Platform } from "@/lib/registration/schema";
 import type { BoardId } from "@/lib/scoring/types";
 
 /** CSS variable holding each board's accent colour. */
@@ -7,9 +8,28 @@ export const BOARD_ACCENT: Record<BoardId, string> = {
   github: "var(--board-github)",
 };
 
+/** Each coding platform's brand colour, used wherever that platform's data appears. */
+export const PLATFORM_BRAND: Record<Platform, string> = {
+  leetcode: "var(--board-dsa)",
+  codeforces: "var(--brand-codeforces)",
+  codechef: "var(--brand-codechef)",
+  github: "var(--board-github)",
+};
+
 const MEDALS = ["var(--medal-gold)", "var(--medal-silver)", "var(--medal-bronze)"];
+
+const GRADIENTS = [
+  "linear-gradient(135deg, #fff0a8 0%, #ffcf3f 45%, #e0a100 100%)",
+  "linear-gradient(135deg, #ffffff 0%, #cfd8e6 45%, #8e9db6 100%)",
+  "linear-gradient(135deg, #ffd2a6 0%, #e69a58 45%, #b5651f 100%)",
+];
 
 /** Gold, silver or bronze for ranks 1 to 3; null for everyone else. Ties share the medal. */
 export function medalColor(rank: number): string | null {
   return rank >= 1 && rank <= 3 ? MEDALS[rank - 1] : null;
+}
+
+/** The shiny medal fill for ranks 1 to 3; null for everyone else. */
+export function medalGradient(rank: number): string | null {
+  return rank >= 1 && rank <= 3 ? GRADIENTS[rank - 1] : null;
 }
