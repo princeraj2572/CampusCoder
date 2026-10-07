@@ -64,6 +64,13 @@
   --tier-violet: #7c4dcc;
   --tier-orange: #d1730d;
   --tier-red: #d64541;
+  --board-dsa: #2f62e6;
+  --board-contests: #e0630a;
+  --board-github: #1a9a52;
+  --on-board: #ffffff;
+  --medal-gold: #c99a06;
+  --medal-silver: #7d8aa0;
+  --medal-bronze: #b8692f;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -109,6 +116,13 @@
   --tier-violet: #a98af0;
   --tier-orange: #f0a04b;
   --tier-red: #ef6a66;
+  --board-dsa: #7aa0ff;
+  --board-contests: #ffa24f;
+  --board-github: #4cd98a;
+  --on-board: #0b0b0b;
+  --medal-gold: #f2c94c;
+  --medal-silver: #b8c2d0;
+  --medal-bronze: #e49a62;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);

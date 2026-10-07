@@ -33,7 +33,7 @@ export function BoardControls({
   const anyActive = advancedActive > 0 || Boolean(params.q);
   return (
     <div className="flex flex-col gap-4">
-      <nav aria-label="Year" className="-mx-1 flex flex-wrap gap-x-1 gap-y-1">
+      <nav aria-label="Year" className="flex flex-wrap gap-1 lg:flex-col lg:gap-0.5">
         {YEARS.map((y) => {
           const active = params.year === y.value;
           return (
@@ -41,10 +41,15 @@ export function BoardControls({
               key={y.label}
               href={boardHref(board, params, { year: y.value })}
               aria-current={active ? "page" : undefined}
-              className={`focus-visible:ring-ring flex items-baseline gap-1.5 rounded-md px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:outline-none ${
+              style={
                 active
-                  ? "bg-foreground text-background font-medium"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? { background: "var(--board)", color: "var(--on-board)" }
+                  : undefined
+              }
+              className={`focus-visible:ring-ring flex items-baseline gap-1.5 rounded-md px-3 py-1.5 text-sm focus-visible:ring-2 focus-visible:outline-none lg:justify-between ${
+                active
+                  ? "font-medium"
+                  : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
               }`}
             >
               {y.label}
@@ -94,7 +99,7 @@ export function BoardControls({
               </span>
             )}
           </summary>
-          <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-1">
             <label className="flex flex-col gap-1 text-sm">
               <span className="text-muted-foreground">Section</span>
               <input

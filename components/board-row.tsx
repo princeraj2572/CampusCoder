@@ -4,12 +4,13 @@ import { Sparkline } from "@/components/sparkline";
 import { TierChip } from "@/components/tier-chip";
 import type { BoardRow as Row } from "@/lib/boards/build";
 import { BOARD_META, rowDetail, rowStats } from "@/lib/boards/meta";
+import { BOARD_ACCENT, medalColor } from "@/lib/boards/theme";
 import { DOMAIN_LABELS } from "@/lib/registration/schema";
 import { ratingTier } from "@/lib/scoring/tier";
 import type { BoardId } from "@/lib/scoring/types";
 import { studentYear } from "@/lib/year";
 
-const ROW_PX = 68;
+const ROW_PX = 120;
 
 function yearText(admissionYear: number, override: number | null, today: Date) {
   const y = studentYear(admissionYear, today, override);
@@ -17,10 +18,11 @@ function yearText(admissionYear: number, override: number | null, today: Date) {
 }
 
 function Movement({ value }: { value: number | null }) {
+  const base = "hidden w-9 text-sm sm:block";
   if (value === null) {
     return (
       <span
-        className="text-muted-foreground hidden w-10 text-sm sm:block"
+        className={`${base} text-muted-foreground`}
         aria-label="No rank change data yet"
       >
         –
@@ -29,10 +31,7 @@ function Movement({ value }: { value: number | null }) {
   }
   if (value === 0) {
     return (
-      <span
-        className="text-muted-foreground hidden w-10 text-sm sm:block"
-        aria-label="Rank unchanged"
-      >
+      <span className={`${base} text-muted-foreground`} aria-label="Rank unchanged">
         =
       </span>
     );
@@ -41,7 +40,7 @@ function Movement({ value }: { value: number | null }) {
   const places = Math.abs(value);
   return (
     <span
-      className={`hidden w-10 text-sm font-medium tabular-nums sm:block ${up ? "text-success" : "text-danger"}`}
+      className={`${base} font-medium tabular-nums ${up ? "text-success" : "text-danger"}`}
       aria-label={`${up ? "Up" : "Down"} ${places} ${places === 1 ? "place" : "places"}`}
     >
       {up ? "▲" : "▼"}
@@ -56,6 +55,7 @@ export function BoardRow({
   improved,
   today,
   max,
+  isMe,
 }: {
   row: Row;
   board: BoardId;
@@ -63,9 +63,12 @@ export function BoardRow({
   today: Date;
   /** The leader's value in this view, so every row's bar is drawn against it. */
   max: number;
+  /** Whether this card is the signed-in student's own. */
+  isMe?: boolean;
 }) {
   const { student } = row;
-  const top = row.rank <= 3;
+  const medal = medalColor(row.rank);
+  const accent = BOARD_ACCENT[board];
   const shift = row.movement ? Math.max(-8, Math.min(8, row.movement)) * ROW_PX : 0;
   const meta = [
     yearText(student.admissionYear, student.yearOverride, today),
@@ -78,32 +81,39 @@ export function BoardRow({
   const stats = rowStats(board, student);
   const tier = ratingTier(student.metrics.leetcode?.rating ?? null);
   const barColor =
-    board === "contests" && tier.key !== "unrated"
-      ? `var(--tier-${tier.key})`
-      : "var(--foreground)";
+    board === "contests" && tier.key !== "unrated" ? `var(--tier-${tier.key})` : accent;
   const barPercent = max > 0 ? Math.max(2, Math.round((row.value / max) * 100)) : 0;
-  const accent =
-    row.rank === 1
-      ? "border-foreground/50"
-      : top
-        ? "border-foreground/25"
-        : "border-border";
+
+  // Medal colours tint the border and background of the top three; everyone else stays neutral.
+  const cardStyle: React.CSSProperties = {
+    ...(shift ? ({ "--from": `${shift}px` } as React.CSSProperties) : {}),
+    ...(medal
+      ? {
+          borderColor: `color-mix(in oklab, ${medal} 55%, transparent)`,
+          backgroundColor: `color-mix(in oklab, ${medal} 9%, transparent)`,
+        }
+      : {}),
+    ...(isMe && !medal
+      ? { borderColor: `color-mix(in oklab, ${accent} 60%, transparent)` }
+      : {}),
+  };
 
   return (
     <li
-      className={`group bg-foreground/[0.03] hover:bg-foreground/[0.06] relative overflow-hidden rounded-xl border transition-colors ${accent} ${shift ? "row-slide" : ""}`}
-      style={shift ? ({ "--from": `${shift}px` } as React.CSSProperties) : undefined}
+      className={`group border-border bg-foreground/[0.03] hover:bg-foreground/[0.06] relative overflow-hidden rounded-xl border transition-colors ${shift ? "row-slide" : ""}`}
+      style={cardStyle}
     >
       <div
-        className={`flex items-center gap-2 px-3 sm:gap-3 sm:px-4 ${top ? "py-5" : "py-4"}`}
+        className={`flex items-center gap-2 px-3 sm:gap-3 sm:px-4 ${medal ? "py-4" : "py-3"}`}
       >
         <span
-          className={`numeral w-9 shrink-0 text-right font-extrabold sm:w-12 ${top ? "text-5xl sm:text-6xl" : "text-2xl"} leading-none`}
+          className={`numeral w-9 shrink-0 text-right leading-none font-extrabold sm:w-12 ${medal ? "text-5xl sm:text-6xl" : "text-2xl"}`}
+          style={medal ? { color: medal } : undefined}
         >
           {row.rank}
         </span>
         {improved ? (
-          <span className="hidden w-10 sm:block" />
+          <span className="hidden w-9 sm:block" />
         ) : (
           <Movement value={row.movement} />
         )}
@@ -115,6 +125,14 @@ export function BoardRow({
             >
               {student.fullName}
             </Link>
+            {isMe && (
+              <span
+                className="rounded-full px-2 py-0.5 text-xs font-semibold"
+                style={{ background: accent, color: "var(--on-board)" }}
+              >
+                You
+              </span>
+            )}
             <TierChip rating={student.metrics.leetcode?.rating} />
           </div>
           <p className="text-muted-foreground text-sm">{meta}</p>
@@ -129,15 +147,16 @@ export function BoardRow({
             </dl>
           )}
           <div className="mt-2 empty:hidden">
-            <RowGraphic board={board} student={student} />
+            <RowGraphic board={board} student={student} accent={accent} />
           </div>
         </div>
-        <div className="hidden sm:block">
+        <div className="hidden sm:block" style={{ color: accent }}>
           <Sparkline points={row.trend} />
         </div>
         <div className="shrink-0 text-right">
           <p
-            className={`numeral font-extrabold ${top ? "text-3xl" : "text-xl"}`}
+            className={`numeral font-extrabold ${medal ? "text-4xl" : "text-2xl"}`}
+            style={{ color: accent }}
             title={
               improved ? BOARD_META[board].improvedLabel : BOARD_META[board].valueLabel
             }
@@ -151,7 +170,7 @@ export function BoardRow({
       </div>
       <span
         aria-hidden="true"
-        className="absolute bottom-0 left-0 h-[3px] opacity-70"
+        className="absolute bottom-0 left-0 h-[3px] opacity-80"
         style={{ width: `${barPercent}%`, background: barColor }}
       />
     </li>

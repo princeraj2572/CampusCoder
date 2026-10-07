@@ -19,7 +19,6 @@ export function Sparkline({ points }: { points: number[] }) {
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      className="text-muted-foreground"
     >
       <polyline fill="none" stroke="currentColor" strokeWidth="1.5" points={coords} />
     </svg>

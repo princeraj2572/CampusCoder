@@ -59,7 +59,7 @@ function PercentileGauge({ top, color }: { top: number; color: string }) {
 }
 
 /** Twelve weekly contribution totals. */
-function WeeklyBars({ totals }: { totals: number[] }) {
+function WeeklyBars({ totals, color }: { totals: number[]; color: string }) {
   if (totals.length < 2) return null;
   const max = Math.max(1, ...totals);
   return (
@@ -71,8 +71,9 @@ function WeeklyBars({ totals }: { totals: number[] }) {
       {totals.map((t, i) => (
         <span
           key={i}
-          className="bg-foreground w-1.5 rounded-sm"
+          className="w-1.5 rounded-sm"
           style={{
+            background: color,
             height: `${Math.max(8, (t / max) * 100)}%`,
             opacity: i === totals.length - 1 ? 1 : 0.55,
           }}
@@ -86,9 +87,11 @@ function WeeklyBars({ totals }: { totals: number[] }) {
 export function RowGraphic({
   board,
   student,
+  accent,
 }: {
   board: BoardId;
   student: BoardStudent;
+  accent: string;
 }) {
   const m = student.metrics;
   if (board === "problem-solving" && m.leetcode) {
@@ -106,7 +109,7 @@ export function RowGraphic({
   if (board === "github" && m.github) {
     const daily = m.github.extra.daily;
     return Array.isArray(daily) ? (
-      <WeeklyBars totals={weeklyTotals(daily as [string, number][], 12)} />
+      <WeeklyBars totals={weeklyTotals(daily as [string, number][], 12)} color={accent} />
     ) : null;
   }
   return null;
