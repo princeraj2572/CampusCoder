@@ -134,6 +134,19 @@ export default async function BoardPage({
                     Clear the filters
                   </Link>
                 </p>
+              ) : board === "contests" ? (
+                <p>
+                  No one has a LeetCode contest rating yet. This board lists students who
+                  have taken part in at least one rated LeetCode contest, so it fills in
+                  after the first one. Registered students are on the{" "}
+                  <Link
+                    href={boardHref("problem-solving", { year: "all" })}
+                    className="underline underline-offset-4"
+                  >
+                    DSA board
+                  </Link>
+                  .
+                </p>
               ) : (
                 <p>
                   No scores yet. They appear after the first refresh, or{" "}
