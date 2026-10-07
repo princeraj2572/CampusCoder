@@ -12,6 +12,15 @@ export const DOMAIN_VALUES = [
   "iot_embedded",
   "blockchain",
   "game_dev",
+  "ui_ux",
+  "full_stack",
+  "backend",
+  "software_testing",
+  "data_engineering",
+  "robotics",
+  "ar_vr",
+  "networking",
+  "open_source",
   "other",
 ] as const;
 export type Domain = (typeof DOMAIN_VALUES)[number];
@@ -27,6 +36,15 @@ export const DOMAIN_LABELS: Record<Domain, string> = {
   iot_embedded: "IoT/Embedded",
   blockchain: "Blockchain",
   game_dev: "Game development",
+  ui_ux: "UI/UX design",
+  full_stack: "Full-stack development",
+  backend: "Backend development",
+  software_testing: "Software testing/QA",
+  data_engineering: "Data engineering",
+  robotics: "Robotics",
+  ar_vr: "AR/VR",
+  networking: "Networking",
+  open_source: "Open source",
   other: "Other",
 };
 
