@@ -33,6 +33,15 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const { pathname, search } = request.nextUrl;
+  // Supabase reports a failed or repeated sign-in by adding error_code to the site root.
+  // Send those to the login page, which forwards anyone already signed in.
+  if (pathname === "/" && request.nextUrl.searchParams.has("error_code")) {
+    const login = request.nextUrl.clone();
+    login.pathname = "/login";
+    login.search = "";
+    login.searchParams.set("error", "signin");
+    return NextResponse.redirect(login);
+  }
   if (!user && isProtectedPath(pathname)) {
     if (pathname.startsWith("/api/")) {
       return NextResponse.json({ error: "Sign in to continue." }, { status: 401 });
