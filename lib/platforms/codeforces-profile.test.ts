@@ -33,7 +33,7 @@ const rating = {
       contestName: "Round 1",
       rank: 100,
       ratingUpdateTimeSeconds: 1600000000,
-      oldRating: 1400,
+      oldRating: 0,
       newRating: 1450,
     },
     {
@@ -82,8 +82,9 @@ describe("fetchCodeforcesProfile", () => {
       contestName: "Round 1",
       rank: 100,
       ratingAfter: 1450,
-      ratingChange: 50,
+      ratingChange: null, // first contest: Codeforces reports oldRating 0, so there is no real change
     });
+    expect(contests[1]).toMatchObject({ ratingAfter: 1500, ratingChange: 50 });
     expect(contests[0].contestDate).toEqual(new Date(1600000000 * 1000));
   });
 

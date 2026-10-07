@@ -88,7 +88,7 @@ export async function fetchCodeforcesProfile(
     contestDate: new Date(h.ratingUpdateTimeSeconds * 1000),
     rank: h.rank ?? null,
     ratingAfter: h.newRating,
-    ratingChange: h.newRating - h.oldRating,
+    ratingChange: h.oldRating === 0 ? null : h.newRating - h.oldRating,
   }));
 
   return {
