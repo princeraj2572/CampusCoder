@@ -4,6 +4,7 @@ import type { Platform } from "@/lib/registration/schema";
 export interface PlatformMetrics {
   rating: number | null;
   solved: number | null;
+  contests?: number | null;
   extra: Record<string, unknown>;
 }
 

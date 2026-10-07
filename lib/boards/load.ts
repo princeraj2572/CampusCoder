@@ -40,12 +40,14 @@ type StatLike = {
   platform: string;
   rating: number | null;
   solved: number | null;
+  contests: number | null;
   extra: Record<string, unknown> | null;
 };
 
 const toMetrics = (r: StatLike): PlatformMetrics => ({
   rating: r.rating,
   solved: r.solved,
+  contests: r.contests,
   extra: r.extra ?? {},
 });
 
@@ -83,7 +85,7 @@ export async function loadBoardData(
     fetchAll<StatLike & { last_updated: string }>((from, to) =>
       client
         .from("platform_stats")
-        .select("student_id, platform, rating, solved, extra, last_updated")
+        .select("student_id, platform, rating, solved, contests, extra, last_updated")
         .order("student_id")
         .order("platform")
         .range(from, to),
