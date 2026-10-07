@@ -121,7 +121,7 @@ function PlatformPanel({
 }) {
   return (
     <section
-      className="relative overflow-hidden rounded-xl border p-4 pt-5"
+      className="relative overflow-hidden rounded-2xl border p-4 pt-5"
       style={{
         borderColor: `color-mix(in oklab, ${color} 45%, transparent)`,
         backgroundColor: `color-mix(in oklab, ${color} 8%, transparent)`,

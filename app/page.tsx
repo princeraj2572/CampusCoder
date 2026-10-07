@@ -109,28 +109,20 @@ const SAMPLE_ACCOUNTS = [
   { platform: "codeforces", username: "aarav_cf", lastUpdated: "2026-10-07T09:46:00Z" },
 ];
 
-/** Soft coloured glows used behind the hero and the closing panel. */
-function Glows({ strong = false }: { strong?: boolean }) {
-  const a = strong ? 38 : 22;
+/** Soft coloured glows behind the hero: the same style and strength as the profile card. */
+function Glows() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-      <div
-        className="absolute -top-24 -left-24 h-[28rem] w-[28rem] rounded-full blur-3xl"
-        style={{ background: `color-mix(in oklab, var(--board-dsa) ${a}%, transparent)` }}
-      />
-      <div
-        className="absolute top-10 -right-32 h-[26rem] w-[26rem] rounded-full blur-3xl"
-        style={{
-          background: `color-mix(in oklab, var(--board-contests) ${a}%, transparent)`,
-        }}
-      />
-      <div
-        className="absolute -bottom-32 left-1/3 h-[24rem] w-[24rem] rounded-full blur-3xl"
-        style={{
-          background: `color-mix(in oklab, var(--board-github) ${a - 6}%, transparent)`,
-        }}
-      />
-    </div>
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 -z-10 [--glow:16%] dark:[--glow:22%]"
+      style={{
+        backgroundImage: [
+          "radial-gradient(45% 75% at 0% 0%, color-mix(in oklab, var(--board-dsa) var(--glow), transparent), transparent 70%)",
+          "radial-gradient(45% 75% at 100% 5%, color-mix(in oklab, var(--board-contests) var(--glow), transparent), transparent 70%)",
+          "radial-gradient(50% 60% at 55% 100%, color-mix(in oklab, var(--board-github) 12%, transparent), transparent 70%)",
+        ].join(", "),
+      }}
+    />
   );
 }
 
@@ -139,7 +131,7 @@ export default function LandingPage() {
     <>
       <main className="overflow-x-clip">
         {/* Hero */}
-        <div className="relative">
+        <div className="relative isolate">
           <Glows />
           <section className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16">
             <div className="flex flex-col gap-6">
@@ -207,9 +199,9 @@ export default function LandingPage() {
                 <Link
                   key={b.title}
                   href={b.href}
-                  className="group border-border focus-visible:ring-ring relative flex flex-col gap-4 overflow-hidden rounded-2xl border p-5 transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+                  className="group border-border focus-visible:ring-ring relative flex flex-col gap-4 overflow-hidden rounded-2xl border p-5 transition-transform [--tint:14%] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none dark:[--tint:22%]"
                   style={{
-                    backgroundImage: `linear-gradient(160deg, color-mix(in oklab, ${b.color} 14%, var(--background)) 0%, var(--background) 60%)`,
+                    backgroundImage: `linear-gradient(160deg, color-mix(in oklab, ${b.color} var(--tint), var(--background)) 0%, var(--background) 60%)`,
                   }}
                 >
                   <span
@@ -336,7 +328,7 @@ export default function LandingPage() {
               {TIERS.map((t) => (
                 <li
                   key={t.rating}
-                  className="border-border bg-foreground/[0.03] flex flex-col items-start gap-2 rounded-xl border p-3"
+                  className="border-border bg-foreground/[0.03] flex flex-col items-start gap-2 rounded-2xl border p-3"
                 >
                   <TierChip rating={t.rating} />
                   <span className="numeral text-2xl font-extrabold">{t.from}</span>
@@ -422,14 +414,12 @@ export default function LandingPage() {
         {/* Closing call to action */}
         <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:pb-16">
           <div
-            className="relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl border border-white/10 p-7 text-white sm:p-10"
+            className="relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl border border-white/15 bg-[#161616] p-7 text-white [--glow:34%] sm:p-10"
             style={{
-              backgroundColor: "#0b0f17",
               backgroundImage: [
-                "radial-gradient(60% 90% at 0% 0%, rgba(232,118,10,0.42), transparent 60%)",
-                "radial-gradient(55% 80% at 100% 0%, rgba(122,77,240,0.38), transparent 60%)",
-                "radial-gradient(60% 80% at 60% 120%, rgba(26,154,82,0.34), transparent 60%)",
-                "linear-gradient(180deg, #141b29 0%, #0b0f17 100%)",
+                "radial-gradient(60% 90% at 0% 0%, color-mix(in oklab, var(--board-dsa) var(--glow), transparent), transparent 60%)",
+                "radial-gradient(55% 80% at 100% 0%, color-mix(in oklab, var(--board-contests) var(--glow), transparent), transparent 60%)",
+                "radial-gradient(60% 80% at 60% 120%, color-mix(in oklab, var(--board-github) var(--glow), transparent), transparent 60%)",
               ].join(", "),
             }}
           >

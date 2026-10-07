@@ -45,9 +45,9 @@ export function StudentCard({
 
   return (
     <li
-      className="group border-border relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-4 transition-transform hover:-translate-y-0.5"
+      className="group border-border relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-4 transition-transform [--tint:12%] hover:-translate-y-0.5 dark:[--tint:20%]"
       style={{
-        backgroundImage: `linear-gradient(160deg, color-mix(in oklab, ${accent} 12%, var(--background)) 0%, var(--background) 65%)`,
+        backgroundImage: `linear-gradient(160deg, color-mix(in oklab, ${accent} var(--tint), var(--background)) 0%, var(--background) 65%)`,
       }}
     >
       <span

@@ -11,7 +11,7 @@ export function HeroSkeleton() {
       {[0, 1, 2, 3].map((i) => (
         <div
           key={i}
-          className="bg-foreground/[0.06] h-24 rounded-xl motion-safe:animate-pulse"
+          className="bg-foreground/[0.06] h-24 rounded-2xl motion-safe:animate-pulse"
         />
       ))}
     </div>
@@ -57,7 +57,7 @@ export async function LiveHero() {
           <li key={`open-${i}`}>
             <Link
               href="/register"
-              className="border-border text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04] focus-visible:ring-ring flex items-center gap-3 rounded-xl border-2 border-dashed px-4 py-4 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+              className="border-border text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04] focus-visible:ring-ring flex items-center gap-3 rounded-2xl border-2 border-dashed px-4 py-4 transition-colors focus-visible:ring-2 focus-visible:outline-none"
             >
               <span className="numeral flex size-12 shrink-0 items-center justify-center text-3xl font-extrabold opacity-40">
                 {snap.rows.length + i + 1}
