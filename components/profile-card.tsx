@@ -67,24 +67,12 @@ export function ProfileCard({
   const connected = PLATFORM_ORDER.filter((p) => byPlatform.has(p));
 
   return (
-    <section
-      className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] [--glow:15%] sm:p-8 dark:border-white/15 dark:bg-[#161616] dark:text-white dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)] dark:[--glow:34%]"
-      style={{
-        backgroundImage: [
-          "radial-gradient(60% 90% at 0% 0%, color-mix(in oklab, var(--board-dsa) var(--glow), transparent), transparent 60%)",
-          "radial-gradient(55% 80% at 100% 0%, color-mix(in oklab, var(--board-github) var(--glow), transparent), transparent 60%)",
-          "radial-gradient(60% 80% at 100% 100%, color-mix(in oklab, var(--brand-codeforces) var(--glow), transparent), transparent 60%)",
-        ].join(", "),
-      }}
-    >
+    <section className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] sm:p-8 dark:border-white/15 dark:bg-[#161616] dark:text-white dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)]">
       <div className="flex flex-wrap items-start gap-5">
         <span
           aria-hidden="true"
-          className="numeral flex size-20 shrink-0 items-center justify-center rounded-2xl text-4xl leading-none font-extrabold text-[#0b0f17] shadow-[inset_0_2px_0_rgba(255,255,255,0.6),0_10px_24px_-8px_rgba(0,0,0,0.6)] ring-2 ring-white/40 sm:size-24 sm:text-5xl"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--board-dsa) 0%, var(--board-contests) 52%, var(--board-github) 100%)",
-          }}
+          className="numeral flex size-20 shrink-0 items-center justify-center rounded-2xl text-4xl leading-none font-extrabold text-[#0b0f17] ring-2 ring-white/40 sm:size-24 sm:text-5xl"
+          style={{ background: "var(--board-dsa)" }}
         >
           {initials(student.fullName)}
         </span>
