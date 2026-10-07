@@ -65,6 +65,52 @@ const STEPS = [
   },
 ];
 
+const USERNAMES = [
+  {
+    name: "LeetCode",
+    color: PLATFORM_BRAND.leetcode,
+    need: "Needed",
+    where:
+      "Open your profile. Your username is the last part of the address: leetcode.com/u/yourname.",
+  },
+  {
+    name: "GitHub",
+    color: PLATFORM_BRAND.github,
+    need: "Needed",
+    where: "Your username is in your profile address: github.com/yourname.",
+  },
+  {
+    name: "Codeforces",
+    color: PLATFORM_BRAND.codeforces,
+    need: "Optional",
+    where: "Your handle is in your profile address: codeforces.com/profile/yourname.",
+  },
+  {
+    name: "CodeChef",
+    color: PLATFORM_BRAND.codechef,
+    need: "Optional",
+    where: "Your username is in your profile address: codechef.com/users/yourname.",
+  },
+];
+
+const SCORES = [
+  {
+    title: "DSA",
+    color: "var(--board-dsa)",
+    text: "Problems you have solved. Harder ones count more, and LeetCode makes up most of the score, with Codeforces and CodeChef adding the rest.",
+  },
+  {
+    title: "Contests",
+    color: "var(--board-contests)",
+    text: "Your LeetCode contest rating. You get one after solving at least one problem in a rated contest, so new students start unrated.",
+  },
+  {
+    title: "GitHub",
+    color: "var(--board-github)",
+    text: "Your public contributions over the last 12 months: commits, pull requests and more.",
+  },
+];
+
 const PLATFORMS = [
   { name: "LeetCode", color: PLATFORM_BRAND.leetcode },
   { name: "Codeforces", color: PLATFORM_BRAND.codeforces },
@@ -365,6 +411,71 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Getting started */}
+        <section id="guide" className="border-border scroll-mt-28 border-t">
+          <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
+            <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
+              New to this? Start here
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-prose">
+              You do not need to be good at coding contests to join. Add the usernames you
+              have, and your scores will appear within a minute.
+            </p>
+
+            <h3 className="font-display mt-8 mb-3 text-lg font-semibold">
+              Where to find your usernames
+            </h3>
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {USERNAMES.map((u) => (
+                <li
+                  key={u.name}
+                  className="border-border flex flex-col gap-2 rounded-2xl border p-4"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="flex items-center gap-2 font-semibold">
+                      <span
+                        aria-hidden="true"
+                        className="size-2.5 rounded-full"
+                        style={{ background: u.color }}
+                      />
+                      {u.name}
+                    </span>
+                    <span className="text-muted-foreground text-xs">{u.need}</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm">{u.where}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="text-muted-foreground mt-3 text-sm">
+              Type only the username, not the whole link, and keep your profiles public so
+              we can read them.
+            </p>
+
+            <h3 className="font-display mt-8 mb-3 text-lg font-semibold">
+              What the scores mean
+            </h3>
+            <ul className="grid gap-4 md:grid-cols-3">
+              {SCORES.map((sc) => (
+                <li
+                  key={sc.title}
+                  className="border-border relative flex flex-col gap-1 overflow-hidden rounded-2xl border p-4 pt-5"
+                  style={{
+                    backgroundColor: `color-mix(in oklab, ${sc.color} 8%, var(--background))`,
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-1.5"
+                    style={{ background: sc.color }}
+                  />
+                  <span className="font-display text-lg font-semibold">{sc.title}</span>
+                  <p className="text-muted-foreground text-sm">{sc.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* Privacy */}
         <section id="privacy" className="border-border scroll-mt-28 border-t">
           <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
@@ -411,8 +522,8 @@ export default function LandingPage() {
               Your rank is waiting.
             </h2>
             <p className="max-w-md text-white/75">
-              Join the board and find out where you stand. It takes a minute, and the
-              first refresh fills in the rest.
+              Join the board and find out where you stand. It takes a minute, and your
+              scores appear within a minute after that.
             </p>
             <Link
               href="/login"
