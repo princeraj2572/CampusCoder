@@ -247,23 +247,6 @@ export default function LandingPage() {
           </Link>
         </div>
       </section>
-
-      <footer className="border-border border-t">
-        <div className="text-muted-foreground mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm">
-          <span>CampusCoders</span>
-          <nav aria-label="Footer" className="flex flex-wrap gap-4">
-            <Link href="/leaderboards/problem-solving" className="hover:text-foreground">
-              DSA
-            </Link>
-            <Link href="/leaderboards/contests" className="hover:text-foreground">
-              Contests
-            </Link>
-            <Link href="/leaderboards/github" className="hover:text-foreground">
-              GitHub
-            </Link>
-          </nav>
-        </div>
-      </footer>
     </main>
   );
 }
