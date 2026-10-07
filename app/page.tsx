@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { LandingCta, LandingCtaFallback } from "@/components/landing-cta";
 import { LandingFooter } from "@/components/landing-footer";
+import { LandingNav } from "@/components/landing-nav";
 import { HeroSkeleton, LiveHero } from "@/components/live-hero";
 import { LiveStats } from "@/components/live-stats";
 import { ProfileCard } from "@/components/profile-card";
@@ -130,10 +131,14 @@ export default function LandingPage() {
   return (
     <>
       <main className="overflow-x-clip">
+        <LandingNav />
         {/* Hero */}
         <div className="relative isolate">
           <Glows />
-          <section className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16">
+          <section
+            id="live"
+            className="mx-auto grid w-full max-w-6xl scroll-mt-28 items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16"
+          >
             <div className="flex flex-col gap-6">
               <p className="border-border bg-background/70 w-fit rounded-full border px-3 py-1 text-sm font-medium backdrop-blur">
                 For our department, by our department
@@ -183,7 +188,7 @@ export default function LandingPage() {
         </Suspense>
 
         {/* Three boards */}
-        <section id="boards" className="border-border border-t">
+        <section id="boards" className="border-border scroll-mt-28 border-t">
           <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
             <div className="mb-8 flex max-w-xl flex-col gap-2">
               <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
@@ -227,7 +232,10 @@ export default function LandingPage() {
         </section>
 
         {/* Profile showcase */}
-        <section className="border-border bg-foreground/[0.025] border-t">
+        <section
+          id="profile"
+          className="border-border bg-foreground/[0.025] scroll-mt-28 border-t"
+        >
           <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
             <div className="flex flex-col gap-6">
               <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
@@ -283,7 +291,7 @@ export default function LandingPage() {
         </section>
 
         {/* Tier ladder */}
-        <section className="border-border border-t">
+        <section id="levels" className="border-border scroll-mt-28 border-t">
           <div className="mx-auto grid w-full max-w-6xl items-end gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
             <div className="flex flex-col gap-2 lg:self-center">
               <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
@@ -339,7 +347,10 @@ export default function LandingPage() {
         </section>
 
         {/* How it works */}
-        <section className="border-border bg-foreground/[0.025] border-t">
+        <section
+          id="how"
+          className="border-border bg-foreground/[0.025] scroll-mt-28 border-t"
+        >
           <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
             <h2 className="numeral mb-8 text-4xl leading-none font-extrabold sm:text-5xl">
               Up and running in a minute
@@ -373,7 +384,7 @@ export default function LandingPage() {
         </section>
 
         {/* Privacy */}
-        <section className="border-border border-t">
+        <section id="privacy" className="border-border scroll-mt-28 border-t">
           <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
             <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
               Your data, your call

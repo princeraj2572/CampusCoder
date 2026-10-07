@@ -215,3 +215,10 @@
     }
   }
 }
+
+/* Smooth jumps between landing-page sections, unless reduced motion is requested. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
