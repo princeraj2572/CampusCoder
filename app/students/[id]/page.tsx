@@ -282,7 +282,7 @@ export default async function ProfilePage({
               <div className="flex items-center gap-3">
                 <Link
                   href="/profile/edit"
-                  className="inline-flex h-9 items-center rounded-lg bg-white px-4 text-sm font-semibold text-[#0b0f17] shadow-sm transition-colors hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
+                  className="inline-flex h-9 items-center rounded-lg bg-[#0f1623] px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#0f1623]/90 focus-visible:ring-2 focus-visible:ring-[#0f1623]/50 focus-visible:outline-none dark:bg-white dark:text-[#0b0f17] dark:hover:bg-white/90 dark:focus-visible:ring-white/70"
                 >
                   Edit details
                 </Link>
