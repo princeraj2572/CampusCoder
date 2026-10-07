@@ -20,7 +20,7 @@ export async function LandingCta({ size = "lg" }: { size?: "default" | "lg" }) {
         </Link>
       ) : (
         <Link href={PRIMARY} className={buttonVariants({ size })}>
-          Sign in with Google
+          Continue with Google
         </Link>
       )}
       <Link
@@ -38,7 +38,7 @@ export function LandingCtaFallback({ size = "lg" }: { size?: "default" | "lg" })
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Link href={PRIMARY} className={buttonVariants({ size })}>
-        Sign in with Google
+        Continue with Google
       </Link>
       <Link
         href="/leaderboards/problem-solving"
