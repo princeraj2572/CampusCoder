@@ -97,8 +97,8 @@
 }
 
 .dark {
-  --background: #10151d;
-  --foreground: #e8ecf2;
+  --background: #0b0b0b;
+  --foreground: #ededed;
   --success: #3fc27a;
   --danger: #ef6a66;
   --warning: #e0a63a;
