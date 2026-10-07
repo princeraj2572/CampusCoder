@@ -1,8 +1,11 @@
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { StudentForm } from "@/components/student-form";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function RegisterPage() {
+  // Depends on the visitor's session, so it is rendered at request time.
+  await connection();
   const client = await createClient();
   const {
     data: { user },
@@ -21,7 +24,7 @@ export default async function RegisterPage() {
       <h1 className="numeral text-5xl leading-none font-extrabold">
         Register your accounts
       </h1>
-      <StudentForm mode="register" />
+      <StudentForm mode="register" todayIso={new Date().toISOString()} />
     </main>
   );
 }

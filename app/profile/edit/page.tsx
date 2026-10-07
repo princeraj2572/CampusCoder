@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { DeleteAccount } from "@/components/delete-account";
@@ -6,6 +7,8 @@ import type { Domain } from "@/lib/registration/schema";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function EditProfilePage() {
+  // Depends on the visitor's session, so it is rendered at request time.
+  await connection();
   const client = await createClient();
   const {
     data: { user },
@@ -52,7 +55,7 @@ export default async function EditProfilePage() {
           View your public profile
         </Link>
       </div>
-      <StudentForm mode="edit" initial={initial} />
+      <StudentForm mode="edit" initial={initial} todayIso={new Date().toISOString()} />
       <DeleteAccount fullName={student.full_name} />
     </main>
   );
