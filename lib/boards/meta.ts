@@ -15,7 +15,8 @@ export const BOARD_META: Record<
   contests: {
     title: "Contests",
     valueLabel: "Rating",
-    blurb: "LeetCode contest rating. Students who have not competed yet are not listed.",
+    blurb:
+      "LeetCode contest rating. Students who have not competed in a rated contest yet are listed below the ranking.",
     improvedLabel: "Rating gained",
   },
   github: {
