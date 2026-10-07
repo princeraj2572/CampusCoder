@@ -127,6 +127,19 @@ describe("supabase refresh db", () => {
     expect(await mineBefore(new Date(NOW.getTime() + 3_600_000))).toHaveLength(1);
   });
 
+  it("can pick only one student's accounts", async () => {
+    const only = await db.pickDue(1000, NOW, undefined, studentId);
+    expect(only.every((r) => r.studentId === studentId)).toBe(true);
+    // a student id that owns nothing picks nothing
+    const none = await db.pickDue(
+      1000,
+      NOW,
+      undefined,
+      "00000000-0000-0000-0000-000000000000",
+    );
+    expect(none).toEqual([]);
+  });
+
   it("keeps the last good stats and does not advance last_updated on failure, then backs off", async () => {
     const later = new Date("2026-10-07T12:00:00Z");
     await db.saveFailure(

@@ -1,12 +1,14 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { promoteIfAdmin } from "@/lib/auth/promote";
 import {
   checkAccountsExist,
   findTakenAccounts,
   PLATFORM_LABELS,
 } from "@/lib/me/accounts";
+import { refreshBoardData } from "@/lib/boards/cached";
 import { TERMS_VERSION } from "@/lib/legal";
 import { toRpcPayload } from "@/lib/me/payload";
+import { refreshStudentNow } from "@/lib/refresh/student";
 import {
   makeEditSchema,
   makeRegistrationSchema,
@@ -14,6 +16,9 @@ import {
   type Platform,
 } from "@/lib/registration/schema";
 import { createClient } from "@/lib/supabase/server";
+
+// Fetching a new student's scores runs after the response, so give it room.
+export const maxDuration = 60;
 
 type Client = Awaited<ReturnType<typeof createClient>>;
 type Fields = Record<string, string>;
@@ -140,6 +145,9 @@ export async function POST(request: Request) {
   const agreed = await client.rpc("accept_my_terms", { version: TERMS_VERSION });
   if (agreed.error) console.error("accept_my_terms failed", agreed.error);
   await promoteIfAdmin(user);
+  refreshBoardData();
+  // Fetch their scores right away so they see their rank now, not after the next scheduled run.
+  after(() => refreshStudentNow(data as string));
   return NextResponse.json({ id: data });
 }
 
@@ -191,6 +199,11 @@ export async function PUT(request: Request) {
       { status: 500 },
     );
   }
+  refreshBoardData();
+  // New or changed usernames get fetched now; accounts refreshed in the last 10 minutes are left alone.
+  after(() =>
+    refreshStudentNow(studentId, { skipFreshSince: new Date(Date.now() - 10 * 60_000) }),
+  );
   return NextResponse.json({ ok: true });
 }
 
@@ -208,5 +221,6 @@ export async function DELETE() {
       { status: 500 },
     );
   }
+  refreshBoardData();
   return NextResponse.json({ ok: true });
 }

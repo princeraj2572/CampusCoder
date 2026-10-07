@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin/guard";
+import { refreshBoardData } from "@/lib/boards/cached";
 import { fetchProfile } from "@/lib/platforms/fetchers";
 import { refreshBatch } from "@/lib/refresh/batch";
 import { createSupabaseRefreshDb } from "@/lib/refresh/supabase-db";
@@ -30,6 +31,7 @@ export async function POST(request: Request) {
       updatedBefore,
       fetchProfile: (platform, username) => fetchProfile(platform, username, { token }),
     });
+    if (summary.picked > 0) refreshBoardData();
     return NextResponse.json(summary);
   } catch (e) {
     console.error("admin refresh failed", e);
