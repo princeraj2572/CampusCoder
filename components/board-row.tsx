@@ -18,7 +18,7 @@ function Movement({ value }: { value: number | null }) {
   if (value === null) {
     return (
       <span
-        className="text-muted-foreground w-10 text-sm"
+        className="text-muted-foreground w-8 text-sm sm:w-10"
         aria-label="No rank change data yet"
       >
         –
@@ -27,7 +27,10 @@ function Movement({ value }: { value: number | null }) {
   }
   if (value === 0) {
     return (
-      <span className="text-muted-foreground w-10 text-sm" aria-label="Rank unchanged">
+      <span
+        className="text-muted-foreground w-8 text-sm sm:w-10"
+        aria-label="Rank unchanged"
+      >
         =
       </span>
     );
@@ -35,7 +38,7 @@ function Movement({ value }: { value: number | null }) {
   const up = value > 0;
   return (
     <span
-      className={`w-10 text-sm font-medium tabular-nums ${up ? "text-success" : "text-danger"}`}
+      className={`w-8 text-sm font-medium tabular-nums sm:w-10 ${up ? "text-success" : "text-danger"}`}
       aria-label={`${up ? "Up" : "Down"} ${Math.abs(value)} ${Math.abs(value) === 1 ? "place" : "places"}`}
     >
       {up ? "▲" : "▼"}
@@ -68,26 +71,26 @@ export function BoardRow({
 
   return (
     <li
-      className={`border-border flex items-center gap-3 border-b ${top ? "py-4" : "py-3"} ${shift ? "row-slide" : ""}`}
+      className={`border-border flex items-center gap-2 border-b sm:gap-3 ${top ? "py-4" : "py-3"} ${shift ? "row-slide" : ""}`}
       style={shift ? ({ "--from": `${shift}px` } as React.CSSProperties) : undefined}
     >
       <span
-        className={`font-display w-10 shrink-0 text-right font-bold tabular-nums ${top ? "text-4xl" : "text-xl"}`}
+        className={`font-display w-8 shrink-0 text-right font-bold tabular-nums sm:w-10 ${top ? "text-4xl" : "text-xl"}`}
       >
         {row.rank}
       </span>
-      {improved ? <span className="w-10" /> : <Movement value={row.movement} />}
+      {improved ? <span className="w-8 sm:w-10" /> : <Movement value={row.movement} />}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <Link
             href={`/students/${student.id}`}
-            className="font-display truncate text-base font-semibold underline-offset-4 hover:underline focus-visible:underline"
+            className="font-display text-base font-semibold break-words underline-offset-4 hover:underline focus-visible:underline"
           >
             {student.fullName}
           </Link>
           <TierChip rating={student.metrics.leetcode?.rating} />
         </div>
-        <p className="text-muted-foreground truncate text-sm">{meta}</p>
+        <p className="text-muted-foreground text-sm">{meta}</p>
       </div>
       <div className="hidden sm:block">
         <Sparkline points={row.trend} />
