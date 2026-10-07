@@ -239,7 +239,23 @@ export function StudentForm({
           <label className="flex items-start gap-2 text-sm">
             <input type="checkbox" className="mt-0.5 size-4" {...register("consent")} />
             <span>
-              Your name, year, domain and coding scores are shown on the public
+              I agree to the{" "}
+              <Link
+                href="/terms"
+                target="_blank"
+                className="underline underline-offset-4"
+              >
+                Terms and Conditions
+              </Link>{" "}
+              and the{" "}
+              <Link
+                href="/privacy"
+                target="_blank"
+                className="underline underline-offset-4"
+              >
+                Privacy Policy
+              </Link>
+              . My name, year, domain and coding scores are shown on the public
               leaderboards, which anyone can see.
             </span>
           </label>
