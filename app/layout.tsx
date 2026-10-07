@@ -28,11 +28,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="bg-background text-foreground flex min-h-full flex-col font-sans">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<SiteHeaderFallback />}>
-            <SiteHeader>
-              <Suspense fallback={null}>
-                <AuthLinks />
-              </Suspense>
-            </SiteHeader>
+            <SiteHeader
+              authBar={
+                <Suspense fallback={null}>
+                  <AuthLinks variant="bar" />
+                </Suspense>
+              }
+              authMenu={
+                <Suspense fallback={null}>
+                  <AuthLinks variant="menu" />
+                </Suspense>
+              }
+            />
           </Suspense>
           {children}
         </ThemeProvider>
