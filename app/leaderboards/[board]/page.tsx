@@ -15,6 +15,7 @@ import { profileRanks } from "@/lib/boards/profile-ranks";
 import { BOARD_ACCENT } from "@/lib/boards/theme";
 import { unratedStudents } from "@/lib/boards/unrated";
 import { BOARD_IDS, type BoardId } from "@/lib/scoring/types";
+import { studentYear } from "@/lib/year";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 
@@ -46,11 +47,16 @@ export default async function BoardPage({
     ? (
         await service
           .from("students")
-          .select("id")
+          .select("id, admission_year, year_override")
           .eq("auth_user_id", user.id)
           .maybeSingle()
       ).data
     : null;
+
+  // Signed-in 1st and 2nd years get a pointer to the fairer "most improved" view.
+  const myYear = me ? studentYear(me.admission_year, now, me.year_override) : null;
+  const nudgeImproved =
+    myYear?.kind === "active" && myYear.year <= 2 && !filters.improved;
 
   const rows = buildBoard({
     board,
@@ -123,6 +129,19 @@ export default async function BoardPage({
 
         <section className="flex min-w-0 flex-col gap-3">
           <StandingCard state={standing} current={board} compact className="lg:hidden" />
+
+          {nudgeImproved && (
+            <p className="border-border text-muted-foreground rounded-xl border px-4 py-3 text-sm">
+              Just starting out?{" "}
+              <Link
+                href={boardHref(board, { ...filters, improved: "week" })}
+                className="text-foreground underline underline-offset-4"
+              >
+                See who improved the most this week
+              </Link>
+              . It is a fair race for everyone, whatever their year.
+            </p>
+          )}
 
           {rows.length === 0 ? (
             <div className="border-border rounded-xl border border-dashed p-6 text-sm">
