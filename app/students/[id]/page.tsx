@@ -3,32 +3,20 @@ import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Heatmap, TrendChart } from "@/components/charts";
 import { buttonVariants } from "@/components/ui/button";
-import { TierChip } from "@/components/tier-chip";
 import { ratingTier } from "@/lib/scoring/tier";
 import { describeUpdated } from "@/lib/boards/format";
 import { toActivityLevels } from "@/lib/boards/heatmap";
 import { loadBoardData } from "@/lib/boards/load";
+import { BOARD_META } from "@/lib/boards/meta";
+import { ProfileCard } from "@/components/profile-card";
+import { StatCards, type StatCard } from "@/components/stat-cards";
 import { loadProfileExtras } from "@/lib/boards/profile-data";
 import { profileRanks, type BoardRanks } from "@/lib/boards/profile-ranks";
-import { DOMAIN_LABELS, type Platform } from "@/lib/registration/schema";
-import { num } from "@/lib/scoring/types";
+import { num, type BoardId } from "@/lib/scoring/types";
 import { createClient } from "@/lib/supabase/server";
 import { studentYear } from "@/lib/year";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-const PROFILE_URL: Record<Platform, (u: string) => string> = {
-  leetcode: (u) => `https://leetcode.com/u/${u}/`,
-  github: (u) => `https://github.com/${u}`,
-  codeforces: (u) => `https://codeforces.com/profile/${u}`,
-  codechef: (u) => `https://www.codechef.com/users/${u}`,
-};
-const PLATFORM_NAME: Record<Platform, string> = {
-  leetcode: "LeetCode",
-  github: "GitHub",
-  codeforces: "Codeforces",
-  codechef: "CodeChef",
-};
 
 function RankBlock({ ranks, hidden }: { ranks: BoardRanks; hidden: boolean }) {
   if (hidden)
@@ -166,58 +154,76 @@ export default async function ProfilePage({
     .filter((c) => c.ratingAfter !== null)
     .map((c) => ({ date: c.contestDate, value: c.ratingAfter as number }));
 
+  const totalSolved =
+    num(lc?.solved) + num(m.codeforces?.solved) + num(m.codechef?.solved);
+  const tier = ratingTier(lc?.rating ?? null);
+  const bestRank = hidden
+    ? null
+    : (Object.entries(ranks) as [BoardId, BoardRanks][])
+        .flatMap(([board, r]) => {
+          const pick = r.inYear ?? r.overall;
+          return pick ? [{ board, ...pick, year: r.inYear?.year }] : [];
+        })
+        .sort((a, b) => a.rank - b.rank)[0];
+  const statCards: StatCard[] = [
+    {
+      label: "Problems solved",
+      value: totalSolved,
+      note: "LeetCode, Codeforces and CodeChef",
+    },
+    {
+      label: "Contest rating",
+      value: typeof lc?.rating === "number" ? lc.rating : "–",
+      note:
+        typeof lc?.rating === "number"
+          ? `${tier.label} · ${num(lc.contests)} ${num(lc.contests) === 1 ? "contest" : "contests"}`
+          : "No LeetCode contests yet",
+    },
+    {
+      label: "GitHub contributions",
+      value: gh ? num(gh.contributions_12m) : "–",
+      note: gh ? `${days(num(gh.current_streak))} current streak` : "Last 12 months",
+    },
+    {
+      label: "Best rank",
+      value: bestRank ? `#${bestRank.rank}` : "–",
+      note: bestRank
+        ? `${BOARD_META[bestRank.board].title}${bestRank.year ? ` · ${["1st", "2nd", "3rd", "4th"][bestRank.year - 1]} year` : " · overall"}`
+        : hidden
+          ? "Hidden from the leaderboards"
+          : "Not ranked yet",
+    },
+  ];
+
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col px-4 py-8">
-      <header className="flex flex-col gap-3 pb-8">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <h1 className="numeral text-5xl leading-none font-extrabold sm:text-6xl">
-            {student.fullName}
-          </h1>
-          <TierChip rating={lc?.rating} />
-        </div>
-        <p className="text-muted-foreground">
-          {[
-            yearLabel,
-            DOMAIN_LABELS[student.primaryDomain],
-            ...student.secondaryDomains.map((d) => DOMAIN_LABELS[d]),
-            student.section ? `Section ${student.section}` : null,
-          ]
-            .filter(Boolean)
-            .join(" · ")}
-        </p>
-        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-          {(Object.keys(PROFILE_URL) as Platform[])
-            .filter((p) => board?.usernames[p])
-            .map((p) => (
-              <li key={p}>
-                <a
-                  href={PROFILE_URL[p](board!.usernames[p]!)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4"
+      <div className="flex flex-col gap-4 pb-4">
+        <ProfileCard
+          student={student}
+          yearLabel={yearLabel}
+          contestRating={lc?.rating}
+          accounts={extras.accounts}
+          now={now}
+          ownerEmail={isOwner ? (user?.email ?? null) : undefined}
+          actions={
+            isOwner ? (
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/profile/edit"
+                  className={buttonVariants({ variant: "outline" })}
                 >
-                  {PLATFORM_NAME[p]}: {board!.usernames[p]}
-                </a>
-              </li>
-            ))}
-        </ul>
-        {isOwner && (
-          <div className="flex items-center gap-3">
-            <Link href="/profile/edit" className={buttonVariants({ variant: "outline" })}>
-              Edit details
-            </Link>
-            {student.optOut && (
-              <span className="text-muted-foreground text-sm">
-                Hidden from the leaderboards
-              </span>
-            )}
-          </div>
-        )}
-      </header>
+                  Edit details
+                </Link>
+              </div>
+            ) : undefined
+          }
+        />
+        <StatCards items={statCards} />
+      </div>
 
-      <Lane title="Problem solving" ranks={ranks["problem-solving"]} hidden={hidden}>
+      <Lane title="DSA" ranks={ranks["problem-solving"]} hidden={hidden}>
         {!lc && !m.codeforces && !m.codechef ? (
-          <Empty>No problem-solving data yet. It appears after the next refresh.</Empty>
+          <Empty>No DSA data yet. It appears after the next refresh.</Empty>
         ) : (
           <>
             <Facts
@@ -228,6 +234,16 @@ export default async function ProfilePage({
                 ["LeetCode global rank", num(lc?.extra.problem_rank) || "–"],
               ]}
             />
+            {(m.codeforces || m.codechef) && (
+              <Facts
+                items={[
+                  ["Codeforces rating", m.codeforces?.rating ?? "–"],
+                  ["Codeforces best", num(m.codeforces?.extra.max_rating) || "–"],
+                  ["Codeforces rank", String(m.codeforces?.extra.rank_title ?? "–")],
+                  ["CodeChef rating", m.codechef?.rating ?? "–"],
+                ]}
+              />
+            )}
             {lcTotal > 0 && (
               <div className="flex flex-col gap-2">
                 <div

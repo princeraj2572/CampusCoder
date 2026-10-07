@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { DOMAIN_LABELS, type Domain } from "@/lib/registration/schema";
 import { createClient } from "@/lib/supabase/server";
