@@ -54,6 +54,11 @@ describe("registration schema", () => {
     fails({ leetcode: "has space" }, "leetcode");
     fails({ codeforces: "ab" }, "codeforces");
   });
+  it("accepts CodeChef handles that contain dots", () => {
+    expect(schema.safeParse({ ...valid, codechef: "gennady.korotkevich" }).success).toBe(
+      true,
+    );
+  });
   it("allows empty optional platforms", () => {
     expect(schema.safeParse({ ...valid, codeforces: "", codechef: "" }).success).toBe(
       true,

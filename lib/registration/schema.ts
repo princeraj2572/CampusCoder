@@ -36,7 +36,7 @@ export const USERNAME_PATTERNS: Record<Platform, RegExp> = {
   leetcode: /^[A-Za-z0-9_-]{1,40}$/,
   github: /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/,
   codeforces: /^[A-Za-z0-9_.-]{3,24}$/,
-  codechef: /^[A-Za-z0-9_]{3,30}$/,
+  codechef: /^[A-Za-z0-9_.]{3,30}$/,
 };
 
 const required = (platform: Platform, label: string) =>
