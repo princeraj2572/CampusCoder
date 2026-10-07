@@ -38,7 +38,7 @@ export async function LiveStats() {
 
   return (
     <section
-      aria-label="Department numbers"
+      aria-label="Campus numbers"
       className="mx-auto w-full max-w-6xl px-4 pb-10 sm:pb-14"
     >
       <StatCards items={items} />

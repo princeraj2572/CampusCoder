@@ -239,8 +239,8 @@ export function StudentForm({
           <label className="flex items-start gap-2 text-sm">
             <input type="checkbox" className="mt-0.5 size-4" {...register("consent")} />
             <span>
-              Your name, year, domain and coding scores are visible to other students in
-              the department.
+              Your name, year, domain and coding scores are visible to others on the
+              leaderboards.
             </span>
           </label>
           <p className="text-danger min-h-5 text-sm">{errors.consent?.message}</p>

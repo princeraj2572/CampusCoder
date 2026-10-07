@@ -26,8 +26,8 @@ export default async function LoginPage({
         Sign in
       </h1>
       <p className="text-muted-foreground max-w-prose">
-        Use your Google account to see the department leaderboards, register your coding
-        accounts and manage your details.
+        Use your Google account to see the leaderboards, register your coding accounts and
+        manage your details.
       </p>
       {params.error && (
         <div role="alert" className="text-danger flex flex-col gap-1 text-sm">
