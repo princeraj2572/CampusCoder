@@ -10,6 +10,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "refresh": "tsx --env-file-if-exists=.env.local scripts/refresh/index.ts",
+    "link-student": "tsx --env-file-if-exists=.env.local scripts/link-student.ts",
     "test:rls": "vitest run --config vitest.rls.config.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
