@@ -8,7 +8,7 @@ import { UnratedList } from "@/components/unrated-list";
 import { buildBoard } from "@/lib/boards/build";
 import { describeUpdated } from "@/lib/boards/format";
 import { boardHref } from "@/lib/boards/links";
-import { loadBoardData } from "@/lib/boards/load";
+import { getBoardData } from "@/lib/boards/cached";
 import { BOARD_META } from "@/lib/boards/meta";
 import { parseBoardParams, type BoardParams } from "@/lib/boards/params";
 import { profileRanks } from "@/lib/boards/profile-ranks";
@@ -37,7 +37,7 @@ export default async function BoardPage({
   // sent to the page: names, year, section, domain and scores. Hidden and alumni students are
   // dropped by the board logic, and no emails are ever loaded.
   const service = createServiceClient();
-  const data = await loadBoardData(service, now);
+  const data = await getBoardData();
 
   const {
     data: { user },

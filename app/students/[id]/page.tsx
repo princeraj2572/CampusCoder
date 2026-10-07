@@ -5,7 +5,7 @@ import { Heatmap, TrendChart } from "@/components/charts";
 import { ratingTier } from "@/lib/scoring/tier";
 import { describeUpdated } from "@/lib/boards/format";
 import { toActivityLevels } from "@/lib/boards/heatmap";
-import { loadBoardData } from "@/lib/boards/load";
+import { getBoardData } from "@/lib/boards/cached";
 import { BOARD_META } from "@/lib/boards/meta";
 import { BOARD_ACCENT, PLATFORM_BRAND, medalColor } from "@/lib/boards/theme";
 import { ProfileCard } from "@/components/profile-card";
@@ -170,7 +170,7 @@ export default async function ProfilePage({
     data: { user },
   } = await client.auth.getUser();
   const [data, extras] = await Promise.all([
-    loadBoardData(client, now),
+    getBoardData(),
     loadProfileExtras(client, id, now),
   ]);
   const student = extras.student;
