@@ -70,7 +70,9 @@ export function makeRegistrationSchema(today: Date) {
         .max(start, "Admission year must be for 1st to 4th year students"),
       section: z.string().trim().max(20, "Keep the section under 20 characters"),
       primaryDomain: z.enum(DOMAIN_VALUES, { message: "Pick a primary domain" }),
-      secondaryDomains: z.array(z.enum(DOMAIN_VALUES)).max(2, "Pick at most two secondary domains"),
+      secondaryDomains: z
+        .array(z.enum(DOMAIN_VALUES))
+        .max(2, "Pick at most two secondary domains"),
       leetcode: required("leetcode", "LeetCode"),
       github: required("github", "GitHub"),
       codeforces: optional("codeforces", "Codeforces"),

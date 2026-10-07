@@ -1,7 +1,5 @@
 export type StudentYear =
-  | { kind: "active"; year: 1 | 2 | 3 | 4 }
-  | { kind: "alumni" }
-  | { kind: "not-started" };
+  { kind: "active"; year: 1 | 2 | 3 | 4 } | { kind: "alumni" } | { kind: "not-started" };
 
 function istYearMonth(date: Date): { year: number; month: number } {
   const parts = new Intl.DateTimeFormat("en-CA", {
