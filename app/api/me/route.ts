@@ -5,6 +5,7 @@ import {
   findTakenAccounts,
   PLATFORM_LABELS,
 } from "@/lib/me/accounts";
+import { TERMS_VERSION } from "@/lib/legal";
 import { toRpcPayload } from "@/lib/me/payload";
 import {
   makeEditSchema,
@@ -135,6 +136,9 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
+  // The registration form's consent box is the agreement to the current terms.
+  const agreed = await client.rpc("accept_my_terms", { version: TERMS_VERSION });
+  if (agreed.error) console.error("accept_my_terms failed", agreed.error);
   await promoteIfAdmin(user);
   return NextResponse.json({ id: data });
 }
