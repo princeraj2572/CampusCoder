@@ -51,21 +51,23 @@ const toMetrics = (r: StatLike): PlatformMetrics => ({
   extra: r.extra ?? {},
 });
 
-export async function loadBoardData(
-  client: SupabaseClient,
-  now: Date,
-): Promise<BoardData> {
-  const [students, platforms, stats, settings, ...snapshots] = await Promise.all([
-    fetchAll<{
-      id: string;
-      full_name: string;
-      admission_year: number;
-      year_override: number | null;
-      section: string | null;
-      primary_domain: Domain;
-      leaderboard_opt_out: boolean;
-      is_alumni: boolean;
-    }>((from, to) =>
+type StudentRow = {
+  id: string;
+  full_name: string;
+  admission_year: number;
+  year_override: number | null;
+  section: string | null;
+  primary_domain: Domain;
+  leaderboard_opt_out: boolean;
+  is_alumni: boolean;
+};
+type PlatformRow = { student_id: string; platform: Platform; username: string };
+type StatRow = StatLike & { last_updated: string };
+
+/** Students, their usernames and their current stats: the part the boards and the directory share. */
+function fetchStudentRows(client: SupabaseClient) {
+  return Promise.all([
+    fetchAll<StudentRow>((from, to) =>
       client
         .from("students")
         .select(
@@ -74,7 +76,7 @@ export async function loadBoardData(
         .order("id")
         .range(from, to),
     ),
-    fetchAll<{ student_id: string; platform: Platform; username: string }>((from, to) =>
+    fetchAll<PlatformRow>((from, to) =>
       client
         .from("student_platforms")
         .select("student_id, platform, username")
@@ -82,7 +84,7 @@ export async function loadBoardData(
         .order("platform")
         .range(from, to),
     ),
-    fetchAll<StatLike & { last_updated: string }>((from, to) =>
+    fetchAll<StatRow>((from, to) =>
       client
         .from("platform_stats")
         .select("student_id, platform, rating, solved, contests, extra, last_updated")
@@ -90,20 +92,14 @@ export async function loadBoardData(
         .order("platform")
         .range(from, to),
     ),
-    client.from("settings").select("value").eq("key", "score_weights").maybeSingle(),
-    ...HISTORY_OFFSETS.map((days) =>
-      fetchAll<StatLike>((from, to) =>
-        client
-          .rpc("snapshots_at", {
-            target: istDate(new Date(now.getTime() - days * DAY_MS)),
-          })
-          .order("student_id")
-          .order("platform")
-          .range(from, to),
-      ),
-    ),
   ]);
+}
 
+function assembleStudents(
+  students: StudentRow[],
+  platforms: PlatformRow[],
+  stats: StatRow[],
+): { students: BoardStudent[]; lastUpdated: Date | null } {
   const usernames = new Map<string, Partial<Record<Platform, string>>>();
   for (const p of platforms) {
     usernames.set(p.student_id, {
@@ -121,6 +117,52 @@ export async function loadBoardData(
     const t = new Date(s.last_updated);
     if (!lastUpdated || t > lastUpdated) lastUpdated = t;
   }
+  return {
+    students: students.map((s): BoardStudent => ({
+      id: s.id,
+      fullName: s.full_name,
+      admissionYear: s.admission_year,
+      yearOverride: s.year_override,
+      section: s.section,
+      primaryDomain: s.primary_domain,
+      optOut: s.leaderboard_opt_out,
+      isAlumni: s.is_alumni,
+      usernames: usernames.get(s.id) ?? {},
+      metrics: metrics.get(s.id) ?? {},
+    })),
+    lastUpdated,
+  };
+}
+
+/** Everyone registered, with usernames and current stats. No history, so it is cheap. */
+export async function loadStudentDirectory(
+  client: SupabaseClient,
+): Promise<BoardStudent[]> {
+  const [students, platforms, stats] = await fetchStudentRows(client);
+  return assembleStudents(students, platforms, stats).students;
+}
+
+export async function loadBoardData(
+  client: SupabaseClient,
+  now: Date,
+): Promise<BoardData> {
+  const [[students, platforms, stats], settings, ...snapshots] = await Promise.all([
+    fetchStudentRows(client),
+    client.from("settings").select("value").eq("key", "score_weights").maybeSingle(),
+    ...HISTORY_OFFSETS.map((days) =>
+      fetchAll<StatLike>((from, to) =>
+        client
+          .rpc("snapshots_at", {
+            target: istDate(new Date(now.getTime() - days * DAY_MS)),
+          })
+          .order("student_id")
+          .order("platform")
+          .range(from, to),
+      ),
+    ),
+  ]);
+
+  const assembled = assembleStudents(students, platforms, stats);
 
   const history: History = {};
   HISTORY_OFFSETS.forEach((days, i) => {
@@ -135,20 +177,9 @@ export async function loadBoardData(
   });
 
   return {
-    students: students.map((s): BoardStudent => ({
-      id: s.id,
-      fullName: s.full_name,
-      admissionYear: s.admission_year,
-      yearOverride: s.year_override,
-      section: s.section,
-      primaryDomain: s.primary_domain,
-      optOut: s.leaderboard_opt_out,
-      isAlumni: s.is_alumni,
-      usernames: usernames.get(s.id) ?? {},
-      metrics: metrics.get(s.id) ?? {},
-    })),
+    students: assembled.students,
     weights: settings.data ? parseWeights(settings.data.value) : DEFAULT_WEIGHTS,
     history,
-    lastUpdated,
+    lastUpdated: assembled.lastUpdated,
   };
 }
