@@ -17,12 +17,14 @@ const row = (n: number, failCount = 0): DueRow => ({
 function fakeDb(rows: DueRow[], opts: { failSaveFailure?: boolean } = {}) {
   const calls = {
     pickLimit: 0,
+    updatedBefore: undefined as Date | undefined,
     successes: [] as string[],
     failures: [] as { id: string; kind: string; next: Date }[],
   };
   const db: RefreshDb = {
-    async pickDue(limit) {
+    async pickDue(limit, _now, updatedBefore) {
       calls.pickLimit = limit;
+      calls.updatedBefore = updatedBefore;
       return rows;
     },
     async saveSuccess(r) {
@@ -43,6 +45,19 @@ const run = (
 ) => refreshBatch({ db, fetchProfile, now: () => NOW, log: () => {}, ...extra });
 
 describe("refreshBatch", () => {
+  it("only asks for accounts not updated since the given time", async () => {
+    const { db, calls } = fakeDb([row(1)]);
+    const since = new Date("2026-10-07T09:55:00Z");
+    await run(db, async () => profile, { updatedBefore: since });
+    expect(calls.updatedBefore).toEqual(since);
+  });
+
+  it("asks for everything due when no time is given", async () => {
+    const { db, calls } = fakeDb([row(1)]);
+    await run(db, async () => profile);
+    expect(calls.updatedBefore).toBeUndefined();
+  });
+
   it("saves every row that fetches successfully", async () => {
     const { db, calls } = fakeDb([row(1), row(2)]);
     const summary = await run(db, async () => profile);
