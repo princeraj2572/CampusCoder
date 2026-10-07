@@ -96,7 +96,7 @@ export function StudentForm({
       const body = await res.json().catch(() => ({}));
       if (res.ok) {
         if (mode === "register") {
-          router.push("/profile");
+          router.push("/profile?welcome=1");
         } else {
           setSaved(true);
         }

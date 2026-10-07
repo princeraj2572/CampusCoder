@@ -9,6 +9,7 @@ import { getBoardData } from "@/lib/boards/cached";
 import { BOARD_META } from "@/lib/boards/meta";
 import { BOARD_ACCENT, PLATFORM_BRAND, medalColor } from "@/lib/boards/theme";
 import { ProfileCard } from "@/components/profile-card";
+import { WelcomeNotice } from "@/components/welcome-notice";
 import { StatCards, type StatCard } from "@/components/stat-cards";
 import { loadProfileExtras } from "@/lib/boards/profile-data";
 import { profileRanks, type BoardRanks } from "@/lib/boards/profile-ranks";
@@ -157,11 +158,14 @@ function Empty({ children }: { children: React.ReactNode }) {
 
 export default async function ProfilePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   await connection();
   const { id } = await params;
+  const { welcome } = await searchParams;
   if (!UUID.test(id)) notFound();
 
   const now = new Date();
@@ -270,6 +274,7 @@ export default async function ProfilePage({
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col px-4 py-8">
       <div className="flex flex-col gap-4 pb-4">
+        {isOwner && welcome && <WelcomeNotice hasScores={Object.keys(m).length > 0} />}
         <ProfileCard
           student={student}
           yearLabel={yearLabel}
