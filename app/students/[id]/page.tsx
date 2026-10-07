@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Heatmap, TrendChart } from "@/components/charts";
 import { TierChip } from "@/components/tier-chip";
+import { ratingTier } from "@/lib/scoring/tier";
 import { describeUpdated } from "@/lib/boards/format";
 import { toActivityLevels } from "@/lib/boards/heatmap";
 import { loadBoardData } from "@/lib/boards/load";
@@ -38,8 +39,8 @@ function RankBlock({ ranks, hidden }: { ranks: BoardRanks; hidden: boolean }) {
     <div className="flex flex-col gap-2">
       {ranks.inYear && (
         <p>
-          <span className="font-display text-4xl font-bold tabular-nums">
-            #{ranks.inYear.rank}
+          <span className="numeral text-7xl leading-none font-extrabold">
+            {ranks.inYear.rank}
           </span>
           <span className="text-muted-foreground block text-sm">
             of {ranks.inYear.total} in{" "}
@@ -48,8 +49,8 @@ function RankBlock({ ranks, hidden }: { ranks: BoardRanks; hidden: boolean }) {
         </p>
       )}
       <p>
-        <span className="font-display text-2xl font-bold tabular-nums">
-          #{ranks.overall.rank}
+        <span className="numeral text-3xl leading-none font-extrabold">
+          {ranks.overall.rank}
         </span>
         <span className="text-muted-foreground block text-sm">
           of {ranks.overall.total} overall
@@ -87,7 +88,7 @@ function Facts({ items }: { items: [string, string | number][] }) {
       {items.map(([label, value]) => (
         <div key={label}>
           <dt className="text-muted-foreground text-sm">{label}</dt>
-          <dd className="font-display text-xl font-semibold tabular-nums">{value}</dd>
+          <dd className="numeral text-3xl font-bold">{value}</dd>
         </div>
       ))}
     </dl>
@@ -166,7 +167,9 @@ export default async function ProfilePage({
     <main className="mx-auto flex w-full max-w-5xl flex-col px-4 py-8">
       <header className="flex flex-col gap-3 pb-8">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <h1 className="font-display text-4xl font-bold">{student.fullName}</h1>
+          <h1 className="numeral text-5xl leading-none font-extrabold sm:text-6xl">
+            {student.fullName}
+          </h1>
           <TierChip rating={lc?.rating} />
         </div>
         <p className="text-muted-foreground">
@@ -266,7 +269,11 @@ export default async function ProfilePage({
               ]}
             />
             {contestPoints.length >= 2 ? (
-              <TrendChart points={contestPoints} label="Contest rating" />
+              <TrendChart
+                points={contestPoints}
+                label="Contest rating"
+                color={`var(--tier-${ratingTier(lc.rating).key})`}
+              />
             ) : (
               <Empty>The rating chart needs at least two contests.</Empty>
             )}
