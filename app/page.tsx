@@ -123,7 +123,7 @@ export default function LandingPage() {
           >
             <div className="flex flex-col gap-6">
               <p className="border-border bg-background/70 w-fit rounded-full border px-3 py-1 text-sm font-medium backdrop-blur">
-                For our department, by our department
+                For our department, by our students
               </p>
               <h1 className="numeral text-6xl leading-[0.88] font-extrabold sm:text-7xl lg:text-8xl">
                 Code<span style={{ color: "var(--board-dsa)" }}>.</span>
