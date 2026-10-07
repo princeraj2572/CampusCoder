@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import { verifyAccount } from "@/lib/platforms";
 import { USERNAME_PATTERNS, type Platform } from "@/lib/registration/schema";
-import { isAnonRegistrationEnabled } from "@/lib/temp-anon/flag";
 
 export async function GET(request: Request) {
-  if (!isAnonRegistrationEnabled()) return new NextResponse(null, { status: 404 });
   const params = new URL(request.url).searchParams;
   const platform = params.get("platform") as Platform | null;
   const username = (params.get("username") ?? "").trim();

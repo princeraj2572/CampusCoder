@@ -130,7 +130,7 @@ export function admissionYearOptions(today: Date): { year: number; label: string
   }));
 }
 
-export function toRegistrationInput(v: RegistrationValues) {
+export function toRegistrationInput(v: Omit<RegistrationValues, "consent">) {
   const accounts: { platform: Platform; username: string }[] = [
     { platform: "leetcode", username: v.leetcode },
     { platform: "github", username: v.github },
