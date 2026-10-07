@@ -10,8 +10,7 @@ import { loadBoardData } from "@/lib/boards/load";
 import { BOARD_META } from "@/lib/boards/meta";
 import { parseBoardParams, type BoardParams } from "@/lib/boards/params";
 import { BOARD_IDS, type BoardId } from "@/lib/scoring/types";
-import { createServiceClient } from "@/lib/supabase/service";
-import { isAnonRegistrationEnabled } from "@/lib/temp-anon/flag";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function BoardPage({
   params,
@@ -21,7 +20,6 @@ export default async function BoardPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   await connection();
-  if (!isAnonRegistrationEnabled()) notFound();
 
   const { board: boardParam } = await params;
   if (!BOARD_IDS.includes(boardParam as BoardId)) notFound();
@@ -29,7 +27,7 @@ export default async function BoardPage({
   const filters = parseBoardParams(await searchParams);
 
   const now = new Date();
-  const data = await loadBoardData(createServiceClient(), now);
+  const data = await loadBoardData(await createClient(), now);
   const rows = buildBoard({
     board,
     students: data.students,
