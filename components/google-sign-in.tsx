@@ -32,9 +32,12 @@ export function GoogleSignIn({ next }: { next: string }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [agreed, setAgreed] = useState(false);
+  // Returning users just sign in. New users agree to the terms first.
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const needsAgreement = mode === "signup";
 
   async function signIn() {
-    if (!agreed) return;
+    if (needsAgreement && !agreed) return;
     setBusy(true);
     setError(null);
     const { error } = await createClient().auth.signInWithOAuth({
@@ -53,45 +56,82 @@ export function GoogleSignIn({ next }: { next: string }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <label className="flex max-w-prose items-start gap-3 text-sm">
-        <input
-          type="checkbox"
-          checked={agreed}
-          onChange={(e) => setAgreed(e.target.checked)}
-          className="mt-0.5 size-4 shrink-0"
-        />
-        <span>
-          I have read and agree to the{" "}
-          <Link
-            href="/terms"
-            target="_blank"
-            className="text-foreground underline underline-offset-4"
+      <div
+        role="tablist"
+        aria-label="Sign in or create an account"
+        className="bg-foreground/[0.06] flex w-fit gap-1 rounded-full p-1"
+      >
+        {(
+          [
+            ["signin", "I have an account"],
+            ["signup", "I am new here"],
+          ] as const
+        ).map(([key, label]) => (
+          <button
+            key={key}
+            type="button"
+            role="tab"
+            aria-selected={mode === key}
+            onClick={() => {
+              setMode(key);
+              setError(null);
+            }}
+            className={`focus-visible:ring-ring rounded-full px-4 py-1.5 text-sm font-medium focus-visible:ring-2 focus-visible:outline-none ${
+              mode === key
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
           >
-            Terms and Conditions
-          </Link>{" "}
-          and the{" "}
-          <Link
-            href="/privacy"
-            target="_blank"
-            className="text-foreground underline underline-offset-4"
-          >
-            Privacy Policy
-          </Link>
-          .
-        </span>
-      </label>
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {needsAgreement && (
+        <label className="flex max-w-prose items-start gap-3 text-sm">
+          <input
+            type="checkbox"
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            className="mt-0.5 size-4 shrink-0"
+          />
+          <span>
+            I have read and agree to the{" "}
+            <Link
+              href="/terms"
+              target="_blank"
+              className="text-foreground underline underline-offset-4"
+            >
+              Terms and Conditions
+            </Link>{" "}
+            and the{" "}
+            <Link
+              href="/privacy"
+              target="_blank"
+              className="text-foreground underline underline-offset-4"
+            >
+              Privacy Policy
+            </Link>
+            .
+          </span>
+        </label>
+      )}
       <Button
         type="button"
         onClick={signIn}
-        disabled={busy || !agreed}
+        disabled={busy || (needsAgreement && !agreed)}
         className="h-11 w-fit gap-3 border border-black/15 bg-white px-5 text-base font-medium text-[#1f1f1f] hover:bg-white/90"
       >
         <GoogleLogo />
-        {busy ? "Opening Google…" : "Continue with Google"}
+        {busy
+          ? "Opening Google…"
+          : needsAgreement
+            ? "Sign up with Google"
+            : "Sign in with Google"}
       </Button>
-      {!agreed && (
+      {needsAgreement && !agreed && (
         <p className="text-muted-foreground text-sm">
-          Tick the box to continue. New here? Signing in with Google creates your account.
+          Tick the box to create your account.
         </p>
       )}
       {error && (
