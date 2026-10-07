@@ -22,3 +22,27 @@ export function FairPlay() {
     </>
   );
 }
+
+/** The short, friendly version for the login page. The full rules, with the ban, are in the Terms. */
+export function FairPlaySummary() {
+  return (
+    <>
+      <p>
+        Please play fair. The boards are only fun if the scores are honest, so no fake or
+        automated activity, no extra accounts, no scraping or overloading the site, and no
+        harassing anyone.
+      </p>
+      <p className="text-muted-foreground">
+        Accounts that cheat can be removed. The full rules are in the{" "}
+        <a
+          href="/terms"
+          target="_blank"
+          className="text-foreground underline underline-offset-4"
+        >
+          Terms
+        </a>
+        .
+      </p>
+    </>
+  );
+}
