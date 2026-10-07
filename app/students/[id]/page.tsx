@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Heatmap, TrendChart } from "@/components/charts";
+import { buttonVariants } from "@/components/ui/button";
 import { TierChip } from "@/components/tier-chip";
 import { ratingTier } from "@/lib/scoring/tier";
 import { describeUpdated } from "@/lib/boards/format";
@@ -11,8 +12,7 @@ import { loadProfileExtras } from "@/lib/boards/profile-data";
 import { profileRanks, type BoardRanks } from "@/lib/boards/profile-ranks";
 import { DOMAIN_LABELS, type Platform } from "@/lib/registration/schema";
 import { num } from "@/lib/scoring/types";
-import { createServiceClient } from "@/lib/supabase/service";
-import { isAnonRegistrationEnabled } from "@/lib/temp-anon/flag";
+import { createClient } from "@/lib/supabase/server";
 import { studentYear } from "@/lib/year";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -107,12 +107,14 @@ export default async function ProfilePage({
   params: Promise<{ id: string }>;
 }) {
   await connection();
-  if (!isAnonRegistrationEnabled()) notFound();
   const { id } = await params;
   if (!UUID.test(id)) notFound();
 
   const now = new Date();
-  const client = createServiceClient();
+  const client = await createClient();
+  const {
+    data: { user },
+  } = await client.auth.getUser();
   const [data, extras] = await Promise.all([
     loadBoardData(client, now),
     loadProfileExtras(client, id, now),
@@ -120,6 +122,7 @@ export default async function ProfilePage({
   const student = extras.student;
   if (!student) notFound();
 
+  const isOwner = Boolean(user && student.authUserId === user.id);
   const board = data.students.find((s) => s.id === id);
   const m = board?.metrics ?? {};
   const ranks = profileRanks(data, id, now);
@@ -198,6 +201,18 @@ export default async function ProfilePage({
               </li>
             ))}
         </ul>
+        {isOwner && (
+          <div className="flex items-center gap-3">
+            <Link href="/profile/edit" className={buttonVariants({ variant: "outline" })}>
+              Edit details
+            </Link>
+            {student.optOut && (
+              <span className="text-muted-foreground text-sm">
+                Hidden from the leaderboards
+              </span>
+            )}
+          </div>
+        )}
       </header>
 
       <Lane title="Problem solving" ranks={ranks["problem-solving"]} hidden={hidden}>

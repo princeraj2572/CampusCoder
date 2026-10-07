@@ -10,6 +10,7 @@ export interface ProfileStudent {
   primaryDomain: Domain;
   secondaryDomains: Domain[];
   optOut: boolean;
+  authUserId: string | null;
 }
 
 export interface ProfileContest {
@@ -45,7 +46,7 @@ export async function loadProfileExtras(
     client
       .from("students")
       .select(
-        "id, full_name, admission_year, year_override, section, primary_domain, secondary_domains, leaderboard_opt_out",
+        "id, auth_user_id, full_name, admission_year, year_override, section, primary_domain, secondary_domains, leaderboard_opt_out",
       )
       .eq("id", studentId)
       .maybeSingle(),
@@ -78,6 +79,7 @@ export async function loadProfileExtras(
           primaryDomain: s.primary_domain,
           secondaryDomains: s.secondary_domains ?? [],
           optOut: s.leaderboard_opt_out,
+          authUserId: s.auth_user_id,
         }
       : null,
     contests: (contests.data ?? [])
