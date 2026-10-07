@@ -8,6 +8,7 @@ import "./globals.css";
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-bricolage",
+  axes: ["opsz", "wdth"],
 });
 const instrument = Instrument_Sans({ subsets: ["latin"], variable: "--font-instrument" });
 
