@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import { BoardControls } from "@/components/board-controls";
+import { BoardControls, type YearCounts } from "@/components/board-controls";
 import { BoardRow } from "@/components/board-row";
 import { buildBoard } from "@/lib/boards/build";
 import { describeUpdated } from "@/lib/boards/format";
 import { boardHref } from "@/lib/boards/links";
 import { loadBoardData } from "@/lib/boards/load";
 import { BOARD_META } from "@/lib/boards/meta";
-import { parseBoardParams } from "@/lib/boards/params";
+import { parseBoardParams, type BoardParams } from "@/lib/boards/params";
 import { BOARD_IDS, type BoardId } from "@/lib/scoring/types";
 import { createServiceClient } from "@/lib/supabase/service";
 import { isAnonRegistrationEnabled } from "@/lib/temp-anon/flag";
@@ -38,6 +38,23 @@ export default async function BoardPage({
     params: filters,
     history: data.history,
   });
+  const countFor = (year: BoardParams["year"]) =>
+    buildBoard({
+      board,
+      students: data.students,
+      weights: data.weights,
+      today: now,
+      params: { ...filters, year },
+      history: data.history,
+    }).length;
+  const counts: YearCounts = {
+    all: countFor("all"),
+    1: countFor(1),
+    2: countFor(2),
+    3: countFor(3),
+    4: countFor(4),
+  };
+  const max = Math.max(0, ...rows.map((r) => r.value));
   const updated = describeUpdated(data.lastUpdated, now);
   const meta = BOARD_META[board];
   const filtered = Boolean(
@@ -51,7 +68,7 @@ export default async function BoardPage({
         <p className="text-muted-foreground max-w-prose text-sm">{meta.blurb}</p>
       </header>
 
-      <BoardControls board={board} params={filters} />
+      <BoardControls board={board} params={filters} counts={counts} />
 
       {rows.length === 0 ? (
         <div className="border-border rounded-md border border-dashed p-6 text-sm">
@@ -94,6 +111,7 @@ export default async function BoardPage({
                 board={board}
                 improved={Boolean(filters.improved)}
                 today={now}
+                max={max}
               />
             ))}
           </ol>
