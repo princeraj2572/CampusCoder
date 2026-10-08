@@ -34,3 +34,28 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Refresh timer (Cloudflare Worker)
+
+Scores are refreshed by a small free Cloudflare Worker that calls the site every 5 minutes. The
+site refreshes only accounts that have not been updated for `REFRESH_STALE_MINUTES` (default 180),
+so most calls do almost nothing. The GitHub Actions job in `.github/workflows/refresh.yml` still
+works as a backup.
+
+One-time setup:
+
+1. Set `CRON_SECRET` (at least 24 characters, random) in Vercel's Production environment and in
+   `.env.local`.
+2. Deploy the Worker from `workers/refresh-timer`:
+
+   ```bash
+   cd workers/refresh-timer
+   npx wrangler login
+   npx wrangler deploy
+   # PowerShell:  Get-Content ../../.env.cron | npx wrangler secret put CRON_SECRET
+   # bash:        npx wrangler secret put CRON_SECRET < ../../.env.cron
+   ```
+
+3. Check it in the Cloudflare dashboard under Workers, then Logs, after the next 5-minute mark.
+
+The endpoint is `POST /api/cron/refresh` with `Authorization: Bearer <CRON_SECRET>`.
