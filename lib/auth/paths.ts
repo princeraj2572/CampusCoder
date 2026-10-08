@@ -1,5 +1,6 @@
 const PUBLIC_EXACT = ["/", "/login", "/privacy", "/terms"];
-const PUBLIC_PREFIXES = ["/auth/", "/leaderboards/"];
+// /api/cron/ is for the refresh timer. It has no session, so the route checks its own secret.
+const PUBLIC_PREFIXES = ["/auth/", "/leaderboards/", "/api/cron/"];
 
 /** Pages and API routes that need a signed-in user. Everything not listed as public is protected. */
 export function isProtectedPath(pathname: string): boolean {
