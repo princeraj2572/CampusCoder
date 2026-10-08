@@ -47,6 +47,41 @@ const run = (
 ) => refreshBatch({ db, fetchProfile, now: () => NOW, log: () => {}, ...extra });
 
 describe("refreshBatch", () => {
+  it("fetches several accounts at once when asked, but never more than the limit", async () => {
+    const { db, calls } = fakeDb([row(1), row(2), row(3), row(4), row(5), row(6)]);
+    let active = 0;
+    let peak = 0;
+    const summary = await run(
+      db,
+      async () => {
+        active++;
+        peak = Math.max(peak, active);
+        await new Promise((r) => setTimeout(r, 10));
+        active--;
+        return profile;
+      },
+      { concurrency: 3 },
+    );
+    expect(peak).toBe(3);
+    expect(calls.successes.sort()).toEqual(["s1", "s2", "s3", "s4", "s5", "s6"]);
+    expect(summary).toEqual({ picked: 6, succeeded: 6, failed: 0 });
+  });
+
+  it("keeps going when one of several parallel fetches fails", async () => {
+    const { db, calls } = fakeDb([row(1), row(2), row(3)]);
+    const summary = await run(
+      db,
+      async (_platform, username) => {
+        if (username === "user2") throw new FetchError("not-found", "gone");
+        return profile;
+      },
+      { concurrency: 3 },
+    );
+    expect(calls.successes.sort()).toEqual(["s1", "s3"]);
+    expect(calls.failures.map((f) => f.id)).toEqual(["s2"]);
+    expect(summary).toEqual({ picked: 3, succeeded: 2, failed: 1 });
+  });
+
   it("only asks for accounts not updated since the given time", async () => {
     const { db, calls } = fakeDb([row(1)]);
     const since = new Date("2026-10-07T09:55:00Z");
