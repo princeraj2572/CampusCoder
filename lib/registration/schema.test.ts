@@ -34,7 +34,8 @@ describe("registration schema", () => {
   it("rejects a short name", () => fails({ fullName: "A" }, "fullName"));
   it("rejects an admission year that would make the student alumni", () =>
     fails({ admissionYear: 2022 }, "admissionYear"));
-  it("rejects an admission year in the future", () => fails({ admissionYear: 2027 }, "admissionYear"));
+  it("rejects an admission year in the future", () =>
+    fails({ admissionYear: 2027 }, "admissionYear"));
   it("accepts the 1st-year admission year", () => {
     expect(schema.safeParse({ ...valid, admissionYear: 2026 }).success).toBe(true);
   });
@@ -54,7 +55,9 @@ describe("registration schema", () => {
     fails({ codeforces: "ab" }, "codeforces");
   });
   it("allows empty optional platforms", () => {
-    expect(schema.safeParse({ ...valid, codeforces: "", codechef: "" }).success).toBe(true);
+    expect(schema.safeParse({ ...valid, codeforces: "", codechef: "" }).success).toBe(
+      true,
+    );
   });
   it("requires consent", () => fails({ consent: false }, "consent"));
 });
@@ -85,9 +88,19 @@ describe("toRegistrationInput", () => {
     });
   });
   it("includes section and optional platforms when filled", () => {
-    const parsed = schema.parse({ ...valid, section: " B ", codeforces: "aarav_cf", codechef: "aarav_cc" });
+    const parsed = schema.parse({
+      ...valid,
+      section: " B ",
+      codeforces: "aarav_cf",
+      codechef: "aarav_cc",
+    });
     const out = toRegistrationInput(parsed);
     expect(out.section).toBe("B");
-    expect(out.accounts.map((a) => a.platform)).toEqual(["leetcode", "github", "codeforces", "codechef"]);
+    expect(out.accounts.map((a) => a.platform)).toEqual([
+      "leetcode",
+      "github",
+      "codeforces",
+      "codechef",
+    ]);
   });
 });
