@@ -61,19 +61,24 @@ export function otherSolved(m: MetricsByPlatform): number {
 export function problemSolvingScores(
   cohort: { id: string; metrics: MetricsByPlatform }[],
   w: ScoreWeights,
+  /** Scale against this cohort's best instead (used to compare an old snapshot on today's scale). */
+  scaleWith: { id: string; metrics: MetricsByPlatform }[] = cohort,
 ): Map<string, number> {
-  const withData = cohort.filter(
-    (c) => c.metrics.leetcode || c.metrics.codeforces || c.metrics.codechef,
+  const hasData = (c: { metrics: MetricsByPlatform }) =>
+    Boolean(c.metrics.leetcode || c.metrics.codeforces || c.metrics.codechef);
+  const maxLc = Math.max(
+    0,
+    ...scaleWith.filter(hasData).map((c) => leetcodeWeighted(c.metrics, w)),
   );
-  const lc = withData.map((c) => leetcodeWeighted(c.metrics, w));
-  const other = withData.map((c) => otherSolved(c.metrics));
-  const maxLc = Math.max(0, ...lc);
-  const maxOther = Math.max(0, ...other);
+  const maxOther = Math.max(
+    0,
+    ...scaleWith.filter(hasData).map((c) => otherSolved(c.metrics)),
+  );
   const out = new Map<string, number>();
-  withData.forEach((c, i) => {
-    const lcPart = maxLc > 0 ? lc[i] / maxLc : 0;
-    const otherPart = maxOther > 0 ? other[i] / maxOther : 0;
+  for (const c of cohort.filter(hasData)) {
+    const lcPart = maxLc > 0 ? leetcodeWeighted(c.metrics, w) / maxLc : 0;
+    const otherPart = maxOther > 0 ? otherSolved(c.metrics) / maxOther : 0;
     out.set(c.id, round1(100 * (w.leetcodeShare * lcPart + w.otherShare * otherPart)));
-  });
+  }
   return out;
 }

@@ -17,8 +17,10 @@ export function scoreBoard(
   board: BoardId,
   cohort: { id: string; metrics: MetricsByPlatform }[],
   weights: ScoreWeights,
+  scaleWith?: { id: string; metrics: MetricsByPlatform }[],
 ): Map<string, number> {
-  if (board === "problem-solving") return problemSolvingScores(cohort, weights);
+  if (board === "problem-solving")
+    return problemSolvingScores(cohort, weights, scaleWith);
   const pick = board === "contests" ? contestScore : githubScore;
   const out = new Map<string, number>();
   for (const c of cohort) {
