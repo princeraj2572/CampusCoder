@@ -62,7 +62,11 @@ describe("loadBoardData", () => {
       isAlumni: false,
       usernames: { leetcode: tag },
     });
-    expect(probe?.metrics.leetcode).toMatchObject({ rating: 1650, solved: 12 });
+    expect(probe?.metrics.leetcode).toMatchObject({
+      rating: 1650,
+      solved: 12,
+      contests: 3,
+    });
     expect(data.weights.leetcodeShare).toBe(0.7);
     expect(data.lastUpdated).toBeInstanceOf(Date);
   });
