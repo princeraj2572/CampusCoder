@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { verifyAccount } from "@/lib/platforms";
 import { makeRegistrationSchema, toRegistrationInput } from "@/lib/registration/schema";
 import { isAnonRegistrationEnabled } from "@/lib/temp-anon/flag";
-import { createServiceClient } from "@/lib/temp-anon/service-client";
+import { createServiceClient } from "@/lib/supabase/service";
 
 const LABELS = {
   leetcode: "LeetCode",
