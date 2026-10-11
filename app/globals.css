@@ -57,6 +57,13 @@
   --success: #1f9d55;
   --danger: #d64541;
   --warning: #c98a12;
+  --tier-grey: #6b7280;
+  --tier-green: #1f9d55;
+  --tier-cyan: #0e8fa8;
+  --tier-blue: #2f5fd0;
+  --tier-violet: #7c4dcc;
+  --tier-orange: #d1730d;
+  --tier-red: #d64541;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -95,6 +102,13 @@
   --success: #3fc27a;
   --danger: #ef6a66;
   --warning: #e0a63a;
+  --tier-grey: #9ca3af;
+  --tier-green: #3fc27a;
+  --tier-cyan: #34c3dd;
+  --tier-blue: #6f94f2;
+  --tier-violet: #a98af0;
+  --tier-orange: #f0a04b;
+  --tier-red: #ef6a66;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
@@ -140,4 +154,19 @@
 
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* The one motion moment: rows that changed rank slide into place once on load. */
+@media (prefers-reduced-motion: no-preference) {
+  .row-slide {
+    animation: row-slide 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes row-slide {
+    from {
+      transform: translateY(var(--from));
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 }
