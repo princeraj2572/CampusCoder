@@ -13,8 +13,17 @@ const BOARDS = [
 const linkClass =
   "rounded-md px-2 py-1 text-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
 
+/** Reads the current path; must sit inside a Suspense boundary (see SiteHeaderFallback). */
 export function SiteHeader() {
-  const pathname = usePathname();
+  return <HeaderView pathname={usePathname()} />;
+}
+
+/** Same header without the active-tab highlight, shown while the path is unknown. */
+export function SiteHeaderFallback() {
+  return <HeaderView pathname={null} />;
+}
+
+function HeaderView({ pathname }: { pathname: string | null }) {
   return (
     <header className="border-border border-b">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
