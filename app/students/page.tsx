@@ -55,7 +55,12 @@ export default async function StudentsPage() {
           {rows.map((r) => (
             <li key={r.id} className="flex flex-col gap-1 py-3">
               <div className="flex flex-wrap items-baseline gap-x-3">
-                <span className="font-display text-lg font-semibold">{r.full_name}</span>
+                <Link
+                  href={`/students/${r.id}`}
+                  className="font-display text-lg font-semibold underline-offset-4 hover:underline"
+                >
+                  {r.full_name}
+                </Link>
                 <span className="text-muted-foreground text-sm">
                   {yearLabel(r, today)}
                   {r.section ? ` · ${r.section}` : ""} · {DOMAIN_LABELS[r.primary_domain]}
