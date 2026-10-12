@@ -13,6 +13,23 @@ const BOARDS = [
 const linkClass =
   "rounded-md px-2 py-1 text-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
 
+/** Three bars, second place on the left and third on the right of the leader. */
+function Mark() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      aria-hidden="true"
+      fill="currentColor"
+    >
+      <rect x="1" y="9" width="6" height="12" rx="1.5" opacity="0.55" />
+      <rect x="8" y="2" width="6" height="19" rx="1.5" />
+      <rect x="15" y="13" width="6" height="8" rx="1.5" opacity="0.35" />
+    </svg>
+  );
+}
+
 /** Reads the current path; must sit inside a Suspense boundary (see SiteHeaderFallback). */
 export function SiteHeader() {
   return <HeaderView pathname={usePathname()} />;
@@ -25,10 +42,11 @@ export function SiteHeaderFallback() {
 
 function HeaderView({ pathname }: { pathname: string | null }) {
   return (
-    <header className="border-border border-b">
+    <header className="border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
-        <Link href="/" className="font-display text-lg font-bold">
-          CampusCoders
+        <Link href="/" className="flex items-center gap-2">
+          <Mark />
+          <span className="numeral text-xl font-extrabold">CampusCoders</span>
         </Link>
         <nav aria-label="Leaderboards" className="flex flex-wrap gap-1">
           {BOARDS.map((b) => {

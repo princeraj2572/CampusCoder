@@ -170,3 +170,12 @@
     }
   }
 }
+
+/* Condensed, heavy display numerals for ranks and names (uses the font's width axis). */
+.numeral {
+  font-family: var(--font-bricolage), sans-serif;
+  font-stretch: 75%;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
