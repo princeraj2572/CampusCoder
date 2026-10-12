@@ -24,9 +24,11 @@ function shortDate(iso: string) {
 export function TrendChart({
   points,
   label,
+  color = "var(--foreground)",
 }: {
   points: { date: string; value: number }[];
   label: string;
+  color?: string;
 }) {
   const min = Math.min(...points.map((p) => p.value));
   const max = Math.max(...points.map((p) => p.value));
@@ -64,9 +66,9 @@ export function TrendChart({
             <Line
               type="monotone"
               dataKey="value"
-              stroke="var(--foreground)"
-              strokeWidth={2}
-              dot={{ r: 3, fill: "var(--foreground)" }}
+              stroke={color}
+              strokeWidth={2.5}
+              dot={{ r: 3, fill: color }}
               activeDot={{ r: 5 }}
               isAnimationActive={false}
             />
