@@ -66,6 +66,16 @@ describe("toActivityLevels", () => {
     expect(out.map((d) => d.level)).toEqual([0, 1, 2, 4]);
     expect(out[3]).toEqual({ date: "2026-01-04", count: 10, level: 4 });
   });
+  it("does not let one extreme day wash out every other day", () => {
+    const out = toActivityLevels([
+      ["2026-01-01", 1],
+      ["2026-01-02", 2],
+      ["2026-01-03", 3],
+      ["2026-01-04", 4],
+      ["2026-01-05", 100],
+    ]);
+    expect(out.map((d) => d.level)).toEqual([1, 2, 3, 4, 4]);
+  });
   it("gives level 0 everywhere when nothing was contributed", () => {
     expect(toActivityLevels([["2026-01-01", 0]]).map((d) => d.level)).toEqual([0]);
   });
