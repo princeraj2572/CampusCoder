@@ -101,7 +101,7 @@ export function Heatmap({ data }: { data: ActivityDay[] }) {
         colorScheme={resolvedTheme === "dark" ? "dark" : "light"}
         theme={{
           light: ["#e3e7ee", "#b7dfc7", "#74c795", "#2f9d5f", "#1a6b3f"],
-          dark: ["#222b38", "#245f3e", "#2f8a59", "#45b97a", "#7ae6ab"],
+          dark: ["#2a2a2a", "#245f3e", "#2f8a59", "#45b97a", "#7ae6ab"],
         }}
         blockSize={11}
         blockMargin={3}
