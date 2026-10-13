@@ -2,8 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { DOMAIN_LABELS, type Domain } from "@/lib/registration/schema";
-import { isAnonRegistrationEnabled } from "@/lib/temp-anon/flag";
-import { createServiceClient } from "@/lib/supabase/service";
+import { createClient } from "@/lib/supabase/server";
 import { studentYear } from "@/lib/year";
 
 type Row = {
@@ -24,9 +23,9 @@ function yearLabel(r: Row, today: Date) {
 
 export default async function StudentsPage() {
   await connection();
-  if (!isAnonRegistrationEnabled()) notFound();
 
-  const { data, error } = await createServiceClient()
+  const client = await createClient();
+  const { data, error } = await client
     .from("students")
     .select(
       "id, full_name, admission_year, section, primary_domain, year_override, student_platforms(platform, username)",
