@@ -2,8 +2,9 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { UsernameField } from "@/components/username-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,19 +13,58 @@ import {
   DOMAIN_LABELS,
   DOMAIN_VALUES,
   admissionYearOptions,
+  makeEditSchema,
   makeRegistrationSchema,
   type RegistrationValues,
 } from "@/lib/registration/schema";
 
+export type StudentFormValues = Omit<RegistrationValues, "consent"> & {
+  consent?: boolean;
+  leaderboardOptOut?: boolean;
+};
+
 const selectClass =
   "border-input bg-background h-9 w-full rounded-md border px-3 text-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
 
-export function RegisterForm() {
+const EMPTY: Partial<StudentFormValues> = {
+  fullName: "",
+  section: "",
+  secondaryDomains: [],
+  leetcode: "",
+  github: "",
+  codeforces: "",
+  codechef: "",
+};
+
+/** One form for both registering and editing details; the mode picks the rules and the request. */
+export function StudentForm({
+  mode,
+  initial,
+}: {
+  mode: "register" | "edit";
+  initial?: Partial<StudentFormValues>;
+}) {
+  const router = useRouter();
   const today = useMemo(() => new Date(), []);
-  const schema = useMemo(() => makeRegistrationSchema(today), [today]);
-  const years = useMemo(() => admissionYearOptions(today), [today]);
+  const resolver = useMemo(
+    () =>
+      zodResolver(
+        mode === "register" ? makeRegistrationSchema(today) : makeEditSchema(today),
+      ) as unknown as Resolver<StudentFormValues>,
+    [mode, today],
+  );
+  const years = useMemo(() => {
+    const options = admissionYearOptions(today);
+    const current = initial?.admissionYear;
+    // A student who has left the 1st to 4th year window still sees their own year.
+    if (current && !options.some((o) => o.year === current)) {
+      options.push({ year: current, label: `Joined ${current}` });
+    }
+    return options;
+  }, [today, initial?.admissionYear]);
+
   const [formError, setFormError] = useState<string | null>(null);
-  const [done, setDone] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const {
     register,
@@ -32,53 +72,48 @@ export function RegisterForm() {
     setError,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<RegistrationValues>({
-    resolver: zodResolver(schema),
+  } = useForm<StudentFormValues>({
+    resolver,
     defaultValues: {
-      fullName: "",
-      section: "",
-      secondaryDomains: [],
-      leetcode: "",
-      github: "",
-      codeforces: "",
-      codechef: "",
+      ...EMPTY,
+      ...(mode === "edit" ? { leaderboardOptOut: false } : { consent: false }),
+      ...initial,
     },
   });
 
-  async function onSubmit(values: RegistrationValues) {
+  async function onSubmit(values: StudentFormValues) {
     setFormError(null);
+    setSaved(false);
     try {
-      const res = await fetch("/api/register", {
-        method: "POST",
+      const res = await fetch("/api/me", {
+        method: mode === "register" ? "POST" : "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(values),
       });
       const body = await res.json().catch(() => ({}));
       if (res.ok) {
-        setDone(true);
+        if (mode === "register") {
+          router.push("/profile");
+        } else {
+          setSaved(true);
+        }
+        router.refresh();
         return;
       }
       if (body.fields) {
         for (const [name, message] of Object.entries(body.fields)) {
-          setError(name as keyof RegistrationValues, { message: String(message) });
+          setError(name as keyof StudentFormValues, { message: String(message) });
         }
       }
-      setFormError(body.error ?? "Could not save your registration. Try again.");
+      setFormError(
+        body.error ??
+          (mode === "register"
+            ? "Could not save your registration. Try again."
+            : "Could not save your changes. Try again."),
+      );
     } catch {
       setFormError("Could not reach the server. Check your connection and try again.");
     }
-  }
-
-  if (done) {
-    return (
-      <div className="flex flex-col gap-4">
-        <h2 className="font-display text-2xl font-bold">Registered</h2>
-        <p>Your accounts are saved. Scores appear after the next refresh.</p>
-        <Link href="/students" className="underline underline-offset-4">
-          View registered students
-        </Link>
-      </div>
-    );
   }
 
   return (
@@ -99,7 +134,7 @@ export function RegisterForm() {
           <Label htmlFor="admissionYear">Year</Label>
           <select
             id="admissionYear"
-            defaultValue=""
+            defaultValue={initial?.admissionYear ?? ""}
             className={selectClass}
             {...register("admissionYear", { valueAsNumber: true })}
           >
@@ -125,7 +160,7 @@ export function RegisterForm() {
         <Label htmlFor="primaryDomain">Primary domain</Label>
         <select
           id="primaryDomain"
-          defaultValue=""
+          defaultValue={initial?.primaryDomain ?? ""}
           className={selectClass}
           {...register("primaryDomain")}
         >
@@ -189,25 +224,59 @@ export function RegisterForm() {
         error={errors.codechef}
         value={watch("codechef")}
       />
+      {mode === "edit" && (
+        <p className="text-muted-foreground -mt-2 text-sm">
+          Changing a username clears that platform&apos;s old scores. The new
+          account&apos;s scores appear after the next refresh.
+        </p>
+      )}
 
-      <div className="flex flex-col gap-1.5">
+      {mode === "register" ? (
+        <div className="flex flex-col gap-1.5">
+          <label className="flex items-start gap-2 text-sm">
+            <input type="checkbox" className="mt-0.5 size-4" {...register("consent")} />
+            <span>
+              Your name, year, domain and coding scores are visible to other students in
+              the department.
+            </span>
+          </label>
+          <p className="text-danger min-h-5 text-sm">{errors.consent?.message}</p>
+        </div>
+      ) : (
         <label className="flex items-start gap-2 text-sm">
-          <input type="checkbox" className="mt-0.5 size-4" {...register("consent")} />
+          <input
+            type="checkbox"
+            className="mt-0.5 size-4"
+            {...register("leaderboardOptOut")}
+          />
           <span>
-            Your name, year, domain and coding scores are visible to other students in the
-            department.
+            Hide me from the leaderboards. Your profile stays visible to other students,
+            but you are not ranked.
           </span>
         </label>
-        <p className="text-danger min-h-5 text-sm">{errors.consent?.message}</p>
-      </div>
+      )}
 
       {formError && (
         <p role="alert" className="text-danger text-sm">
           {formError}
         </p>
       )}
+      {saved && (
+        <p role="status" className="text-success text-sm">
+          Changes saved.{" "}
+          <Link href="/profile" className="underline underline-offset-4">
+            View your profile
+          </Link>
+        </p>
+      )}
       <Button type="submit" disabled={isSubmitting} className="w-fit">
-        {isSubmitting ? "Registering…" : "Register"}
+        {isSubmitting
+          ? mode === "register"
+            ? "Registering…"
+            : "Saving…"
+          : mode === "register"
+            ? "Register"
+            : "Save changes"}
       </Button>
     </form>
   );
