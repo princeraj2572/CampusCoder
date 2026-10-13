@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 const linkClass =
@@ -6,6 +7,8 @@ const linkClass =
 
 /** Header links that depend on whether someone is signed in. Server component. */
 export async function AuthLinks() {
+  // Depends on the visitor's session, so it is never prerendered.
+  await connection();
   const {
     data: { user },
   } = await (await createClient()).auth.getUser();
