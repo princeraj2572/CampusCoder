@@ -31,16 +31,22 @@ function Mark() {
 }
 
 /** Reads the current path; must sit inside a Suspense boundary (see SiteHeaderFallback). */
-export function SiteHeader() {
-  return <HeaderView pathname={usePathname()} />;
+export function SiteHeader({ children }: { children?: React.ReactNode }) {
+  return <HeaderView pathname={usePathname()}>{children}</HeaderView>;
 }
 
 /** Same header without the active-tab highlight, shown while the path is unknown. */
-export function SiteHeaderFallback() {
-  return <HeaderView pathname={null} />;
+export function SiteHeaderFallback({ children }: { children?: React.ReactNode }) {
+  return <HeaderView pathname={null}>{children}</HeaderView>;
 }
 
-function HeaderView({ pathname }: { pathname: string | null }) {
+function HeaderView({
+  pathname,
+  children,
+}: {
+  pathname: string | null;
+  children?: React.ReactNode;
+}) {
   return (
     <header className="border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
@@ -70,12 +76,7 @@ function HeaderView({ pathname }: { pathname: string | null }) {
           >
             Students
           </Link>
-          <Link
-            href="/register"
-            className={`${linkClass} text-muted-foreground hover:text-foreground`}
-          >
-            Register
-          </Link>
+          {children}
           <ThemeToggle />
         </div>
       </div>

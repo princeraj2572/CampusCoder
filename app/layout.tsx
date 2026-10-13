@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import { Suspense } from "react";
+import { AuthLinks } from "@/components/auth-links";
 import { SiteHeader, SiteHeaderFallback } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -27,7 +28,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="bg-background text-foreground flex min-h-full flex-col font-sans">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<SiteHeaderFallback />}>
-            <SiteHeader />
+            <SiteHeader>
+              <Suspense fallback={null}>
+                <AuthLinks />
+              </Suspense>
+            </SiteHeader>
           </Suspense>
           {children}
         </ThemeProvider>
