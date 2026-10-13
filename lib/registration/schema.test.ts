@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   admissionYearOptions,
+  makeEditSchema,
   makeRegistrationSchema,
   toRegistrationInput,
 } from "@/lib/registration/schema";
@@ -107,5 +108,27 @@ describe("toRegistrationInput", () => {
       "codeforces",
       "codechef",
     ]);
+  });
+});
+
+describe("edit schema", () => {
+  const edit = makeEditSchema(today);
+  const { consent: _consent, ...base } = valid;
+  const editValid = { ...base, leaderboardOptOut: false };
+
+  it("accepts valid details without a consent field", () => {
+    expect(edit.safeParse(editValid).success).toBe(true);
+  });
+  it("carries the opt-out choice", () => {
+    const parsed = edit.parse({ ...editValid, leaderboardOptOut: true });
+    expect(parsed.leaderboardOptOut).toBe(true);
+  });
+  it("applies the same rules as registration", () => {
+    expect(edit.safeParse({ ...editValid, fullName: "A" }).success).toBe(false);
+    expect(edit.safeParse({ ...editValid, secondaryDomains: ["web_dev"] }).success).toBe(
+      false,
+    );
+    expect(edit.safeParse({ ...editValid, admissionYear: 2022 }).success).toBe(false);
+    expect(edit.safeParse({ ...editValid, github: "" }).success).toBe(false);
   });
 });
