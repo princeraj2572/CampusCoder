@@ -3,7 +3,7 @@ import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 const linkClass =
-  "rounded-md px-2 py-1 text-sm text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
+  "rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
 
 /** Header links that depend on whether someone is signed in. Server component. */
 export async function AuthLinks() {
