@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { GoogleSignIn } from "@/components/google-sign-in";
 import { safeNext } from "@/lib/auth/safe-next";
@@ -8,6 +9,8 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  // Depends on the visitor's session, so it is rendered at request time.
+  await connection();
   const params = await searchParams;
   const rawNext = Array.isArray(params.next) ? params.next[0] : params.next;
   const next = safeNext(rawNext);

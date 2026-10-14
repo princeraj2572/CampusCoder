@@ -1,8 +1,11 @@
+import { connection } from "next/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 /** "My profile": your public profile page, or the registration form if you have not registered. */
 export default async function MyProfilePage() {
+  // Depends on the visitor's session, so it is rendered at request time.
+  await connection();
   const client = await createClient();
   const {
     data: { user },

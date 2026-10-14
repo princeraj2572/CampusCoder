@@ -40,12 +40,15 @@ const EMPTY: Partial<StudentFormValues> = {
 export function StudentForm({
   mode,
   initial,
+  todayIso,
 }: {
   mode: "register" | "edit";
   initial?: Partial<StudentFormValues>;
+  /** The current time, supplied by the server at request time. */
+  todayIso: string;
 }) {
   const router = useRouter();
-  const today = useMemo(() => new Date(), []);
+  const today = useMemo(() => new Date(todayIso), [todayIso]);
   const resolver = useMemo(
     () =>
       zodResolver(
