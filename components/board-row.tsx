@@ -20,7 +20,7 @@ function Movement({ value }: { value: number | null }) {
   if (value === null) {
     return (
       <span
-        className="text-muted-foreground w-8 text-sm sm:w-10"
+        className="text-muted-foreground hidden w-10 text-sm sm:block"
         aria-label="No rank change data yet"
       >
         –
@@ -30,7 +30,7 @@ function Movement({ value }: { value: number | null }) {
   if (value === 0) {
     return (
       <span
-        className="text-muted-foreground w-8 text-sm sm:w-10"
+        className="text-muted-foreground hidden w-10 text-sm sm:block"
         aria-label="Rank unchanged"
       >
         =
@@ -41,7 +41,7 @@ function Movement({ value }: { value: number | null }) {
   const places = Math.abs(value);
   return (
     <span
-      className={`w-8 text-sm font-medium tabular-nums sm:w-10 ${up ? "text-success" : "text-danger"}`}
+      className={`hidden w-10 text-sm font-medium tabular-nums sm:block ${up ? "text-success" : "text-danger"}`}
       aria-label={`${up ? "Up" : "Down"} ${places} ${places === 1 ? "place" : "places"}`}
     >
       {up ? "▲" : "▼"}
@@ -84,23 +84,29 @@ export function BoardRow({
   const barPercent = max > 0 ? Math.max(2, Math.round((row.value / max) * 100)) : 0;
   const accent =
     row.rank === 1
-      ? "border-foreground"
+      ? "border-foreground/50"
       : top
-        ? "border-foreground/40"
-        : "border-transparent";
+        ? "border-foreground/25"
+        : "border-border";
 
   return (
     <li
-      className={`group border-border hover:bg-foreground/[0.04] relative border-b border-l-[3px] pl-3 transition-colors ${accent} ${shift ? "row-slide" : ""}`}
+      className={`group bg-foreground/[0.03] hover:bg-foreground/[0.06] relative overflow-hidden rounded-xl border transition-colors ${accent} ${shift ? "row-slide" : ""}`}
       style={shift ? ({ "--from": `${shift}px` } as React.CSSProperties) : undefined}
     >
-      <div className={`flex items-center gap-2 sm:gap-3 ${top ? "py-4" : "py-3"}`}>
+      <div
+        className={`flex items-center gap-2 px-3 sm:gap-3 sm:px-4 ${top ? "py-5" : "py-4"}`}
+      >
         <span
           className={`numeral w-9 shrink-0 text-right font-extrabold sm:w-12 ${top ? "text-5xl sm:text-6xl" : "text-2xl"} leading-none`}
         >
           {row.rank}
         </span>
-        {improved ? <span className="w-8 sm:w-10" /> : <Movement value={row.movement} />}
+        {improved ? (
+          <span className="hidden w-10 sm:block" />
+        ) : (
+          <Movement value={row.movement} />
+        )}
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             <Link
@@ -138,12 +144,14 @@ export function BoardRow({
           >
             {improved ? `+${row.value}` : row.value}
           </p>
-          <p className="text-muted-foreground text-xs">{rowDetail(board, student)}</p>
+          <p className="text-muted-foreground hidden text-xs sm:block">
+            {rowDetail(board, student)}
+          </p>
         </div>
       </div>
       <span
         aria-hidden="true"
-        className="absolute bottom-[-1px] left-0 h-[2px] opacity-70"
+        className="absolute bottom-0 left-0 h-[3px] opacity-70"
         style={{ width: `${barPercent}%`, background: barColor }}
       />
     </li>

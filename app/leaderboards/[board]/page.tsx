@@ -101,7 +101,7 @@ export default async function BoardPage({
             <span>{filters.improved ? meta.improvedLabel : meta.valueLabel}</span>
             <span>{rows.length === 1 ? "1 student" : `${rows.length} students`}</span>
           </div>
-          <ol className="-mt-4">
+          <ol className="-mt-3 flex flex-col gap-3">
             {rows.map((row) => (
               <BoardRow
                 key={row.id}
