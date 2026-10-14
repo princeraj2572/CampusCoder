@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { RowGraphic } from "@/components/row-graphic";
 import { Sparkline } from "@/components/sparkline";
 import { TierChip } from "@/components/tier-chip";
 import type { BoardRow as Row } from "@/lib/boards/build";
-import { BOARD_META, rowDetail } from "@/lib/boards/meta";
+import { BOARD_META, rowDetail, rowStats } from "@/lib/boards/meta";
 import { DOMAIN_LABELS } from "@/lib/registration/schema";
 import { ratingTier } from "@/lib/scoring/tier";
 import type { BoardId } from "@/lib/scoring/types";
@@ -74,6 +75,7 @@ export function BoardRow({
     .filter(Boolean)
     .join(" · ");
 
+  const stats = rowStats(board, student);
   const tier = ratingTier(student.metrics.leetcode?.rating ?? null);
   const barColor =
     board === "contests" && tier.key !== "unrated"
@@ -110,6 +112,19 @@ export function BoardRow({
             <TierChip rating={student.metrics.leetcode?.rating} />
           </div>
           <p className="text-muted-foreground text-sm">{meta}</p>
+          {stats.length > 0 && (
+            <dl className="text-muted-foreground mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-xs">
+              {stats.map((x) => (
+                <div key={x.label} className="flex gap-1">
+                  <dt>{x.label}</dt>
+                  <dd className="text-foreground font-medium tabular-nums">{x.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          <div className="mt-2 empty:hidden">
+            <RowGraphic board={board} student={student} />
+          </div>
         </div>
         <div className="hidden sm:block">
           <Sparkline points={row.trend} />
