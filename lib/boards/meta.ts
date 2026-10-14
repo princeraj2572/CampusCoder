@@ -6,10 +6,10 @@ export const BOARD_META: Record<
   { title: string; valueLabel: string; blurb: string; improvedLabel: string }
 > = {
   "problem-solving": {
-    title: "Problem solving",
+    title: "DSA",
     valueLabel: "Score",
     blurb:
-      "LeetCode problems weighted by difficulty, plus Codeforces and CodeChef solves.",
+      "Data structures and algorithms: LeetCode problems weighted by difficulty, plus Codeforces and CodeChef solves.",
     improvedLabel: "Score gained",
   },
   contests: {
