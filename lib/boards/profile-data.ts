@@ -11,6 +11,7 @@ export interface ProfileStudent {
   secondaryDomains: Domain[];
   optOut: boolean;
   authUserId: string | null;
+  createdAt: string;
 }
 
 export interface ProfileContest {
@@ -28,8 +29,15 @@ export interface ProfileSnapshot {
   rating: number | null;
 }
 
+export interface ProfileAccount {
+  platform: string;
+  username: string;
+  lastUpdated: string | null;
+}
+
 export interface ProfileExtras {
   student: ProfileStudent | null;
+  accounts: ProfileAccount[];
   contests: ProfileContest[]; // oldest first, most recent 15
   snapshots: ProfileSnapshot[]; // oldest first, last 90 days
 }
@@ -42,11 +50,11 @@ export async function loadProfileExtras(
   now: Date,
 ): Promise<ProfileExtras> {
   const since = new Date(now.getTime() - 90 * DAY_MS).toISOString().slice(0, 10);
-  const [student, contests, snapshots] = await Promise.all([
+  const [student, contests, snapshots, accounts] = await Promise.all([
     client
       .from("students")
       .select(
-        "id, auth_user_id, full_name, admission_year, year_override, section, primary_domain, secondary_domains, leaderboard_opt_out",
+        "id, auth_user_id, created_at, full_name, admission_year, year_override, section, primary_domain, secondary_domains, leaderboard_opt_out",
       )
       .eq("id", studentId)
       .maybeSingle(),
@@ -62,8 +70,13 @@ export async function loadProfileExtras(
       .eq("student_id", studentId)
       .gte("snapshot_date", since)
       .order("snapshot_date", { ascending: true }),
+    client
+      .from("student_platforms")
+      .select("platform, username, last_updated")
+      .eq("student_id", studentId)
+      .order("platform"),
   ]);
-  for (const r of [student, contests, snapshots]) {
+  for (const r of [student, contests, snapshots, accounts]) {
     if (r.error) throw new Error(r.error.message);
   }
 
@@ -80,8 +93,14 @@ export async function loadProfileExtras(
           secondaryDomains: s.secondary_domains ?? [],
           optOut: s.leaderboard_opt_out,
           authUserId: s.auth_user_id,
+          createdAt: s.created_at,
         }
       : null,
+    accounts: (accounts.data ?? []).map((a) => ({
+      platform: a.platform,
+      username: a.username,
+      lastUpdated: a.last_updated,
+    })),
     contests: (contests.data ?? [])
       .map((c) => ({
         contestName: c.contest_name ?? "",
