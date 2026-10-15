@@ -2,13 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Heatmap, TrendChart } from "@/components/charts";
-import { buttonVariants } from "@/components/ui/button";
 import { ratingTier } from "@/lib/scoring/tier";
 import { describeUpdated } from "@/lib/boards/format";
 import { toActivityLevels } from "@/lib/boards/heatmap";
 import { loadBoardData } from "@/lib/boards/load";
 import { BOARD_META } from "@/lib/boards/meta";
-import { BOARD_ACCENT, medalColor } from "@/lib/boards/theme";
+import { BOARD_ACCENT, PLATFORM_BRAND, medalColor } from "@/lib/boards/theme";
 import { ProfileCard } from "@/components/profile-card";
 import { StatCards, type StatCard } from "@/components/stat-cards";
 import { loadProfileExtras } from "@/lib/boards/profile-data";
@@ -107,6 +106,46 @@ function Facts({ items }: { items: [string, string | number][] }) {
         </div>
       ))}
     </dl>
+  );
+}
+
+/** One coding platform's numbers in that platform's own colour. */
+function PlatformPanel({
+  name,
+  color,
+  items,
+}: {
+  name: string;
+  color: string;
+  items: [string, string | number][];
+}) {
+  return (
+    <section
+      className="relative overflow-hidden rounded-xl border p-4 pt-5"
+      style={{
+        borderColor: `color-mix(in oklab, ${color} 45%, transparent)`,
+        backgroundColor: `color-mix(in oklab, ${color} 8%, transparent)`,
+      }}
+    >
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-1.5"
+        style={{ background: color }}
+      />
+      <h3 className="text-sm font-semibold" style={{ color }}>
+        {name}
+      </h3>
+      <dl className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2">
+        {items.map(([label, value]) => (
+          <div key={label}>
+            <dt className="text-muted-foreground text-xs">{label}</dt>
+            <dd className="numeral text-2xl leading-tight font-bold" style={{ color }}>
+              {value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }
 
@@ -243,7 +282,7 @@ export default async function ProfilePage({
               <div className="flex items-center gap-3">
                 <Link
                   href="/profile/edit"
-                  className={buttonVariants({ variant: "outline" })}
+                  className="inline-flex h-9 items-center rounded-lg bg-white px-4 text-sm font-semibold text-[#0b0f17] shadow-sm transition-colors hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
                 >
                   Edit details
                 </Link>
@@ -264,24 +303,40 @@ export default async function ProfilePage({
           <Empty>No DSA data yet. It appears after the next refresh.</Empty>
         ) : (
           <>
-            <Facts
-              items={[
-                ["LeetCode solved", num(lc?.solved)],
-                ["Codeforces solved", num(m.codeforces?.solved)],
-                ["CodeChef solved", num(m.codechef?.solved)],
-                ["LeetCode global rank", num(lc?.extra.problem_rank) || "–"],
-              ]}
-            />
-            {(m.codeforces || m.codechef) && (
-              <Facts
-                items={[
-                  ["Codeforces rating", m.codeforces?.rating ?? "–"],
-                  ["Codeforces best", num(m.codeforces?.extra.max_rating) || "–"],
-                  ["Codeforces rank", String(m.codeforces?.extra.rank_title ?? "–")],
-                  ["CodeChef rating", m.codechef?.rating ?? "–"],
-                ]}
-              />
-            )}
+            <div className="grid gap-3 md:grid-cols-3">
+              {lc && (
+                <PlatformPanel
+                  name="LeetCode"
+                  color={PLATFORM_BRAND.leetcode}
+                  items={[
+                    ["Solved", num(lc.solved)],
+                    ["Global rank", num(lc.extra.problem_rank) || "–"],
+                  ]}
+                />
+              )}
+              {m.codeforces && (
+                <PlatformPanel
+                  name="Codeforces"
+                  color={PLATFORM_BRAND.codeforces}
+                  items={[
+                    ["Solved", num(m.codeforces.solved)],
+                    ["Rating", m.codeforces.rating ?? "–"],
+                    ["Best", num(m.codeforces.extra.max_rating) || "–"],
+                    ["Rank", String(m.codeforces.extra.rank_title ?? "–")],
+                  ]}
+                />
+              )}
+              {m.codechef && (
+                <PlatformPanel
+                  name="CodeChef"
+                  color={PLATFORM_BRAND.codechef}
+                  items={[
+                    ["Solved", num(m.codechef.solved)],
+                    ["Rating", m.codechef.rating ?? "–"],
+                  ]}
+                />
+              )}
+            </div>
             {lcTotal > 0 && (
               <div className="flex flex-col gap-2">
                 <div
