@@ -44,7 +44,12 @@ export function ProfileCard({
   const connected = PLATFORM_ORDER.filter((p) => byPlatform.has(p));
 
   return (
-    <section className="border-border bg-foreground/[0.03] flex flex-col gap-6 rounded-xl border p-5 sm:p-6">
+    <section className="border-border bg-foreground/[0.03] relative flex flex-col gap-6 overflow-hidden rounded-xl border p-5 pt-7 sm:p-6 sm:pt-8">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 flex h-2">
+        <span className="flex-1" style={{ background: "var(--board-dsa)" }} />
+        <span className="flex-1" style={{ background: "var(--board-contests)" }} />
+        <span className="flex-1" style={{ background: "var(--board-github)" }} />
+      </div>
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <h1 className="numeral text-5xl leading-none font-extrabold sm:text-6xl">
@@ -52,9 +57,31 @@ export function ProfileCard({
           </h1>
           <TierChip rating={contestRating} />
         </div>
-        <p className="text-muted-foreground">
-          {[yearLabel, DOMAIN_LABELS[student.primaryDomain]].join(" · ")}
-        </p>
+        <ul className="flex flex-wrap gap-2 text-sm font-medium">
+          {[
+            { text: yearLabel, color: "var(--board-dsa)" },
+            {
+              text: DOMAIN_LABELS[student.primaryDomain],
+              color: "var(--board-contests)",
+            },
+            ...student.secondaryDomains.map((d) => ({
+              text: DOMAIN_LABELS[d],
+              color: "var(--board-github)",
+            })),
+          ].map((c) => (
+            <li
+              key={c.text}
+              className="rounded-full border px-3 py-1"
+              style={{
+                color: c.color,
+                borderColor: `color-mix(in oklab, ${c.color} 45%, transparent)`,
+                backgroundColor: `color-mix(in oklab, ${c.color} 12%, transparent)`,
+              }}
+            >
+              {c.text}
+            </li>
+          ))}
+        </ul>
         {actions}
       </div>
 

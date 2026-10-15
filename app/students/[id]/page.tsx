@@ -8,6 +8,7 @@ import { describeUpdated } from "@/lib/boards/format";
 import { toActivityLevels } from "@/lib/boards/heatmap";
 import { loadBoardData } from "@/lib/boards/load";
 import { BOARD_META } from "@/lib/boards/meta";
+import { BOARD_ACCENT, medalColor } from "@/lib/boards/theme";
 import { ProfileCard } from "@/components/profile-card";
 import { StatCards, type StatCard } from "@/components/stat-cards";
 import { loadProfileExtras } from "@/lib/boards/profile-data";
@@ -18,7 +19,15 @@ import { studentYear } from "@/lib/year";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function RankBlock({ ranks, hidden }: { ranks: BoardRanks; hidden: boolean }) {
+function RankBlock({
+  ranks,
+  hidden,
+  accent,
+}: {
+  ranks: BoardRanks;
+  hidden: boolean;
+  accent: string;
+}) {
   if (hidden)
     return <p className="text-muted-foreground text-sm">Hidden from leaderboards</p>;
   if (!ranks.overall)
@@ -27,7 +36,10 @@ function RankBlock({ ranks, hidden }: { ranks: BoardRanks; hidden: boolean }) {
     <div className="flex flex-col gap-2">
       {ranks.inYear && (
         <p>
-          <span className="numeral text-7xl leading-none font-extrabold">
+          <span
+            className="numeral text-7xl leading-none font-extrabold"
+            style={{ color: medalColor(ranks.inYear.rank) ?? accent }}
+          >
             {ranks.inYear.rank}
           </span>
           <span className="text-muted-foreground block text-sm">
@@ -37,7 +49,10 @@ function RankBlock({ ranks, hidden }: { ranks: BoardRanks; hidden: boolean }) {
         </p>
       )}
       <p>
-        <span className="numeral text-3xl leading-none font-extrabold">
+        <span
+          className="numeral text-3xl leading-none font-extrabold"
+          style={{ color: medalColor(ranks.overall.rank) ?? accent }}
+        >
           {ranks.overall.rank}
         </span>
         <span className="text-muted-foreground block text-sm">
@@ -52,18 +67,28 @@ function Lane({
   title,
   ranks,
   hidden,
+  accent,
   children,
 }: {
   title: string;
   ranks: BoardRanks;
   hidden: boolean;
+  accent: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-border grid gap-6 border-t py-8 md:grid-cols-[11rem_1fr]">
+    <section
+      className="border-border grid gap-6 border-t py-8 md:grid-cols-[11rem_1fr]"
+      style={{ "--lane": accent } as React.CSSProperties}
+    >
       <div className="flex flex-col gap-3">
         <h2 className="font-display text-xl font-bold">{title}</h2>
-        <RankBlock ranks={ranks} hidden={hidden} />
+        <span
+          aria-hidden="true"
+          className="h-1.5 w-12 rounded-full"
+          style={{ background: "var(--lane)" }}
+        />
+        <RankBlock ranks={ranks} hidden={hidden} accent={accent} />
       </div>
       <div className="flex min-w-0 flex-col gap-6">{children}</div>
     </section>
@@ -76,7 +101,9 @@ function Facts({ items }: { items: [string, string | number][] }) {
       {items.map(([label, value]) => (
         <div key={label}>
           <dt className="text-muted-foreground text-sm">{label}</dt>
-          <dd className="numeral text-3xl font-bold">{value}</dd>
+          <dd className="numeral text-3xl font-bold" style={{ color: "var(--lane)" }}>
+            {value}
+          </dd>
         </div>
       ))}
     </dl>
@@ -170,6 +197,7 @@ export default async function ProfilePage({
       label: "Problems solved",
       value: totalSolved,
       note: "LeetCode, Codeforces and CodeChef",
+      color: BOARD_ACCENT["problem-solving"],
     },
     {
       label: "Contest rating",
@@ -178,11 +206,13 @@ export default async function ProfilePage({
         typeof lc?.rating === "number"
           ? `${tier.label} · ${num(lc.contests)} ${num(lc.contests) === 1 ? "contest" : "contests"}`
           : "No LeetCode contests yet",
+      color: tier.key === "unrated" ? BOARD_ACCENT.contests : `var(--tier-${tier.key})`,
     },
     {
       label: "GitHub contributions",
       value: gh ? num(gh.contributions_12m) : "–",
       note: gh ? `${days(num(gh.current_streak))} current streak` : "Last 12 months",
+      color: BOARD_ACCENT.github,
     },
     {
       label: "Best rank",
@@ -192,6 +222,9 @@ export default async function ProfilePage({
         : hidden
           ? "Hidden from the leaderboards"
           : "Not ranked yet",
+      color: bestRank
+        ? (medalColor(bestRank.rank) ?? BOARD_ACCENT[bestRank.board])
+        : undefined,
     },
   ];
 
@@ -221,7 +254,12 @@ export default async function ProfilePage({
         <StatCards items={statCards} />
       </div>
 
-      <Lane title="DSA" ranks={ranks["problem-solving"]} hidden={hidden}>
+      <Lane
+        title="DSA"
+        ranks={ranks["problem-solving"]}
+        hidden={hidden}
+        accent={BOARD_ACCENT["problem-solving"]}
+      >
         {!lc && !m.codeforces && !m.codechef ? (
           <Empty>No DSA data yet. It appears after the next refresh.</Empty>
         ) : (
@@ -276,7 +314,11 @@ export default async function ProfilePage({
               </div>
             )}
             {solvedPoints.length >= 2 ? (
-              <TrendChart points={solvedPoints} label="Problems solved" />
+              <TrendChart
+                points={solvedPoints}
+                label="Problems solved"
+                color={BOARD_ACCENT["problem-solving"]}
+              />
             ) : (
               <Empty>The growth chart appears after a few days of daily snapshots.</Empty>
             )}
@@ -284,7 +326,12 @@ export default async function ProfilePage({
         )}
       </Lane>
 
-      <Lane title="Contests" ranks={ranks.contests} hidden={hidden}>
+      <Lane
+        title="Contests"
+        ranks={ranks.contests}
+        hidden={hidden}
+        accent={BOARD_ACCENT.contests}
+      >
         {typeof lc?.rating !== "number" ? (
           <Empty>
             No LeetCode contest rating yet. It appears after the first contest.
@@ -341,7 +388,12 @@ export default async function ProfilePage({
         )}
       </Lane>
 
-      <Lane title="GitHub" ranks={ranks.github} hidden={hidden}>
+      <Lane
+        title="GitHub"
+        ranks={ranks.github}
+        hidden={hidden}
+        accent={BOARD_ACCENT.github}
+      >
         {!gh ? (
           <Empty>No GitHub data yet. It appears after the next refresh.</Empty>
         ) : (
@@ -369,8 +421,11 @@ export default async function ProfilePage({
                     <li key={l.name} className="flex items-center gap-3 text-sm">
                       <span className="w-28 shrink-0 truncate">{l.name}</span>
                       <span
-                        className="bg-foreground h-2 rounded-full"
-                        style={{ width: `${(l.repos / maxRepos) * 60}%` }}
+                        className="h-2 rounded-full"
+                        style={{
+                          width: `${(l.repos / maxRepos) * 60}%`,
+                          background: BOARD_ACCENT.github,
+                        }}
                       />
                       <span className="text-muted-foreground tabular-nums">
                         {l.repos} {l.repos === 1 ? "repo" : "repos"}
