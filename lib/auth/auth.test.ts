@@ -35,15 +35,16 @@ describe("safeNext", () => {
 });
 
 describe("isProtectedPath", () => {
-  it("leaves the landing, login and auth routes public", () => {
+  it("leaves the landing, login, auth routes and leaderboards public", () => {
     expect(isProtectedPath("/")).toBe(false);
+    expect(isProtectedPath("/leaderboards/github")).toBe(false);
+    expect(isProtectedPath("/leaderboards/problem-solving")).toBe(false);
     expect(isProtectedPath("/login")).toBe(false);
     expect(isProtectedPath("/auth/callback")).toBe(false);
     expect(isProtectedPath("/auth/signout")).toBe(false);
   });
   it("protects every app page", () => {
     for (const p of [
-      "/leaderboards/github",
       "/students",
       "/students/abc",
       "/profile",
@@ -58,6 +59,7 @@ describe("isProtectedPath", () => {
   it("does not treat lookalike public prefixes as public", () => {
     expect(isProtectedPath("/loginx")).toBe(true);
     expect(isProtectedPath("/authority")).toBe(true);
+    expect(isProtectedPath("/leaderboardsx")).toBe(true);
   });
 });
 
