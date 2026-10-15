@@ -10,7 +10,7 @@ const DIFFICULTY_COLOR = {
 } as const;
 
 /** Stacked bar of easy, medium and hard solves. */
-function DifficultyBar({
+export function DifficultyBar({
   easy,
   medium,
   hard,
@@ -38,7 +38,7 @@ function DifficultyBar({
 }
 
 /** A track with a marker: the further right, the better the percentile. */
-function PercentileGauge({ top, color }: { top: number; color: string }) {
+export function PercentileGauge({ top, color }: { top: number; color: string }) {
   const position = percentileMarker(top);
   return (
     <div
@@ -59,7 +59,7 @@ function PercentileGauge({ top, color }: { top: number; color: string }) {
 }
 
 /** Twelve weekly contribution totals. */
-function WeeklyBars({ totals, color }: { totals: number[]; color: string }) {
+export function WeeklyBars({ totals, color }: { totals: number[]; color: string }) {
   if (totals.length < 2) return null;
   const max = Math.max(1, ...totals);
   return (
