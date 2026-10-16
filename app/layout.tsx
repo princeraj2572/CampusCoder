@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import { Suspense } from "react";
 import { AuthLinks } from "@/components/auth-links";
-import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader, SiteHeaderFallback } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </SiteHeader>
           </Suspense>
           {children}
-          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
