@@ -39,6 +39,8 @@ describe("isProtectedPath", () => {
     expect(isProtectedPath("/")).toBe(false);
     expect(isProtectedPath("/leaderboards/github")).toBe(false);
     expect(isProtectedPath("/leaderboards/problem-solving")).toBe(false);
+    expect(isProtectedPath("/privacy")).toBe(false);
+    expect(isProtectedPath("/terms")).toBe(false);
     expect(isProtectedPath("/login")).toBe(false);
     expect(isProtectedPath("/auth/callback")).toBe(false);
     expect(isProtectedPath("/auth/signout")).toBe(false);
@@ -60,6 +62,7 @@ describe("isProtectedPath", () => {
     expect(isProtectedPath("/loginx")).toBe(true);
     expect(isProtectedPath("/authority")).toBe(true);
     expect(isProtectedPath("/leaderboardsx")).toBe(true);
+    expect(isProtectedPath("/privacy-settings")).toBe(true);
   });
 });
 
