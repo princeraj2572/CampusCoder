@@ -25,15 +25,15 @@ export function initials(name: string): string {
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-sm text-white/55">{label}</dt>
-      <dd className="mt-0.5 text-base font-medium text-white">{children}</dd>
+      <dt className="text-sm text-black/55 dark:text-white/55">{label}</dt>
+      <dd className="mt-0.5 text-base font-medium">{children}</dd>
     </div>
   );
 }
 
 function Chip({ children, color }: { children: React.ReactNode; color: string }) {
   return (
-    <li className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur">
+    <li className="flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] px-3 py-1 text-sm font-medium backdrop-blur dark:border-white/20 dark:bg-white/10">
       <span
         aria-hidden="true"
         className="size-2 rounded-full"
@@ -68,14 +68,12 @@ export function ProfileCard({
 
   return (
     <section
-      className="relative overflow-hidden rounded-3xl border border-white/10 p-6 text-white shadow-[0_24px_60px_-28px_rgba(0,0,0,0.7)] sm:p-8"
+      className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] [--glow:15%] sm:p-8 dark:border-white/15 dark:bg-[#10151f] dark:text-white dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)] dark:[--glow:34%]"
       style={{
-        backgroundColor: "#0b0f17",
         backgroundImage: [
-          "radial-gradient(60% 90% at 0% 0%, rgba(232,118,10,0.38), transparent 60%)",
-          "radial-gradient(55% 80% at 100% 0%, rgba(26,154,82,0.30), transparent 60%)",
-          "radial-gradient(60% 80% at 100% 100%, rgba(31,127,194,0.30), transparent 60%)",
-          "linear-gradient(180deg, #141b29 0%, #0b0f17 100%)",
+          "radial-gradient(60% 90% at 0% 0%, color-mix(in oklab, var(--board-dsa) var(--glow), transparent), transparent 60%)",
+          "radial-gradient(55% 80% at 100% 0%, color-mix(in oklab, var(--board-github) var(--glow), transparent), transparent 60%)",
+          "radial-gradient(60% 80% at 100% 100%, color-mix(in oklab, var(--brand-codeforces) var(--glow), transparent), transparent 60%)",
         ].join(", "),
       }}
     >
@@ -95,7 +93,7 @@ export function ProfileCard({
             <h1 className="numeral text-5xl leading-none font-extrabold sm:text-6xl">
               {student.fullName}
             </h1>
-            <span className="rounded-full bg-white/90 p-0.5 empty:hidden">
+            <span className="rounded-full p-0.5 empty:hidden dark:bg-white/90">
               <TierChip rating={contestRating} />
             </span>
           </div>
@@ -114,7 +112,7 @@ export function ProfileCard({
         </div>
       </div>
 
-      <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/10 pt-6 sm:grid-cols-3">
+      <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-black/10 pt-6 sm:grid-cols-3 dark:border-white/10">
         <Fact label="Year">{yearLabel}</Fact>
         <Fact label="Joined">{student.admissionYear}</Fact>
         <Fact label="Section">{student.section || "–"}</Fact>
@@ -129,7 +127,7 @@ export function ProfileCard({
           <>
             <Fact label="Google account">
               {ownerEmail ?? "–"}
-              <span className="block text-xs font-normal text-white/50">
+              <span className="block text-xs font-normal text-black/50 dark:text-white/50">
                 Only you can see this.
               </span>
             </Fact>
@@ -138,8 +136,10 @@ export function ProfileCard({
         )}
       </dl>
 
-      <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6">
-        <h2 className="text-sm font-medium text-white/70">Coding accounts</h2>
+      <div className="mt-6 flex flex-col gap-3 border-t border-black/10 pt-6 dark:border-white/10">
+        <h2 className="text-sm font-medium text-black/65 dark:text-white/70">
+          Coding accounts
+        </h2>
         <ul className="grid gap-3 sm:grid-cols-2">
           {connected.map((p) => {
             const a = byPlatform.get(p)!;
@@ -150,7 +150,7 @@ export function ProfileCard({
             return (
               <li
                 key={p}
-                className="relative flex flex-col gap-0.5 overflow-hidden rounded-xl border bg-white/[0.06] py-3 pr-4 pl-5 backdrop-blur"
+                className="relative flex flex-col gap-0.5 overflow-hidden rounded-xl border bg-black/[0.03] py-3 pr-4 pl-5 backdrop-blur dark:bg-white/[0.06]"
                 style={{ borderColor: `color-mix(in oklab, ${brand} 55%, transparent)` }}
               >
                 <span
@@ -165,11 +165,13 @@ export function ProfileCard({
                   href={PROFILE_URL[p](a.username)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="truncate text-base font-medium text-white underline-offset-4 hover:underline"
+                  className="truncate text-base font-medium underline-offset-4 hover:underline"
                 >
                   {a.username}
                 </a>
-                <span className="text-xs text-white/50">{updated}</span>
+                <span className="text-xs text-black/50 dark:text-white/50">
+                  {updated}
+                </span>
               </li>
             );
           })}
