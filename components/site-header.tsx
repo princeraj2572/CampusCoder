@@ -3,17 +3,39 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import {
+  BranchIcon,
+  CloseIcon,
+  CodeIcon,
+  MenuIcon,
+  TrophyIcon,
+  UsersIcon,
+} from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const BOARDS = [
-  { href: "/leaderboards/problem-solving", label: "DSA" },
-  { href: "/leaderboards/contests", label: "Contests" },
-  { href: "/leaderboards/github", label: "GitHub" },
+  {
+    href: "/leaderboards/problem-solving",
+    label: "DSA",
+    Icon: CodeIcon,
+    color: "var(--board-dsa)",
+  },
+  {
+    href: "/leaderboards/contests",
+    label: "Contests",
+    Icon: TrophyIcon,
+    color: "var(--board-contests)",
+  },
+  {
+    href: "/leaderboards/github",
+    label: "GitHub",
+    Icon: BranchIcon,
+    color: "var(--board-github)",
+  },
 ];
 
 const focus = "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
-const linkClass = `rounded-md px-3 py-1.5 text-sm ${focus}`;
-const idle = "text-muted-foreground hover:text-foreground";
+const idle = "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.06]";
 
 /** Three bars, second place on the left and third on the right of the leader. */
 function Mark() {
@@ -32,40 +54,29 @@ function Mark() {
   );
 }
 
-function MenuIcon({ open }: { open: boolean }) {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      aria-hidden="true"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    >
-      {open ? <path d="M4 4l12 12M16 4L4 16" /> : <path d="M3 6h14M3 10h14M3 14h14" />}
-    </svg>
-  );
-}
-
 /** Reads the current path; must sit inside a Suspense boundary (see SiteHeaderFallback). */
-export function SiteHeader({ children }: { children?: React.ReactNode }) {
-  return <HeaderView pathname={usePathname()}>{children}</HeaderView>;
+export function SiteHeader(props: HeaderSlots) {
+  return <HeaderView pathname={usePathname()} {...props} />;
 }
 
 /** Same header without the active-tab highlight, shown while the path is unknown. */
-export function SiteHeaderFallback({ children }: { children?: React.ReactNode }) {
-  return <HeaderView pathname={null}>{children}</HeaderView>;
+export function SiteHeaderFallback(props: HeaderSlots) {
+  return <HeaderView pathname={null} {...props} />;
+}
+
+interface HeaderSlots {
+  /** Compact account area for the bar (server-rendered). */
+  authBar?: React.ReactNode;
+  /** Roomy account area for the phone menu (server-rendered). */
+  authMenu?: React.ReactNode;
 }
 
 function HeaderView({
   pathname,
-  children,
-}: {
+  authBar,
+  authMenu,
+}: HeaderSlots & {
   pathname: string | null;
-  /** The sign-in or profile links; rendered once in the bar and once in the phone menu. */
-  children?: React.ReactNode;
 }) {
   // The menu is open only for the page it was opened on, so navigating closes it.
   const [openFor, setOpenFor] = useState<string | null>(null);
@@ -78,33 +89,44 @@ function HeaderView({
         if (e.key === "Escape") setOpenFor(null);
       }}
     >
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
-        <Link href="/" className={`flex items-center gap-2 rounded-md ${focus}`}>
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
+        <Link href="/" className={`mr-1 flex items-center gap-2 rounded-md ${focus}`}>
           <Mark />
           <span className="numeral text-xl font-extrabold">CampusCoders</span>
         </Link>
 
         <nav aria-label="Leaderboards" className="hidden items-center gap-1 md:flex">
-          {BOARDS.map((b) => {
-            const active = pathname === b.href;
+          {BOARDS.map(({ href, label, Icon, color }) => {
+            const active = pathname === href;
             return (
               <Link
-                key={b.href}
-                href={b.href}
+                key={href}
+                href={href}
                 aria-current={active ? "page" : undefined}
-                className={`${linkClass} ${active ? "bg-foreground text-background font-medium" : idle}`}
+                className={`flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium transition-colors ${focus} ${active ? "" : idle}`}
+                style={
+                  active ? { background: color, color: "var(--on-board)" } : undefined
+                }
               >
-                {b.label}
+                <Icon size={16} style={active ? undefined : { color }} />
+                {label}
               </Link>
             );
           })}
         </nav>
 
-        <div className="ml-auto hidden items-center gap-1 md:flex">
-          <Link href="/students" className={`${linkClass} ${idle}`}>
+        <div className="ml-auto hidden items-center gap-1.5 md:flex">
+          <Link
+            href="/students"
+            className={`flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium ${focus} ${
+              pathname?.startsWith("/students") ? "bg-foreground/10" : idle
+            }`}
+          >
+            <UsersIcon size={16} />
             Students
           </Link>
-          {children}
+          <span aria-hidden="true" className="bg-border mx-1 h-6 w-px" />
+          {authBar}
           <ThemeToggle />
         </div>
 
@@ -117,9 +139,9 @@ function HeaderView({
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpenFor(open ? null : pathname)}
             disabled={pathname === null}
-            className={`text-foreground hover:bg-foreground/10 rounded-md p-2 ${focus}`}
+            className={`text-foreground hover:bg-foreground/10 rounded-lg p-2 ${focus}`}
           >
-            <MenuIcon open={open} />
+            {open ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
           </button>
         </div>
       </div>
@@ -128,26 +150,36 @@ function HeaderView({
         <div id="mobile-menu" className="border-border bg-background border-t md:hidden">
           <nav
             aria-label="Menu"
-            className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 [&_a]:block [&_a]:px-3 [&_a]:py-2.5 [&_a]:text-base [&_button]:block [&_button]:w-full [&_button]:px-3 [&_button]:py-2.5 [&_button]:text-left [&_button]:text-base"
+            className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3"
           >
-            {BOARDS.map((b) => {
-              const active = pathname === b.href;
+            {BOARDS.map(({ href, label, Icon, color }) => {
+              const active = pathname === href;
               return (
                 <Link
-                  key={b.href}
-                  href={b.href}
+                  key={href}
+                  href={href}
                   aria-current={active ? "page" : undefined}
-                  className={`${linkClass} ${active ? "bg-foreground text-background font-medium" : idle}`}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium ${focus} ${active ? "" : idle}`}
+                  style={
+                    active ? { background: color, color: "var(--on-board)" } : undefined
+                  }
                 >
-                  {b.label}
+                  <Icon size={20} style={active ? undefined : { color }} />
+                  {label}
                 </Link>
               );
             })}
-            <Link href="/students" className={`${linkClass} ${idle}`}>
+            <Link
+              href="/students"
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium ${focus} ${
+                pathname?.startsWith("/students") ? "bg-foreground/10" : idle
+              }`}
+            >
+              <UsersIcon size={20} />
               Students
             </Link>
             <div className="border-border my-1 border-t" />
-            {children}
+            {authMenu}
           </nav>
         </div>
       )}
