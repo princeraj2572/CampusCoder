@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { HeroPreview } from "@/components/hero-preview";
 import { LandingCta, LandingCtaFallback } from "@/components/landing-cta";
+import { LandingFooter } from "@/components/landing-footer";
+import { HeroSkeleton, LiveHero } from "@/components/live-hero";
+import { LiveStats } from "@/components/live-stats";
+import { ProfileCard } from "@/components/profile-card";
 import { DifficultyBar, PercentileGauge, WeeklyBars } from "@/components/row-graphic";
+import { StatCards } from "@/components/stat-cards";
 import { TierChip } from "@/components/tier-chip";
+import { PLATFORM_BRAND } from "@/lib/boards/theme";
 
 const BOARDS = [
   {
@@ -35,13 +40,13 @@ const BOARDS = [
 ];
 
 const TIERS = [
-  { rating: 1300, from: "Under 1400" },
-  { rating: 1400, from: "1400" },
-  { rating: 1600, from: "1600" },
-  { rating: 1800, from: "1800" },
-  { rating: 2000, from: "2000" },
-  { rating: 2200, from: "2200" },
-  { rating: 2400, from: "2400+" },
+  { rating: 1300, from: "Under 1400", height: 56 },
+  { rating: 1400, from: "1400", height: 80 },
+  { rating: 1600, from: "1600", height: 104 },
+  { rating: 1800, from: "1800", height: 128 },
+  { rating: 2000, from: "2000", height: 152 },
+  { rating: 2200, from: "2200", height: 176 },
+  { rating: 2400, from: "2400+", height: 200 },
 ];
 
 const STEPS = [
@@ -59,194 +64,392 @@ const STEPS = [
   },
 ];
 
-const PLATFORMS = ["LeetCode", "Codeforces", "CodeChef", "GitHub"];
+const PLATFORMS = [
+  { name: "LeetCode", color: PLATFORM_BRAND.leetcode },
+  { name: "Codeforces", color: PLATFORM_BRAND.codeforces },
+  { name: "CodeChef", color: PLATFORM_BRAND.codechef },
+  { name: "GitHub", color: PLATFORM_BRAND.github },
+];
+
+const PERKS = [
+  {
+    color: "var(--board-dsa)",
+    title: "Every account in one place",
+    text: "LeetCode, Codeforces, CodeChef and GitHub, each in its own colours.",
+  },
+  {
+    color: "var(--board-contests)",
+    title: "Your contest story",
+    text: "Rating chart, tier and your last contests, with the wins in green.",
+  },
+  {
+    color: "var(--board-github)",
+    title: "A year of activity",
+    text: "A contribution heatmap, streaks and your most-used languages.",
+  },
+];
+
+// A fictional student for the showcase. The clock is fixed so this page stays static.
+const SAMPLE_NOW = new Date("2026-10-07T10:00:00Z");
+const SAMPLE_STUDENT = {
+  id: "sample",
+  fullName: "Aarav Singh",
+  admissionYear: 2024,
+  yearOverride: null,
+  section: "A",
+  primaryDomain: "dsa_cp" as const,
+  secondaryDomains: ["web_dev" as const, "ai_ml" as const],
+  optOut: false,
+  authUserId: null,
+  createdAt: "2026-08-12T10:00:00Z",
+};
+const SAMPLE_ACCOUNTS = [
+  { platform: "leetcode", username: "aarav_s", lastUpdated: "2026-10-07T09:46:00Z" },
+  { platform: "github", username: "aarav-s", lastUpdated: "2026-10-07T09:46:00Z" },
+  { platform: "codeforces", username: "aarav_cf", lastUpdated: "2026-10-07T09:46:00Z" },
+];
+
+/** Soft coloured glows used behind the hero and the closing panel. */
+function Glows({ strong = false }: { strong?: boolean }) {
+  const a = strong ? 38 : 22;
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+      <div
+        className="absolute -top-24 -left-24 h-[28rem] w-[28rem] rounded-full blur-3xl"
+        style={{ background: `color-mix(in oklab, var(--board-dsa) ${a}%, transparent)` }}
+      />
+      <div
+        className="absolute top-10 -right-32 h-[26rem] w-[26rem] rounded-full blur-3xl"
+        style={{
+          background: `color-mix(in oklab, var(--board-contests) ${a}%, transparent)`,
+        }}
+      />
+      <div
+        className="absolute -bottom-32 left-1/3 h-[24rem] w-[24rem] rounded-full blur-3xl"
+        style={{
+          background: `color-mix(in oklab, var(--board-github) ${a - 6}%, transparent)`,
+        }}
+      />
+    </div>
+  );
+}
 
 export default function LandingPage() {
   return (
-    <main className="overflow-x-clip">
-      {/* Hero */}
-      <section className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:py-20">
-        <div className="flex flex-col gap-6">
-          <p className="bg-foreground/[0.06] w-fit rounded-full px-3 py-1 text-sm font-medium">
-            For our department, by our department
-          </p>
-          <h1 className="numeral text-6xl leading-[0.88] font-extrabold sm:text-7xl lg:text-8xl">
-            Code.
-            <br />
-            Compete.
-            <br />
-            Climb.
-          </h1>
-          <p className="text-muted-foreground max-w-lg text-lg">
-            CampusCoders ranks the department on DSA, contests and GitHub, straight from
-            the platforms you already use. Find your name, chase the people above you, and
-            watch your streak grow.
-          </p>
-          <Suspense fallback={<LandingCtaFallback />}>
-            <LandingCta />
-          </Suspense>
-          <ul className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-            <li className="text-foreground font-medium">Pulls from</li>
-            {PLATFORMS.map((p) => (
-              <li key={p}>{p}</li>
-            ))}
-          </ul>
-        </div>
-        <HeroPreview />
-      </section>
-
-      {/* Three boards */}
-      <section id="boards" className="border-border border-t">
-        <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
-          <div className="mb-8 flex max-w-xl flex-col gap-2">
-            <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
-              Three boards, three ways to win
-            </h2>
-            <p className="text-muted-foreground">
-              Strong at problem solving, contests or open source? Each board ranks one
-              thing, so everyone has somewhere to shine.
-            </p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {BOARDS.map((b) => (
-              <Link
-                key={b.title}
-                href={b.href}
-                className="group border-border bg-foreground/[0.03] hover:bg-foreground/[0.06] focus-visible:ring-ring relative flex flex-col gap-4 overflow-hidden rounded-2xl border p-5 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+    <>
+      <main className="overflow-x-clip">
+        {/* Hero */}
+        <div className="relative">
+          <Glows />
+          <section className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16">
+            <div className="flex flex-col gap-6">
+              <p className="border-border bg-background/70 w-fit rounded-full border px-3 py-1 text-sm font-medium backdrop-blur">
+                For our department, by our department
+              </p>
+              <h1 className="numeral text-6xl leading-[0.88] font-extrabold sm:text-7xl lg:text-8xl">
+                Code<span style={{ color: "var(--board-dsa)" }}>.</span>
+                <br />
+                Compete<span style={{ color: "var(--board-contests)" }}>.</span>
+                <br />
+                Climb<span style={{ color: "var(--board-github)" }}>.</span>
+              </h1>
+              <p className="text-muted-foreground max-w-lg text-lg">
+                CampusCoders ranks the department on DSA, contests and GitHub, straight
+                from the platforms you already use. Find your name, chase the people above
+                you, and watch your streak grow.
+              </p>
+              <Suspense fallback={<LandingCtaFallback />}>
+                <LandingCta />
+              </Suspense>
+              <ul
+                className="flex flex-wrap items-center gap-2 text-sm"
+                aria-label="Pulls data from"
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1.5"
-                  style={{ background: b.color }}
-                />
-                <h3
-                  className="numeral text-4xl leading-none font-extrabold"
-                  style={{ color: b.color }}
+                {PLATFORMS.map((p) => (
+                  <li
+                    key={p.name}
+                    className="border-border bg-background/70 flex items-center gap-2 rounded-full border px-3 py-1 backdrop-blur"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="size-2 rounded-full"
+                      style={{ background: p.color }}
+                    />
+                    {p.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Suspense fallback={<HeroSkeleton />}>
+              <LiveHero />
+            </Suspense>
+          </section>
+        </div>
+
+        <Suspense fallback={null}>
+          <LiveStats />
+        </Suspense>
+
+        {/* Three boards */}
+        <section id="boards" className="border-border border-t">
+          <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
+            <div className="mb-8 flex max-w-xl flex-col gap-2">
+              <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
+                Three boards, three ways to win
+              </h2>
+              <p className="text-muted-foreground">
+                Strong at problem solving, contests or open source? Each board ranks one
+                thing, so everyone has somewhere to shine.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {BOARDS.map((b) => (
+                <Link
+                  key={b.title}
+                  href={b.href}
+                  className="group border-border focus-visible:ring-ring relative flex flex-col gap-4 overflow-hidden rounded-2xl border p-5 transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+                  style={{
+                    backgroundImage: `linear-gradient(160deg, color-mix(in oklab, ${b.color} 14%, var(--background)) 0%, var(--background) 60%)`,
+                  }}
                 >
-                  {b.title}
-                </h3>
-                <p className="text-muted-foreground text-sm">{b.line}</p>
-                <div className="mt-auto pt-2">{b.graphic}</div>
-                <span className="text-sm font-medium underline-offset-4 group-hover:underline">
-                  Open the {b.title} board
-                </span>
-              </Link>
-            ))}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-1.5"
+                    style={{ background: b.color }}
+                  />
+                  <h3
+                    className="numeral text-5xl leading-none font-extrabold"
+                    style={{ color: b.color }}
+                  >
+                    {b.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm">{b.line}</p>
+                  <div className="mt-auto pt-2">{b.graphic}</div>
+                  <span className="text-sm font-medium underline-offset-4 group-hover:underline">
+                    Open the {b.title} board
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Tier ladder */}
-      <section className="border-border border-t">
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="flex flex-col gap-2">
-            <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
-              Level up your name
-            </h2>
-            <p className="text-muted-foreground">
-              Your LeetCode contest rating gives you a colour that follows you across
-              every board. Seven tiers, from Grey to Red. Which one will you wear?
-            </p>
-          </div>
-          <ol className="grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Rating tiers">
-            {TIERS.map((t) => (
-              <li
-                key={t.rating}
-                className="border-border bg-foreground/[0.03] flex flex-col items-start gap-2 rounded-xl border p-3"
-              >
-                <TierChip rating={t.rating} />
-                <span className="numeral text-2xl font-extrabold">{t.from}</span>
-              </li>
-            ))}
-            <li className="border-border text-muted-foreground flex flex-col justify-center rounded-xl border-2 border-dashed p-3 text-sm">
-              <span className="text-foreground font-display font-semibold">
-                Where will you land?
+        {/* Profile showcase */}
+        <section className="border-border bg-foreground/[0.025] border-t">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+            <div className="flex flex-col gap-6">
+              <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
+                A profile worth showing off
+              </h2>
+              <p className="text-muted-foreground max-w-md">
+                Sign in once and your whole coding story lives on one page, themed after
+                the platforms you use.
+              </p>
+              <ul className="flex flex-col gap-4">
+                {PERKS.map((p) => (
+                  <li key={p.title} className="flex gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-1.5 h-8 w-1.5 shrink-0 rounded-full"
+                      style={{ background: p.color }}
+                    />
+                    <span className="flex flex-col">
+                      <span className="font-display font-semibold">{p.title}</span>
+                      <span className="text-muted-foreground text-sm">{p.text}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative">
+              <span className="bg-foreground text-background absolute -top-3 right-3 z-10 rotate-2 rounded-full px-3 py-1 text-xs font-semibold">
+                Sample profile
               </span>
-              Play a contest to find out.
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="border-border border-t">
-        <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
-          <h2 className="numeral mb-8 text-4xl leading-none font-extrabold sm:text-5xl">
-            Up and running in a minute
-          </h2>
-          <ol className="grid gap-4 md:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <li
-                key={s.title}
-                className="border-border bg-foreground/[0.03] flex gap-4 rounded-2xl border p-5"
-              >
-                <span className="numeral text-6xl leading-none font-extrabold opacity-30">
-                  {i + 1}
-                </span>
-                <div className="flex flex-col gap-1">
-                  <h3 className="font-display text-lg font-semibold">{s.title}</h3>
-                  <p className="text-muted-foreground text-sm">{s.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* Privacy */}
-      <section className="border-border border-t">
-        <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
-          <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
-            Your data, your call
-          </h2>
-          <ul className="text-muted-foreground flex flex-col gap-3">
-            <li>
-              <span className="text-foreground font-medium">What is public.</span> The
-              leaderboards show your name, year, domain and scores. Profiles with your
-              account details need a sign-in.
-            </li>
-            <li>
-              <span className="text-foreground font-medium">What stays private.</span>{" "}
-              Your Google email is only ever shown to you.
-            </li>
-            <li>
-              <span className="text-foreground font-medium">You are in control.</span>{" "}
-              Hide yourself from the boards, change your details or delete everything, any
-              time.
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Closing call to action */}
-      <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:pb-16">
-        <div className="bg-foreground text-background relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl p-7 sm:p-10">
-          <div
-            aria-hidden="true"
-            className="absolute top-0 right-0 flex h-full gap-1 opacity-90"
-          >
-            <span className="w-3 sm:w-4" style={{ background: "var(--board-dsa)" }} />
-            <span
-              className="w-3 sm:w-4"
-              style={{ background: "var(--board-contests)" }}
-            />
-            <span className="w-3 sm:w-4" style={{ background: "var(--board-github)" }} />
+              <div className="flex flex-col gap-3">
+                <ProfileCard
+                  student={SAMPLE_STUDENT}
+                  yearLabel="3rd year"
+                  contestRating={1890}
+                  accounts={SAMPLE_ACCOUNTS}
+                  now={SAMPLE_NOW}
+                />
+                <StatCards
+                  items={[
+                    { label: "Problems solved", value: 462, color: "var(--board-dsa)" },
+                    { label: "Contest rating", value: 1890, color: "var(--tier-blue)" },
+                    {
+                      label: "GitHub contributions",
+                      value: 928,
+                      color: "var(--board-github)",
+                    },
+                    { label: "Best rank", value: "#1", color: "var(--medal-gold)" },
+                  ]}
+                />
+              </div>
+            </div>
           </div>
-          <h2 className="numeral max-w-xl text-5xl leading-[0.95] font-extrabold sm:text-6xl">
-            Your rank is waiting.
-          </h2>
-          <p className="max-w-md opacity-80">
-            Join the board and find out where you stand. It takes a minute, and the first
-            refresh fills in the rest.
-          </p>
-          <Link
-            href="/login"
-            className="bg-background text-foreground hover:bg-background/90 focus-visible:ring-ring inline-flex h-10 items-center rounded-lg px-5 text-sm font-medium focus-visible:ring-2 focus-visible:outline-none"
+        </section>
+
+        {/* Tier ladder */}
+        <section className="border-border border-t">
+          <div className="mx-auto grid w-full max-w-6xl items-end gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
+            <div className="flex flex-col gap-2 lg:self-center">
+              <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
+                Level up your name
+              </h2>
+              <p className="text-muted-foreground max-w-md">
+                Your LeetCode contest rating gives you a colour that follows you across
+                every board. Seven steps, from Grey to Red. Which one will you stand on?
+              </p>
+            </div>
+
+            <ol aria-label="Rating tiers" className="hidden items-end gap-2 sm:flex">
+              {TIERS.map((t) => (
+                <li key={t.rating} className="flex flex-1 flex-col items-center gap-2">
+                  <TierChip rating={t.rating} />
+                  <span
+                    className="w-full rounded-t-lg"
+                    style={{
+                      height: t.height,
+                      background: `linear-gradient(180deg, var(--tier-${
+                        t.rating < 1400
+                          ? "grey"
+                          : t.rating < 1600
+                            ? "green"
+                            : t.rating < 1800
+                              ? "cyan"
+                              : t.rating < 2000
+                                ? "blue"
+                                : t.rating < 2200
+                                  ? "violet"
+                                  : t.rating < 2400
+                                    ? "orange"
+                                    : "red"
+                      }), color-mix(in oklab, var(--background) 70%, transparent))`,
+                    }}
+                  />
+                  <span className="numeral text-lg font-extrabold">{t.from}</span>
+                </li>
+              ))}
+            </ol>
+            <ol aria-label="Rating tiers" className="grid grid-cols-2 gap-3 sm:hidden">
+              {TIERS.map((t) => (
+                <li
+                  key={t.rating}
+                  className="border-border bg-foreground/[0.03] flex flex-col items-start gap-2 rounded-xl border p-3"
+                >
+                  <TierChip rating={t.rating} />
+                  <span className="numeral text-2xl font-extrabold">{t.from}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="border-border bg-foreground/[0.025] border-t">
+          <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
+            <h2 className="numeral mb-8 text-4xl leading-none font-extrabold sm:text-5xl">
+              Up and running in a minute
+            </h2>
+            <ol className="grid gap-4 md:grid-cols-3">
+              {STEPS.map((s, i) => (
+                <li
+                  key={s.title}
+                  className="border-border bg-background flex gap-4 rounded-2xl border p-5"
+                >
+                  <span
+                    className="numeral text-6xl leading-none font-extrabold"
+                    style={{
+                      color: [
+                        "var(--board-dsa)",
+                        "var(--board-contests)",
+                        "var(--board-github)",
+                      ][i],
+                    }}
+                  >
+                    {i + 1}
+                  </span>
+                  <div className="flex flex-col gap-1">
+                    <h3 className="font-display text-lg font-semibold">{s.title}</h3>
+                    <p className="text-muted-foreground text-sm">{s.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* Privacy */}
+        <section className="border-border border-t">
+          <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
+            <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
+              Your data, your call
+            </h2>
+            <ul className="text-muted-foreground flex flex-col gap-3">
+              <li>
+                <span className="text-foreground font-medium">What is public.</span> The
+                leaderboards show your name, year, domain and scores. Profiles with your
+                account details need a sign-in.
+              </li>
+              <li>
+                <span className="text-foreground font-medium">What stays private.</span>{" "}
+                Your Google email is only ever shown to you.
+              </li>
+              <li>
+                <span className="text-foreground font-medium">You are in control.</span>{" "}
+                Hide yourself from the boards, change your details or delete everything,
+                any time. Read the{" "}
+                <Link
+                  href="/privacy"
+                  className="text-foreground underline underline-offset-4"
+                >
+                  Privacy Policy
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="/terms"
+                  className="text-foreground underline underline-offset-4"
+                >
+                  Terms
+                </Link>
+                .
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Closing call to action */}
+        <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:pb-16">
+          <div
+            className="relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl border border-white/10 p-7 text-white sm:p-10"
+            style={{
+              backgroundColor: "#0b0f17",
+              backgroundImage: [
+                "radial-gradient(60% 90% at 0% 0%, rgba(232,118,10,0.42), transparent 60%)",
+                "radial-gradient(55% 80% at 100% 0%, rgba(122,77,240,0.38), transparent 60%)",
+                "radial-gradient(60% 80% at 60% 120%, rgba(26,154,82,0.34), transparent 60%)",
+                "linear-gradient(180deg, #141b29 0%, #0b0f17 100%)",
+              ].join(", "),
+            }}
           >
-            Sign in with Google
-          </Link>
-        </div>
-      </section>
-    </main>
+            <h2 className="numeral max-w-xl text-5xl leading-[0.95] font-extrabold sm:text-6xl">
+              Your rank is waiting.
+            </h2>
+            <p className="max-w-md text-white/75">
+              Join the board and find out where you stand. It takes a minute, and the
+              first refresh fills in the rest.
+            </p>
+            <Link
+              href="/login"
+              className="inline-flex h-10 items-center rounded-lg bg-white px-5 text-sm font-semibold text-[#0b0f17] transition-colors hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
+            >
+              Sign in with Google
+            </Link>
+          </div>
+        </section>
+      </main>
+      <LandingFooter />
+    </>
   );
 }

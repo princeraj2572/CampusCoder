@@ -95,7 +95,9 @@ export function ProfileCard({
             <h1 className="numeral text-5xl leading-none font-extrabold sm:text-6xl">
               {student.fullName}
             </h1>
-            <TierChip rating={contestRating} />
+            <span className="rounded-full bg-white/90 p-0.5 empty:hidden">
+              <TierChip rating={contestRating} />
+            </span>
           </div>
           <ul className="flex flex-wrap gap-2">
             <Chip color="var(--board-dsa)">{yearLabel}</Chip>
