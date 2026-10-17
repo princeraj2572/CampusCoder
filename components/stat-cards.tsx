@@ -9,16 +9,16 @@ export interface StatCard {
 /** A row of headline numbers. Each card is one figure and one line of context. */
 export function StatCards({ items }: { items: StatCard[] }) {
   return (
-    <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <dl className="grid grid-cols-2 gap-3 [--tint:8%] lg:grid-cols-4 dark:[--tint:15%]">
       {items.map((item) => (
         <div
           key={item.label}
-          className="border-border relative flex flex-col gap-1 overflow-hidden rounded-xl border p-4 pt-5"
+          className="border-border relative flex flex-col gap-1 overflow-hidden rounded-2xl border p-4 pt-5"
           style={
             item.color
               ? {
                   borderColor: `color-mix(in oklab, ${item.color} 35%, transparent)`,
-                  backgroundColor: `color-mix(in oklab, ${item.color} 8%, transparent)`,
+                  backgroundColor: `color-mix(in oklab, ${item.color} var(--tint), transparent)`,
                 }
               : {
                   backgroundColor:

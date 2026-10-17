@@ -25,10 +25,10 @@ export function StandingCard({
   /** A slim one-row version for small screens, so the list is not pushed down. */
   compact?: boolean;
 }) {
-  const shell = `border-border bg-foreground/[0.03] flex flex-col gap-3 rounded-xl border p-4 ${className}`;
+  const shell = `border-border bg-foreground/[0.03] flex flex-col gap-3 rounded-2xl border p-4 ${className}`;
 
   if (compact) {
-    const slim = `border-border bg-foreground/[0.03] flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-xl border px-3 py-2.5 ${className}`;
+    const slim = `border-border bg-foreground/[0.03] flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-2xl border px-3 py-2.5 ${className}`;
     if (state.kind === "signed-out") {
       return (
         <section className={slim}>

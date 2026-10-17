@@ -103,7 +103,7 @@ export function BoardRow({
 
   return (
     <li
-      className={`group border-border bg-foreground/[0.03] hover:bg-foreground/[0.06] relative overflow-hidden rounded-xl border transition-colors ${shift ? "row-slide" : ""}`}
+      className={`group border-border bg-foreground/[0.03] hover:bg-foreground/[0.06] relative overflow-hidden rounded-2xl border transition-colors ${shift ? "row-slide" : ""}`}
       style={cardStyle}
     >
       <div

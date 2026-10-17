@@ -60,7 +60,7 @@ export function HeroPreview() {
         {SAMPLE.map((s) => (
           <li
             key={s.rank}
-            className="hero-in border-border bg-background flex items-center gap-3 rounded-xl border px-5 py-4 shadow-[0_6px_0_0_color-mix(in_oklab,var(--foreground)_10%,transparent)]"
+            className="hero-in border-border bg-background flex items-center gap-3 rounded-2xl border px-5 py-4 shadow-[0_6px_0_0_color-mix(in_oklab,var(--foreground)_10%,transparent)]"
             style={
               {
                 "--r": s.rotate,

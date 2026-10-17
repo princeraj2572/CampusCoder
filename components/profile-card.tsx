@@ -68,7 +68,7 @@ export function ProfileCard({
 
   return (
     <section
-      className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] [--glow:15%] sm:p-8 dark:border-white/15 dark:bg-[#10151f] dark:text-white dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)] dark:[--glow:34%]"
+      className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] [--glow:15%] sm:p-8 dark:border-white/15 dark:bg-[#161616] dark:text-white dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)] dark:[--glow:34%]"
       style={{
         backgroundImage: [
           "radial-gradient(60% 90% at 0% 0%, color-mix(in oklab, var(--board-dsa) var(--glow), transparent), transparent 60%)",
