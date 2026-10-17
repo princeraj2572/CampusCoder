@@ -4,7 +4,7 @@ import { Sparkline } from "@/components/sparkline";
 import { TierChip } from "@/components/tier-chip";
 import type { BoardRow as Row } from "@/lib/boards/build";
 import { BOARD_META, rowDetail, rowStats } from "@/lib/boards/meta";
-import { BOARD_ACCENT, medalColor, medalGradient } from "@/lib/boards/theme";
+import { BOARD_ACCENT, medalColor } from "@/lib/boards/theme";
 import { DOMAIN_LABELS } from "@/lib/registration/schema";
 import { ratingTier } from "@/lib/scoring/tier";
 import type { BoardId } from "@/lib/scoring/types";
@@ -68,7 +68,6 @@ export function BoardRow({
 }) {
   const { student } = row;
   const medal = medalColor(row.rank);
-  const gradient = medalGradient(row.rank);
   const accent = BOARD_ACCENT[board];
   const shift = row.movement ? Math.max(-8, Math.min(8, row.movement)) * ROW_PX : 0;
   const meta = [
@@ -91,9 +90,7 @@ export function BoardRow({
     ...(medal
       ? {
           borderColor: `color-mix(in oklab, ${medal} 70%, transparent)`,
-          backgroundColor: "var(--background)",
-          backgroundImage: `linear-gradient(100deg, color-mix(in oklab, ${medal} 26%, var(--background)) 0%, color-mix(in oklab, ${medal} 8%, var(--background)) 55%, var(--background) 100%)`,
-          boxShadow: `0 8px 20px -10px color-mix(in oklab, ${medal} 70%, transparent)`,
+          backgroundColor: `color-mix(in oklab, ${medal} 14%, var(--background))`,
         }
       : {}),
     ...(isMe && !medal
@@ -109,10 +106,10 @@ export function BoardRow({
       <div
         className={`flex items-center gap-2 px-3 sm:gap-3 sm:px-4 ${medal ? "py-4" : "py-3"}`}
       >
-        {gradient ? (
+        {medal ? (
           <span
-            className="numeral flex size-12 shrink-0 items-center justify-center rounded-full text-3xl leading-none font-extrabold text-[#1c1c1c] shadow-[inset_0_2px_0_rgba(255,255,255,0.75),0_5px_12px_-3px_rgba(0,0,0,0.35)] ring-2 ring-white/70 sm:size-14 sm:text-4xl"
-            style={{ background: gradient }}
+            className="numeral flex size-12 shrink-0 items-center justify-center rounded-full text-3xl leading-none font-extrabold text-[#1c1c1c] ring-2 ring-white/70 sm:size-14 sm:text-4xl"
+            style={{ background: medal }}
             aria-label={`Rank ${row.rank}`}
           >
             {row.rank}

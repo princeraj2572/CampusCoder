@@ -47,7 +47,7 @@ export function StudentCard({
     <li
       className="group border-border relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-4 transition-transform [--tint:12%] hover:-translate-y-0.5 dark:[--tint:20%]"
       style={{
-        backgroundImage: `linear-gradient(160deg, color-mix(in oklab, ${accent} var(--tint), var(--background)) 0%, var(--background) 65%)`,
+        backgroundColor: `color-mix(in oklab, ${accent} var(--tint), var(--background))`,
       }}
     >
       <span
@@ -60,7 +60,7 @@ export function StudentCard({
           aria-hidden="true"
           className="numeral flex size-12 shrink-0 items-center justify-center rounded-xl text-xl leading-none font-extrabold text-[#0b0f17]"
           style={{
-            background: `linear-gradient(135deg, color-mix(in oklab, ${accent} 55%, white) 0%, ${accent} 100%)`,
+            background: accent,
           }}
         >
           {initials(student.fullName)}

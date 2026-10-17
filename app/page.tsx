@@ -110,23 +110,6 @@ const SAMPLE_ACCOUNTS = [
   { platform: "codeforces", username: "aarav_cf", lastUpdated: "2026-10-07T09:46:00Z" },
 ];
 
-/** Soft coloured glows behind the hero: the same style and strength as the profile card. */
-function Glows() {
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -z-10 [--glow:16%] dark:[--glow:22%]"
-      style={{
-        backgroundImage: [
-          "radial-gradient(45% 75% at 0% 0%, color-mix(in oklab, var(--board-dsa) var(--glow), transparent), transparent 70%)",
-          "radial-gradient(45% 75% at 100% 5%, color-mix(in oklab, var(--board-contests) var(--glow), transparent), transparent 70%)",
-          "radial-gradient(50% 60% at 55% 100%, color-mix(in oklab, var(--board-github) 12%, transparent), transparent 70%)",
-        ].join(", "),
-      }}
-    />
-  );
-}
-
 export default function LandingPage() {
   return (
     <>
@@ -134,7 +117,6 @@ export default function LandingPage() {
         <LandingNav />
         {/* Hero */}
         <div className="relative isolate">
-          <Glows />
           <section
             id="live"
             className="mx-auto grid w-full max-w-6xl scroll-mt-28 items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16"
@@ -206,7 +188,7 @@ export default function LandingPage() {
                   href={b.href}
                   className="group border-border focus-visible:ring-ring relative flex flex-col gap-4 overflow-hidden rounded-2xl border p-5 transition-transform [--tint:14%] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none dark:[--tint:22%]"
                   style={{
-                    backgroundImage: `linear-gradient(160deg, color-mix(in oklab, ${b.color} var(--tint), var(--background)) 0%, var(--background) 60%)`,
+                    backgroundColor: `color-mix(in oklab, ${b.color} var(--tint), var(--background))`,
                   }}
                 >
                   <span
@@ -311,7 +293,7 @@ export default function LandingPage() {
                     className="w-full rounded-t-lg"
                     style={{
                       height: t.height,
-                      background: `linear-gradient(180deg, var(--tier-${
+                      background: `var(--tier-${
                         t.rating < 1400
                           ? "grey"
                           : t.rating < 1600
@@ -325,7 +307,7 @@ export default function LandingPage() {
                                   : t.rating < 2400
                                     ? "orange"
                                     : "red"
-                      }), color-mix(in oklab, var(--background) 70%, transparent))`,
+                      })`,
                     }}
                   />
                   <span className="numeral text-lg font-extrabold">{t.from}</span>
@@ -424,16 +406,7 @@ export default function LandingPage() {
 
         {/* Closing call to action */}
         <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:pb-16">
-          <div
-            className="relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl border border-white/15 bg-[#161616] p-7 text-white [--glow:34%] sm:p-10"
-            style={{
-              backgroundImage: [
-                "radial-gradient(60% 90% at 0% 0%, color-mix(in oklab, var(--board-dsa) var(--glow), transparent), transparent 60%)",
-                "radial-gradient(55% 80% at 100% 0%, color-mix(in oklab, var(--board-contests) var(--glow), transparent), transparent 60%)",
-                "radial-gradient(60% 80% at 60% 120%, color-mix(in oklab, var(--board-github) var(--glow), transparent), transparent 60%)",
-              ].join(", "),
-            }}
-          >
+          <div className="relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl border border-white/15 bg-[#161616] p-7 text-white sm:p-10">
             <h2 className="numeral max-w-xl text-5xl leading-[0.95] font-extrabold sm:text-6xl">
               Your rank is waiting.
             </h2>

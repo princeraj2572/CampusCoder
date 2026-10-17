@@ -69,7 +69,7 @@ export function HeroPreview() {
                 ...(s.medal
                   ? {
                       borderColor: `color-mix(in oklab, ${s.medal} 60%, transparent)`,
-                      backgroundImage: `linear-gradient(color-mix(in oklab, ${s.medal} 10%, var(--background)), color-mix(in oklab, ${s.medal} 10%, var(--background)))`,
+                      backgroundColor: `color-mix(in oklab, ${s.medal} 12%, var(--background))`,
                     }
                   : {}),
               } as React.CSSProperties

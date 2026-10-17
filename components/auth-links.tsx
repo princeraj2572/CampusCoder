@@ -44,10 +44,7 @@ export async function AuthLinks({ variant }: { variant: "bar" | "menu" }) {
     <span
       aria-hidden="true"
       className="numeral flex size-7 items-center justify-center rounded-full text-sm leading-none font-extrabold text-[#0b0f17]"
-      style={{
-        background:
-          "linear-gradient(135deg, var(--board-dsa) 0%, var(--board-contests) 55%, var(--board-github) 100%)",
-      }}
+      style={{ background: "var(--board-dsa)" }}
     >
       {mark}
     </span>
