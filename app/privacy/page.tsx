@@ -22,7 +22,7 @@ export default function PrivacyPage() {
     <LegalPage
       title="Privacy Policy"
       updated="7 October 2026"
-      intro="CampusCoders ranks our department on DSA, contests and GitHub. This page explains what we collect to do that, who can see it, and how you stay in control."
+      intro="CampusCoders ranks our students on DSA, contests and GitHub. This page explains what we collect to do that, who can see it, and how you stay in control."
       sections={[
         {
           heading: "What we collect",
