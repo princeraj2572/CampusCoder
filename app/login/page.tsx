@@ -30,9 +30,13 @@ export default async function LoginPage({
         accounts and manage your details.
       </p>
       {params.error && (
-        <p role="alert" className="text-danger text-sm">
-          Sign-in did not complete. Try again.
-        </p>
+        <div role="alert" className="text-danger flex flex-col gap-1 text-sm">
+          <p>Sign-in did not finish.</p>
+          <p className="text-muted-foreground">
+            This can happen the first time you join. Your account was probably created, so
+            press Continue with Google once more and pick the same account.
+          </p>
+        </div>
       )}
       <GoogleSignIn next={next} />
     </main>
