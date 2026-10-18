@@ -11,8 +11,8 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms and Conditions"
-      updated="7 October 2026"
-      intro="CampusCoders is a department project. By signing in or using it, you agree to these terms. They are short and meant to be read."
+      updated="8 October 2026"
+      intro="CampusCoders is a student project. By signing in or using it, you agree to these terms. They are short and meant to be read."
       sections={[
         {
           heading: "Who it is for",
