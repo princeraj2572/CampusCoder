@@ -12,15 +12,15 @@ export default function TermsPage() {
     <LegalPage
       title="Terms and Conditions"
       updated="8 October 2026"
-      intro="CampusCoders is a department project, built and run by a student. By signing in or using it, you agree to these terms. They are short and meant to be read."
+      intro="CampusCoders is a department project. By signing in or using it, you agree to these terms. They are short and meant to be read."
       sections={[
         {
           heading: "What this is",
           body: (
             <p>
-              CampusCoders is a student project made for our department. A student builds
-              and maintains it in their own time. It is not an official college or
-              university service, and it is not part of any course, exam or grading.
+              CampusCoders is a department project, built by a student for the
+              department&rsquo;s students. Scores and ranks are for motivation and
+              friendly competition. They are not part of any course, exam or grade.
             </p>
           ),
         },
