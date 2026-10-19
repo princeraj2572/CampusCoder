@@ -51,7 +51,7 @@ export default async function StudentsPage({
         <p className="text-muted-foreground text-sm">
           {students.length === 0
             ? "Nobody has registered yet."
-            : `${students.length} ${students.length === 1 ? "student" : "students"} on the campus, grouped by year.`}
+            : `${students.length} ${students.length === 1 ? "student" : "students"} in the department, grouped by year.`}
         </p>
       </header>
 

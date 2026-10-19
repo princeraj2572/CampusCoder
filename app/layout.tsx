@@ -15,7 +15,7 @@ const instrument = Instrument_Sans({ subsets: ["latin"], variable: "--font-instr
 
 export const metadata: Metadata = {
   title: "CampusCoders",
-  description: "Coding leaderboards for our campus",
+  description: "Coding leaderboards for our department",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

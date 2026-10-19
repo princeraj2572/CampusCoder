@@ -18,8 +18,9 @@ export default function TermsPage() {
           heading: "Who it is for",
           body: (
             <p>
-              CampusCoders is built for the students and faculty of our campus. Any Google
-              account can sign in, but please register only if you belong to the campus.
+              CampusCoders is built for our department&rsquo;s students and faculty. Any
+              Google account can sign in, but please register only if you belong to the
+              department.
             </p>
           ),
         },
