@@ -7,3 +7,13 @@ export function isProtectedPath(pathname: string): boolean {
   if (PUBLIC_PREFIXES.some((p) => pathname.startsWith(p))) return false;
   return true;
 }
+
+/** Pages that ask a signed-in student to agree to the current terms first. */
+export function isTermsGatedPath(pathname: string): boolean {
+  return (
+    pathname === "/profile" ||
+    pathname.startsWith("/profile/") ||
+    pathname === "/students" ||
+    pathname.startsWith("/students/")
+  );
+}

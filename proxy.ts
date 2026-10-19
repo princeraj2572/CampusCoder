@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { isProtectedPath } from "@/lib/auth/paths";
+import { isProtectedPath, isTermsGatedPath } from "@/lib/auth/paths";
+import { needsAgreement } from "@/lib/legal";
 import { parsePublicEnv } from "@/lib/env";
 
 /** Refreshes the Supabase session on every request and sends signed-out visitors to the login page. */
@@ -51,6 +52,21 @@ export async function proxy(request: NextRequest) {
     login.search = "";
     login.searchParams.set("next", pathname + search);
     return NextResponse.redirect(login);
+  }
+  // Students who have not agreed to the current terms are asked to, once.
+  if (user && isTermsGatedPath(pathname)) {
+    const { data: student } = await supabase
+      .from("students")
+      .select("terms_version")
+      .eq("auth_user_id", user.id)
+      .maybeSingle();
+    if (student && needsAgreement(student.terms_version)) {
+      const agree = request.nextUrl.clone();
+      agree.pathname = "/agree";
+      agree.search = "";
+      agree.searchParams.set("next", pathname + search);
+      return NextResponse.redirect(agree);
+    }
   }
   return response;
 }

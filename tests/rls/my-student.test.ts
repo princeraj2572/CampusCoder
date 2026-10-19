@@ -293,3 +293,37 @@ describe("delete_my_student", () => {
     expect((await anon.rpc("delete_my_student")).error).not.toBeNull();
   });
 });
+
+describe("accept_my_terms", () => {
+  it("refuses a signed-out caller", async () => {
+    const { error } = await anon.rpc("accept_my_terms", { version: "v-test" });
+    expect(error).not.toBeNull();
+  });
+
+  it("starts empty for a new record", async () => {
+    const row = await service
+      .from("students")
+      .select("terms_version, terms_accepted_at")
+      .eq("id", aStudentId)
+      .single();
+    expect(row.data).toEqual({ terms_version: null, terms_accepted_at: null });
+  });
+
+  it("records the version for the caller only", async () => {
+    const { error } = await a.client.rpc("accept_my_terms", { version: "v-test" });
+    expect(error).toBeNull();
+    const rows = await service
+      .from("students")
+      .select("id, terms_accepted_at")
+      .eq("terms_version", "v-test");
+    expect(rows.data?.map((r) => r.id)).toEqual([aStudentId]);
+    expect(rows.data?.[0].terms_accepted_at).not.toBeNull();
+  });
+
+  it("refuses someone who has not registered", async () => {
+    const stranger = await makeUser("stranger");
+    const { error } = await stranger.client.rpc("accept_my_terms", { version: "v-test" });
+    expect(error?.code).toBe("P0002");
+    await service.auth.admin.deleteUser(stranger.id);
+  });
+});
