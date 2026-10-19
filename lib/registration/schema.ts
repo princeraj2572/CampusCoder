@@ -122,7 +122,7 @@ export function makeRegistrationSchema(today: Date) {
     .object({
       ...detailsShape(today),
       consent: z.boolean().refine((v) => v === true, {
-        message: "Confirm you have read the note above",
+        message: "Agree to the Terms and Privacy Policy to continue",
       }),
     })
     .superRefine(checkDomains);
