@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -30,8 +31,10 @@ function GoogleLogo() {
 export function GoogleSignIn({ next }: { next: string }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [agreed, setAgreed] = useState(false);
 
   async function signIn() {
+    if (!agreed) return;
     setBusy(true);
     setError(null);
     const { error } = await createClient().auth.signInWithOAuth({
@@ -49,16 +52,48 @@ export function GoogleSignIn({ next }: { next: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
+      <label className="flex max-w-prose items-start gap-3 text-sm">
+        <input
+          type="checkbox"
+          checked={agreed}
+          onChange={(e) => setAgreed(e.target.checked)}
+          className="mt-0.5 size-4 shrink-0"
+        />
+        <span>
+          I have read and agree to the{" "}
+          <Link
+            href="/terms"
+            target="_blank"
+            className="text-foreground underline underline-offset-4"
+          >
+            Terms and Conditions
+          </Link>{" "}
+          and the{" "}
+          <Link
+            href="/privacy"
+            target="_blank"
+            className="text-foreground underline underline-offset-4"
+          >
+            Privacy Policy
+          </Link>
+          .
+        </span>
+      </label>
       <Button
         type="button"
         onClick={signIn}
-        disabled={busy}
+        disabled={busy || !agreed}
         className="h-11 w-fit gap-3 border border-black/15 bg-white px-5 text-base font-medium text-[#1f1f1f] hover:bg-white/90"
       >
         <GoogleLogo />
         {busy ? "Opening Google…" : "Continue with Google"}
       </Button>
+      {!agreed && (
+        <p className="text-muted-foreground text-sm">
+          Tick the box to continue. New here? Signing in with Google creates your account.
+        </p>
+      )}
       {error && (
         <p role="alert" className="text-danger text-sm">
           {error}
