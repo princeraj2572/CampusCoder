@@ -73,7 +73,9 @@ export async function fetchLeetCodeProfile(
     ranking: number | null;
     contest: { title: string; startTime: number };
   }[] = (data.userContestRankingHistory ?? []).filter(
-    (h: { attended: boolean }) => h.attended,
+    // LeetCode also lists contests someone only registered for as attended, with rank 0.
+    (h: { attended: boolean; ranking: number | null }) =>
+      h.attended && (h.ranking ?? 0) > 0,
   );
 
   let previous = 1500;

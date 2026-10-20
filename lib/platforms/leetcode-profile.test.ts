@@ -101,6 +101,63 @@ describe("fetchLeetCodeProfile", () => {
     expect(contests).toEqual([]);
   });
 
+  it("ignores contests LeetCode lists as attended but with rank 0 (registered, never took part)", async () => {
+    const phantom = (title: string, startTime: number) => ({
+      attended: true,
+      rating: 1500,
+      ranking: 0,
+      contest: { title, startTime },
+    });
+    const body = {
+      data: {
+        matchedUser: solved,
+        userContestRanking: null,
+        userContestRankingHistory: [
+          phantom("Weekly 520", 1790000000),
+          phantom("Weekly 521", 1790600000),
+        ],
+      },
+    };
+    const { stats, contests } = await fetchLeetCodeProfile("registered-only", {
+      fetchImpl: json(body),
+    });
+    expect(contests).toEqual([]);
+    expect(stats.rating).toBeNull();
+  });
+
+  it("keeps real contests when phantom ones are mixed into the history", async () => {
+    const body = {
+      data: {
+        matchedUser: solved,
+        userContestRanking: {
+          attendedContestsCount: 1,
+          rating: 1556.2,
+          globalRanking: 900,
+          totalParticipants: 5000,
+          topPercentage: 18,
+        },
+        userContestRankingHistory: [
+          {
+            attended: true,
+            rating: 1500,
+            ranking: 0,
+            contest: { title: "Registered only", startTime: 1790000000 },
+          },
+          {
+            attended: true,
+            rating: 1556.2,
+            ranking: 900,
+            contest: { title: "Took part", startTime: 1790600000 },
+          },
+        ],
+      },
+    };
+    const { contests } = await fetchLeetCodeProfile("mixed", { fetchImpl: json(body) });
+    expect(contests.map((c) => c.contestName)).toEqual(["Took part"]);
+    // The rating change is measured from the starting 1500, not from the skipped entry.
+    expect(contests[0]).toMatchObject({ ratingAfter: 1556, ratingChange: 56 });
+  });
+
   it("throws not-found when the user does not exist", async () => {
     const body = {
       errors: [{ message: "That user does not exist." }],
