@@ -4,7 +4,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-/** Runs a refresh of the most overdue accounts, then reloads the numbers on the page. */
+// Each request refreshes a small batch, so the button keeps asking until nothing is left.
+const MAX_ROUNDS = 40;
+
+type Batch = { picked?: number; succeeded?: number; failed?: number; error?: string };
+
+/** Refreshes every account that is due, batch after batch, then reloads the numbers on the page. */
 export function RefreshButton() {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -13,32 +18,45 @@ export function RefreshButton() {
   async function run() {
     setBusy(true);
     setMessage(null);
+    const since = new Date().toISOString();
+    let succeeded = 0;
+    let failed = 0;
     try {
-      const res = await fetch("/api/admin/refresh", { method: "POST" });
-      const body = (await res.json().catch(() => null)) as {
-        picked?: number;
-        succeeded?: number;
-        failed?: number;
-        error?: string;
-      } | null;
-      if (!res.ok || !body || body.picked === undefined) {
-        setMessage({ text: body?.error ?? "The refresh did not run.", ok: false });
-      } else if (body.picked === 0) {
-        setMessage({ text: "No accounts are due right now.", ok: true });
-      } else {
-        const failed = body.failed ?? 0;
+      for (let round = 0; round < MAX_ROUNDS; round++) {
+        const res = await fetch("/api/admin/refresh", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ since }),
+        });
+        const body = (await res.json().catch(() => null)) as Batch | null;
+        if (!res.ok || !body || body.picked === undefined) {
+          setMessage({ text: body?.error ?? "The refresh did not run.", ok: false });
+          return;
+        }
+        if (body.picked === 0) break;
+        succeeded += body.succeeded ?? 0;
+        failed += body.failed ?? 0;
         setMessage({
-          text: `Refreshed ${body.succeeded} of ${body.picked} accounts${
-            failed ? `, ${failed} failed (see below)` : ""
-          }.`,
-          ok: failed === 0,
+          text: `Refreshing… ${succeeded + failed} accounts done so far.`,
+          ok: true,
         });
       }
-      router.refresh();
+      const total = succeeded + failed;
+      setMessage(
+        total === 0
+          ? { text: "No accounts are due right now.", ok: true }
+          : {
+              text: `Refreshed ${succeeded} of ${total} accounts${
+                failed ? `, ${failed} failed (see below)` : ""
+              }.`,
+              ok: failed === 0,
+            },
+      );
     } catch {
       setMessage({ text: "Could not reach the server. Try again.", ok: false });
     } finally {
       setBusy(false);
+      router.refresh();
     }
   }
 

@@ -11,15 +11,23 @@ export const maxDuration = 60;
 const BATCH_SIZE = 8;
 
 /** Admin only: refresh the accounts that are most overdue, right now, instead of waiting for the schedule. */
-export async function POST() {
+export async function POST(request: Request) {
   if (!(await isAdmin())) {
     return NextResponse.json({ error: "Admins only." }, { status: 403 });
   }
+  // The page sends the time it started, so repeated batches skip accounts already done.
+  const body = (await request.json().catch(() => null)) as { since?: unknown } | null;
+  const since = typeof body?.since === "string" ? new Date(body.since) : null;
+  const updatedBefore =
+    since && !Number.isNaN(since.getTime()) && since.getTime() <= Date.now() + 60_000
+      ? since
+      : undefined;
   try {
     const token = process.env.GITHUB_TOKEN;
     const summary = await refreshBatch({
       db: createSupabaseRefreshDb(createServiceClient()),
       batchSize: BATCH_SIZE,
+      updatedBefore,
       fetchProfile: (platform, username) => fetchProfile(platform, username, { token }),
     });
     return NextResponse.json(summary);
