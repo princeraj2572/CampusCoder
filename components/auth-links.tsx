@@ -34,9 +34,10 @@ export async function AuthLinks({ variant }: { variant: "bar" | "menu" }) {
 
   const { data: student } = await client
     .from("students")
-    .select("full_name")
+    .select("full_name, role")
     .eq("auth_user_id", user.id)
     .maybeSingle();
+  const isAdmin = student?.role === "admin";
   const name = student?.full_name ?? user.email ?? "You";
   const mark = initials(student?.full_name ?? user.email?.split("@")[0] ?? "You");
 
@@ -53,6 +54,14 @@ export async function AuthLinks({ variant }: { variant: "bar" | "menu" }) {
   if (variant === "bar") {
     return (
       <>
+        {isAdmin && (
+          <Link
+            href="/admin"
+            className={`text-muted-foreground hover:text-foreground hover:bg-foreground/[0.06] flex h-9 items-center rounded-lg px-3 text-sm font-medium ${focus}`}
+          >
+            Admin
+          </Link>
+        )}
         <Link
           href="/profile"
           title="My profile"
@@ -77,6 +86,14 @@ export async function AuthLinks({ variant }: { variant: "bar" | "menu" }) {
 
   return (
     <>
+      {isAdmin && (
+        <Link
+          href="/admin"
+          className={`hover:bg-foreground/[0.06] flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium ${focus}`}
+        >
+          Admin
+        </Link>
+      )}
       <Link
         href="/profile"
         className={`hover:bg-foreground/[0.06] flex items-center gap-3 rounded-lg px-3 py-2.5 ${focus}`}

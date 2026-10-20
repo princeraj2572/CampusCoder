@@ -24,7 +24,9 @@ const DAY_MS = 86_400_000;
 type Page<T> = PromiseLike<{ data: T[] | null; error: { message: string } | null }>;
 
 /** PostgREST returns at most 1000 rows per request, so read in pages. */
-async function fetchAll<T>(page: (from: number, to: number) => Page<T>): Promise<T[]> {
+export async function fetchAll<T>(
+  page: (from: number, to: number) => Page<T>,
+): Promise<T[]> {
   const out: T[] = [];
   for (let from = 0; ; from += PAGE) {
     const { data, error } = await page(from, from + PAGE - 1);
