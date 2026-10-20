@@ -16,15 +16,21 @@ function check(result: { error: { message: string } | null }) {
 
 export function createSupabaseRefreshDb(client: SupabaseClient): RefreshDb {
   return {
-    async pickDue(limit, now) {
-      const { data, error } = await client
+    async pickDue(limit, now, updatedBefore) {
+      let query = client
         .from("student_platforms")
         .select(
           "student_id, platform, username, fail_count, students!inner(is_alumni), platforms!inner(enabled)",
         )
         .eq("students.is_alumni", false)
         .eq("platforms.enabled", true)
-        .or(`next_attempt_at.is.null,next_attempt_at.lte.${now.toISOString()}`)
+        .or(`next_attempt_at.is.null,next_attempt_at.lte.${now.toISOString()}`);
+      if (updatedBefore) {
+        query = query.or(
+          `last_updated.is.null,last_updated.lt.${updatedBefore.toISOString()}`,
+        );
+      }
+      const { data, error } = await query
         .order("last_updated", { ascending: true, nullsFirst: true })
         .limit(limit);
       if (error) throw new Error(error.message);

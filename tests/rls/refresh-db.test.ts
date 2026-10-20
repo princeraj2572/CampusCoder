@@ -119,6 +119,14 @@ describe("supabase refresh db", () => {
     expect(contests.data).toHaveLength(1);
   });
 
+  it("can leave out rows already updated since a given time", async () => {
+    const mineBefore = async (since: Date) =>
+      (await db.pickDue(1000, NOW, since)).filter((r) => r.studentId === studentId);
+    // last_updated is NOW here, so "before NOW" excludes it and "before an hour later" includes it.
+    expect(await mineBefore(NOW)).toHaveLength(0);
+    expect(await mineBefore(new Date(NOW.getTime() + 3_600_000))).toHaveLength(1);
+  });
+
   it("keeps the last good stats and does not advance last_updated on failure, then backs off", async () => {
     const later = new Date("2026-10-07T12:00:00Z");
     await db.saveFailure(
