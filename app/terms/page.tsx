@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FairPlay } from "@/components/fair-play";
 import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
@@ -41,22 +42,8 @@ export default function TermsPage() {
           heading: "Fair play",
           body: (
             <>
-              <p>The boards are only fun if they are honest. Please do not:</p>
-              <ul>
-                <li>
-                  Inflate your scores, for example with fake or automated activity, copied
-                  work or extra accounts.
-                </li>
-                <li>Use the site to harass or embarrass anyone.</li>
-                <li>
-                  Scrape the site, overload it, or try to get around its security or its
-                  limits.
-                </li>
-              </ul>
-              <p>
-                We may correct or remove a record, or a score, that breaks these rules.
-                Scores and the way they are calculated may change as the site grows.
-              </p>
+              <FairPlay />
+              <p>Scores and the way they are calculated may change as the site grows.</p>
             </>
           ),
         },
