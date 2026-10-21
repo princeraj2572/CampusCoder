@@ -1,7 +1,8 @@
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 import { createServiceClient } from "@/lib/supabase/service";
 import { buildBoard, type BoardRow } from "./build";
 import { landingStats, type LandingStats } from "./landing-stats";
+import { BOARD_CACHE_TAG } from "./cached";
 import { loadBoardData } from "./load";
 
 export interface LandingSnapshot {
@@ -23,6 +24,7 @@ export interface LandingSnapshot {
  */
 export async function getLandingSnapshot(): Promise<LandingSnapshot> {
   "use cache";
+  cacheTag(BOARD_CACHE_TAG);
   cacheLife({ stale: 30, revalidate: 60, expire: 600 });
 
   const now = new Date();
