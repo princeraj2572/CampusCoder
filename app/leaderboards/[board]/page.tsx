@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import { BoardControls, type YearCounts } from "@/components/board-controls";
 import { BoardRow } from "@/components/board-row";
 import { StandingCard } from "@/components/standing-card";
+import { UnratedList } from "@/components/unrated-list";
 import { buildBoard } from "@/lib/boards/build";
 import { describeUpdated } from "@/lib/boards/format";
 import { boardHref } from "@/lib/boards/links";
@@ -12,6 +13,7 @@ import { BOARD_META } from "@/lib/boards/meta";
 import { parseBoardParams, type BoardParams } from "@/lib/boards/params";
 import { profileRanks } from "@/lib/boards/profile-ranks";
 import { BOARD_ACCENT } from "@/lib/boards/theme";
+import { unratedStudents } from "@/lib/boards/unrated";
 import { BOARD_IDS, type BoardId } from "@/lib/scoring/types";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
@@ -74,6 +76,11 @@ export default async function BoardPage({
     3: countFor(3),
     4: countFor(4),
   };
+  // The Contests board ranks rated students only, so list the rest underneath instead of hiding them.
+  const unrated =
+    board === "contests" && !filters.improved
+      ? unratedStudents(data.students, filters, now)
+      : [];
   const max = Math.max(0, ...rows.map((r) => r.value));
   const updated = describeUpdated(data.lastUpdated, now);
   const meta = BOARD_META[board];
@@ -136,16 +143,8 @@ export default async function BoardPage({
                 </p>
               ) : board === "contests" ? (
                 <p>
-                  No one has a LeetCode contest rating yet. This board lists students who
-                  have taken part in at least one rated LeetCode contest, so it fills in
-                  after the first one. Registered students are on the{" "}
-                  <Link
-                    href={boardHref("problem-solving", { year: "all" })}
-                    className="underline underline-offset-4"
-                  >
-                    DSA board
-                  </Link>
-                  .
+                  No one is ranked yet. A student is ranked here after taking part in a
+                  rated LeetCode contest. Everyone registered is listed below.
                 </p>
               ) : (
                 <p>
@@ -178,6 +177,8 @@ export default async function BoardPage({
               </ol>
             </>
           )}
+
+          <UnratedList students={unrated} today={now} meId={me?.id} />
 
           <p
             className={`text-xs ${updated.stale ? "text-warning" : "text-muted-foreground"}`}
