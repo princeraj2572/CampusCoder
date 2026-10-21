@@ -16,7 +16,7 @@ function check(result: { error: { message: string } | null }) {
 
 export function createSupabaseRefreshDb(client: SupabaseClient): RefreshDb {
   return {
-    async pickDue(limit, now, updatedBefore) {
+    async pickDue(limit, now, updatedBefore, studentId) {
       let query = client
         .from("student_platforms")
         .select(
@@ -25,6 +25,7 @@ export function createSupabaseRefreshDb(client: SupabaseClient): RefreshDb {
         .eq("students.is_alumni", false)
         .eq("platforms.enabled", true)
         .or(`next_attempt_at.is.null,next_attempt_at.lte.${now.toISOString()}`);
+      if (studentId) query = query.eq("student_id", studentId);
       if (updatedBefore) {
         query = query.or(
           `last_updated.is.null,last_updated.lt.${updatedBefore.toISOString()}`,

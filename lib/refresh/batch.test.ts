@@ -18,13 +18,15 @@ function fakeDb(rows: DueRow[], opts: { failSaveFailure?: boolean } = {}) {
   const calls = {
     pickLimit: 0,
     updatedBefore: undefined as Date | undefined,
+    studentId: undefined as string | undefined,
     successes: [] as string[],
     failures: [] as { id: string; kind: string; next: Date }[],
   };
   const db: RefreshDb = {
-    async pickDue(limit, _now, updatedBefore) {
+    async pickDue(limit, _now, updatedBefore, studentId) {
       calls.pickLimit = limit;
       calls.updatedBefore = updatedBefore;
+      calls.studentId = studentId;
       return rows;
     },
     async saveSuccess(r) {
@@ -50,6 +52,12 @@ describe("refreshBatch", () => {
     const since = new Date("2026-10-07T09:55:00Z");
     await run(db, async () => profile, { updatedBefore: since });
     expect(calls.updatedBefore).toEqual(since);
+  });
+
+  it("can be limited to one student's accounts", async () => {
+    const { db, calls } = fakeDb([row(1)]);
+    await run(db, async () => profile, { studentId: "s1" });
+    expect(calls.studentId).toBe("s1");
   });
 
   it("asks for everything due when no time is given", async () => {

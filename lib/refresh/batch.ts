@@ -15,7 +15,12 @@ export interface DueRow {
 
 export interface RefreshDb {
   /** Due accounts, oldest first. `updatedBefore` leaves out accounts refreshed at or after that time. */
-  pickDue(limit: number, now: Date, updatedBefore?: Date): Promise<DueRow[]>;
+  pickDue(
+    limit: number,
+    now: Date,
+    updatedBefore?: Date,
+    studentId?: string,
+  ): Promise<DueRow[]>;
   saveSuccess(row: DueRow, profile: PlatformProfile, now: Date): Promise<void>;
   saveFailure(
     row: DueRow,
@@ -38,12 +43,19 @@ export async function refreshBatch(deps: {
   batchSize?: number;
   /** Only accounts not refreshed since this time, so repeated batches do not repeat work. */
   updatedBefore?: Date;
+  /** Only this student's accounts, for refreshing one person right after they register or edit. */
+  studentId?: string;
   log?: (line: string) => void;
 }): Promise<RefreshSummary> {
   const { db, fetchProfile } = deps;
   const now = deps.now ?? (() => new Date());
   const log = deps.log ?? (() => {});
-  const rows = await db.pickDue(deps.batchSize ?? 10, now(), deps.updatedBefore);
+  const rows = await db.pickDue(
+    deps.batchSize ?? 10,
+    now(),
+    deps.updatedBefore,
+    deps.studentId,
+  );
 
   let succeeded = 0;
   let failed = 0;
