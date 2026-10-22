@@ -9,10 +9,12 @@ import { getBoardData } from "@/lib/boards/cached";
 import { BOARD_META } from "@/lib/boards/meta";
 import { BOARD_ACCENT, PLATFORM_BRAND, medalColor } from "@/lib/boards/theme";
 import { ProfileCard } from "@/components/profile-card";
+import { ShareRank } from "@/components/share-rank";
 import { WelcomeNotice } from "@/components/welcome-notice";
 import { StatCards, type StatCard } from "@/components/stat-cards";
 import { loadProfileExtras } from "@/lib/boards/profile-data";
 import { profileRanks, type BoardRanks } from "@/lib/boards/profile-ranks";
+import { shareMessage } from "@/lib/boards/share";
 import { num, type BoardId } from "@/lib/scoring/types";
 import { createClient } from "@/lib/supabase/server";
 import { studentYear } from "@/lib/year";
@@ -291,6 +293,7 @@ export default async function ProfilePage({
                 >
                   Edit details
                 </Link>
+                {!hidden && <ShareRank message={shareMessage(ranks)} />}
               </div>
             ) : undefined
           }
