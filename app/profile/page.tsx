@@ -3,7 +3,11 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 /** "My profile": your public profile page, or the registration form if you have not registered. */
-export default async function MyProfilePage() {
+export default async function MyProfilePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   // Depends on the visitor's session, so it is rendered at request time.
   await connection();
   const client = await createClient();
@@ -17,5 +21,8 @@ export default async function MyProfilePage() {
     .select("id")
     .eq("auth_user_id", user.id)
     .maybeSingle();
-  redirect(student ? `/students/${student.id}` : "/register");
+  const { welcome } = await searchParams;
+  redirect(
+    student ? `/students/${student.id}${welcome ? "?welcome=1" : ""}` : "/register",
+  );
 }
