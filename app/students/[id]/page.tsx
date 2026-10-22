@@ -15,6 +15,7 @@ import { StatCards, type StatCard } from "@/components/stat-cards";
 import { loadProfileExtras } from "@/lib/boards/profile-data";
 import { profileRanks, type BoardRanks } from "@/lib/boards/profile-ranks";
 import { shareMessage } from "@/lib/boards/share";
+import { solvedThisWeek } from "@/lib/boards/weekly";
 import { num, type BoardId } from "@/lib/scoring/types";
 import { createClient } from "@/lib/supabase/server";
 import { studentYear } from "@/lib/year";
@@ -237,11 +238,15 @@ export default async function ProfilePage({
           return pick ? [{ board, ...pick, year: r.inYear?.year }] : [];
         })
         .sort((a, b) => a.rank - b.rank)[0];
+  const weekly = solvedThisWeek(m, data.history[7]?.get(id));
   const statCards: StatCard[] = [
     {
       label: "Problems solved",
       value: totalSolved,
-      note: "LeetCode, Codeforces and CodeChef",
+      note:
+        weekly === null
+          ? "Weekly count starts after your first week"
+          : `${weekly >= 0 ? "+" : ""}${weekly} this week`,
       color: BOARD_ACCENT["problem-solving"],
     },
     {
