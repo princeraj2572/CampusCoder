@@ -8,6 +8,7 @@ const SECTIONS = [
   { id: "profile", label: "Profile", color: "var(--board-contests)" },
   { id: "levels", label: "Levels", color: "var(--tier-blue)" },
   { id: "how", label: "How it works", color: "var(--board-dsa)" },
+  { id: "guide", label: "Get started", color: "var(--board-contests)" },
   { id: "privacy", label: "Privacy", color: "var(--board-github)" },
 ];
 
