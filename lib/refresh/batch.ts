@@ -45,6 +45,8 @@ export async function refreshBatch(deps: {
   updatedBefore?: Date;
   /** Only this student's accounts, for refreshing one person right after they register or edit. */
   studentId?: string;
+  /** How many accounts to fetch at the same time. One by default, which is the gentlest. */
+  concurrency?: number;
   log?: (line: string) => void;
 }): Promise<RefreshSummary> {
   const { db, fetchProfile } = deps;
@@ -59,8 +61,7 @@ export async function refreshBatch(deps: {
 
   let succeeded = 0;
   let failed = 0;
-  // Sequential on purpose: gentle on rate limits, and one bad row never stops the rest.
-  for (const row of rows) {
+  async function refreshOne(row: DueRow) {
     const label = `${row.platform}:${row.username}`;
     try {
       const profile = await fetchProfile(row.platform, row.username);
@@ -83,5 +84,14 @@ export async function refreshBatch(deps: {
       }
     }
   }
+
+  // A small pool of workers takes rows from one list. One bad row never stops the others.
+  const queue = [...rows];
+  const workers = Math.max(1, Math.min(deps.concurrency ?? 1, rows.length));
+  await Promise.all(
+    Array.from({ length: workers }, async () => {
+      for (let row = queue.shift(); row; row = queue.shift()) await refreshOne(row);
+    }),
+  );
   return { picked: rows.length, succeeded, failed };
 }
