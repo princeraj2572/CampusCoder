@@ -35,6 +35,12 @@ describe("safeNext", () => {
 });
 
 describe("isProtectedPath", () => {
+  it("leaves the timer's refresh endpoint open, because it has its own secret", () => {
+    expect(isProtectedPath("/api/cron/refresh")).toBe(false);
+    expect(isProtectedPath("/api/me")).toBe(true);
+    expect(isProtectedPath("/api/admin/refresh")).toBe(true);
+  });
+
   it("leaves the landing, login, auth routes and leaderboards public", () => {
     expect(isProtectedPath("/")).toBe(false);
     expect(isProtectedPath("/leaderboards/github")).toBe(false);
