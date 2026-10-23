@@ -1,0 +1,12 @@
+name = "campuscoders-refresh-timer"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+# Every 5 minutes. Free plans allow a cron trigger this often.
+[triggers]
+crons = ["*/5 * * * *"]
+
+[vars]
+TARGET_URL = "https://campus-coder-tau.vercel.app/api/cron/refresh"
+
+# CRON_SECRET is a secret, not a variable: it is set with `wrangler secret put CRON_SECRET`.
