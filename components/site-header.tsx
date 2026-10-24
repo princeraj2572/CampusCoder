@@ -128,12 +128,14 @@ function HeaderView({
           </Link>
           <Link
             href="/roadmap"
+            aria-label="Roadmap"
+            title="Roadmap"
             className={`flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium ${focus} ${
               pathname?.startsWith("/roadmap") ? "bg-foreground/10" : idle
             }`}
           >
             <BookIcon size={16} />
-            Roadmap
+            <span className="hidden lg:inline">Roadmap</span>
           </Link>
           <span aria-hidden="true" className="bg-border mx-1 h-6 w-px" />
           {authBar}
