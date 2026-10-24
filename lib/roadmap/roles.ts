@@ -18,7 +18,7 @@ export interface RoleProject {
   proves: string;
 }
 
-interface BaseRole {
+export interface BaseRole {
   slug: string;
   name: string;
   /** A CSS colour variable from the theme. */
@@ -432,7 +432,7 @@ const fullstack: BaseRole = {
 const mobile: BaseRole = {
   slug: "mobile",
   name: "Mobile developer",
-  color: "var(--tier-violet)",
+  color: "var(--role-pink)",
   tagline: "Build apps people carry in their pocket.",
   job: "You build apps for Android, iPhone or both. You work with touch input, small screens, flaky networks, battery limits and app-store rules, which makes the job different from the web.",
   daily: [
@@ -826,7 +826,7 @@ const data: BaseRole = {
 const devops: BaseRole = {
   slug: "devops",
   name: "DevOps / cloud engineer",
-  color: "var(--tier-orange)",
+  color: "var(--role-brown)",
   tagline: "Make software ship safely and stay running.",
   job: "You build the machinery that tests, packages, deploys and monitors software, and you keep it running on cloud servers. When a release breaks at night or a server fills its disk, you are the one who knows where to look.",
   daily: [
