@@ -1,6 +1,7 @@
 import { ROLE_EXTRAS, type RoleExtra } from "./roles-extra";
 import { MORE_EXTRAS, ROLE_INFO, type RoleInfo } from "./roles-info";
 import { embedded, game, qa } from "./roles-more";
+import { NEW_DETAILS, product, uxdesign, web3 } from "./roles-new";
 import type { RoadmapLink } from "./types";
 
 export interface RoleStage {
@@ -1102,11 +1103,15 @@ export const ROLES: Role[] = [
   qa,
   embedded,
   game,
+  uxdesign,
+  product,
+  web3,
 ].map((r) => ({
   ...r,
   ...ROLE_EXTRAS[r.slug],
   ...MORE_EXTRAS[r.slug],
   ...ROLE_INFO[r.slug],
+  ...NEW_DETAILS[r.slug],
 }));
 
 export function getRole(slug: string): Role | undefined {

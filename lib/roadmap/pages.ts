@@ -1,3 +1,4 @@
+import { ai } from "./ai";
 import { ideas } from "./ideas";
 import { interview } from "./interview";
 import { patterns } from "./patterns";
@@ -749,6 +750,7 @@ export const ROADMAP_PAGES: RoadmapPage[] = [
   development,
   ideas,
   tools,
+  ai,
   openSource,
   career,
 ];
@@ -762,13 +764,70 @@ export function roadmapHref(slug: string): string {
   return slug ? `/roadmap/${slug}` : "/roadmap";
 }
 
-/** The page switcher: the start page, then the roles section, then the topic pages. */
-export const ROADMAP_TABS: { label: string; title: string; href: string }[] = [
-  ...ROADMAP_PAGES.slice(0, 1),
-  { slug: "roles", label: "Roles and jobs", title: "Roles and jobs" },
-  ...ROADMAP_PAGES.slice(1),
-].map((p) => ({
-  label: p.label,
-  title: p.title,
-  href: p.slug === "roles" ? "/roadmap/roles" : roadmapHref(p.slug),
-}));
+export interface RoadmapTab {
+  label: string;
+  title: string;
+  href: string;
+  blurb: string;
+}
+
+/** The roadmap pages in reading order, grouped for the switcher and the overview. */
+export const ROADMAP_GROUPS: { label: string; color: string; tabs: RoadmapTab[] }[] = [
+  {
+    label: "Start",
+    color: "var(--board-dsa)",
+    tabs: [
+      tab(
+        "",
+        "Where to begin: the order to learn things and a plan for your first weeks.",
+      ),
+    ],
+  },
+  {
+    label: "Learn the basics",
+    color: "var(--board-contests)",
+    tabs: [
+      tab("dsa", "Data structures and algorithms: what to study and how to practise."),
+      tab(
+        "dsa-patterns",
+        "The patterns behind most interview problems, with cheat sheets.",
+      ),
+      tab("core-subjects", "DBMS, operating systems, networks and OOP."),
+      tab("interview-qa", "About 50 common questions with short answers."),
+      tab("system-design", "How to design systems that many people use."),
+    ],
+  },
+  {
+    label: "Build and ship",
+    color: "var(--board-github)",
+    tabs: [
+      tab("development", "Web, apps and backend: what to learn and in what order."),
+      tab("project-ideas", "Project ideas by level and role, and how to finish them."),
+      tab("tools", "Git, the terminal, Docker and the tools every developer uses."),
+      tab("ai", "Learn with AI without skipping the basics, and build with it."),
+      tab("open-source", "How to find a project and make your first contribution."),
+    ],
+  },
+  {
+    label: "Jobs",
+    color: "var(--tier-blue)",
+    tabs: [
+      {
+        label: "Roles and jobs",
+        title: "Roles and jobs",
+        href: "/roadmap/roles",
+        blurb:
+          "14 roles: what each does, what to study and build, and what seniors advise.",
+      },
+      tab("career", "Resume, LinkedIn, internships and placement preparation."),
+    ],
+  },
+];
+
+function tab(slug: string, blurb: string): RoadmapTab {
+  const page = ROADMAP_PAGES.find((p) => p.slug === slug)!;
+  return { label: page.label, title: page.title, href: roadmapHref(slug), blurb };
+}
+
+/** Every roadmap page in reading order, for the "Next" link. */
+export const ROADMAP_TABS: RoadmapTab[] = ROADMAP_GROUPS.flatMap((g) => g.tabs);

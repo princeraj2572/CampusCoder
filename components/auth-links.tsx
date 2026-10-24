@@ -44,7 +44,7 @@ export async function AuthLinks({ variant }: { variant: "bar" | "menu" }) {
   const avatar = (
     <span
       aria-hidden="true"
-      className="numeral flex size-7 items-center justify-center rounded-full text-sm leading-none font-extrabold text-[#0b0f17]"
+      className="numeral flex size-7 items-center justify-center rounded-full text-sm leading-none font-extrabold text-(--on-board)"
       style={{ background: "var(--board-dsa)" }}
     >
       {mark}

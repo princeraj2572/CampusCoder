@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Block, RoadmapShell, focus } from "@/components/roadmap-shell";
 import { ROLES } from "@/lib/roadmap/roles";
+import { ink } from "@/lib/boards/theme";
 
 const CHOOSE: { like: string; roles: string }[] = [
   { like: "Logic, data and making systems reliable", roles: "Backend, Data" },
@@ -11,6 +12,15 @@ const CHOOSE: { like: string; roles: string }[] = [
   { like: "Finding how things break, within the rules", roles: "Security, QA" },
   { like: "Electronics and making hardware do things", roles: "Embedded / IoT" },
   { like: "Games, maths and real-time graphics", roles: "Game developer" },
+  { like: "Understanding people and making things easy to use", roles: "UI/UX designer" },
+  {
+    like: "Deciding what to build and why, and working with every team",
+    roles: "Product manager",
+  },
+  {
+    like: "Security, money and careful systems where mistakes cost",
+    roles: "Blockchain developer",
+  },
 ];
 
 const RULES = [
@@ -78,7 +88,7 @@ export function RolesOverview() {
                     <span className="text-foreground font-medium">Good if: </span>
                     {r.suits}
                   </span>
-                  <span className="text-sm font-medium" style={{ color: r.color }}>
+                  <span className="text-sm font-medium" style={{ color: ink(r.color) }}>
                     See the roadmap
                   </span>
                 </span>
