@@ -1,3 +1,7 @@
+import { ideas } from "./ideas";
+import { interview } from "./interview";
+import { patterns } from "./patterns";
+import { systemDesign } from "./system-design";
 import { tools } from "./tools";
 import type { RoadmapPage } from "./types";
 
@@ -661,6 +665,34 @@ const career: RoadmapPage = {
       ],
     },
     {
+      heading: "Writing a resume that gets read",
+      bullets: [
+        "One page, one column, a plain font. Recruiters and screening tools read it in seconds.",
+        "Order: contact line, education, projects, skills, experience, achievements. Freshers put projects before skills.",
+        "Write each project as: what you built, with what, and the result. Example: 'Built a leaderboard for 300 students with Next.js and PostgreSQL; refreshes scores every 5 minutes.'",
+        "Start lines with a strong verb (built, reduced, designed, led) and add a number where honest.",
+        "List only skills you can answer questions about. Group them: languages, frameworks, tools.",
+        "Link your GitHub, LeetCode or Codeforces profile and a live project. Check that every link works.",
+        "Name the file clearly, such as FirstName_LastName_Resume.pdf, and send a PDF.",
+        "Ask a senior to review it. Two reviews are better than one.",
+      ],
+    },
+    {
+      heading: "LinkedIn and cold outreach",
+      steps: [
+        "Use a clear photo, a headline with your role and skills, and an About section with two or three lines on what you build.",
+        "Follow the companies you want and read their engineering posts.",
+        "Find an engineer or recruiter on the team. Check that they hire for your level.",
+        "Send a short message: who you are, one specific reason for this person or team, and one clear ask, such as advice or a referral for a named role.",
+        "Attach nothing on the first message, and keep it under about 100 words.",
+        "Follow up once after a week. If there is no reply, move on politely.",
+        "Thank anyone who helps, and tell them how it went.",
+      ],
+      paragraphs: [
+        "A message that works is specific. 'Hi, I am a third-year student and I built a leaderboard that tracks 300 students' coding profiles. I saw your team works on data pipelines, and I am applying for the SDE intern role. Could you tell me what the team looks for in interns?' is much better than 'Please give me a referral'.",
+      ],
+    },
+    {
       heading: "Hackathons, internships and clubs",
       bullets: [
         "Hackathons: you learn more in 24 hours of building with a team than in weeks of tutorials.",
@@ -710,8 +742,12 @@ const career: RoadmapPage = {
 export const ROADMAP_PAGES: RoadmapPage[] = [
   start,
   dsa,
+  patterns,
   coreSubjects,
+  interview,
+  systemDesign,
   development,
+  ideas,
   tools,
   openSource,
   career,
