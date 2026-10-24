@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ink } from "@/lib/boards/theme";
 import { ROADMAP_GROUPS, ROADMAP_TABS, type RoadmapTab } from "@/lib/roadmap/pages";
 
 export const focus =
@@ -28,33 +29,40 @@ export function Rule({ colors }: { colors?: string[] }) {
   );
 }
 
-/** One link in the page switcher. */
+/** One link in the page switcher, tinted with its group's colour when active. */
 function TabLink({
   t,
   on,
+  color,
   className,
   pill,
 }: {
   t: RoadmapTab;
   on: boolean;
+  color: string;
   className: string;
   pill?: boolean;
 }) {
-  const state = on
-    ? "text-foreground font-semibold"
-    : "text-muted-foreground hover:text-foreground";
-  const shape = pill
-    ? `inline-block rounded-full border text-sm font-medium transition-colors ${
-        on
-          ? "border-foreground/30 bg-foreground/10"
-          : "hover:bg-foreground/[0.06] border-transparent"
-      }`
-    : "text-sm";
   return (
     <Link
       href={t.href}
       aria-current={on ? "page" : undefined}
-      className={`${shape} ${state} ${className} ${focus}`}
+      className={`${pill ? "inline-block rounded-full border text-sm font-medium transition-colors" : "text-sm"} ${
+        on
+          ? "text-foreground font-semibold"
+          : "text-muted-foreground hover:text-foreground"
+      } ${pill && !on ? "border-transparent hover:bg-(--tab)" : ""} ${className} ${focus}`}
+      style={
+        {
+          "--tab": `color-mix(in oklab, ${color} 12%, transparent)`,
+          ...(on && pill
+            ? {
+                borderColor: `color-mix(in oklab, ${color} 55%, transparent)`,
+                backgroundColor: `color-mix(in oklab, ${color} 16%, transparent)`,
+              }
+            : {}),
+        } as React.CSSProperties
+      }
     >
       {t.label}
     </Link>
@@ -94,13 +102,26 @@ export function RoadmapShell({
           <div className="mt-2 flex flex-col gap-3">
             {ROADMAP_GROUPS.map((g) => (
               <div key={g.label}>
-                <p className="text-muted-foreground mb-1 text-xs font-semibold tracking-wider uppercase">
+                <p
+                  className="mb-1 flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase"
+                  style={{ color: ink(g.color) }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="size-2 rounded-full"
+                    style={{ background: g.color }}
+                  />
                   {g.label}
                 </p>
                 <ul className="flex flex-col">
                   {g.tabs.map((t) => (
                     <li key={t.href}>
-                      <TabLink t={t} on={t.href === active} className="block py-1.5" />
+                      <TabLink
+                        t={t}
+                        on={t.href === active}
+                        color={g.color}
+                        className="block py-1.5"
+                      />
                     </li>
                   ))}
                 </ul>
@@ -112,13 +133,27 @@ export function RoadmapShell({
         <div className="border-border hidden flex-wrap gap-x-10 gap-y-4 border-b pb-5 md:flex">
           {ROADMAP_GROUPS.map((g) => (
             <div key={g.label}>
-              <p className="text-muted-foreground mb-1.5 text-xs font-semibold tracking-wider uppercase">
+              <p
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase"
+                style={{ color: ink(g.color) }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="size-2 rounded-full"
+                  style={{ background: g.color }}
+                />
                 {g.label}
               </p>
               <ul className="-ml-3 flex flex-wrap gap-1">
                 {g.tabs.map((t) => (
                   <li key={t.href}>
-                    <TabLink t={t} on={t.href === active} className="px-3 py-1" pill />
+                    <TabLink
+                      t={t}
+                      on={t.href === active}
+                      color={g.color}
+                      className="px-3 py-1"
+                      pill
+                    />
                   </li>
                 ))}
               </ul>

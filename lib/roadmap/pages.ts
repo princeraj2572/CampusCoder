@@ -772,9 +772,10 @@ export interface RoadmapTab {
 }
 
 /** The roadmap pages in reading order, grouped for the switcher and the overview. */
-export const ROADMAP_GROUPS: { label: string; tabs: RoadmapTab[] }[] = [
+export const ROADMAP_GROUPS: { label: string; color: string; tabs: RoadmapTab[] }[] = [
   {
     label: "Start",
+    color: "var(--board-dsa)",
     tabs: [
       tab(
         "",
@@ -784,6 +785,7 @@ export const ROADMAP_GROUPS: { label: string; tabs: RoadmapTab[] }[] = [
   },
   {
     label: "Learn the basics",
+    color: "var(--board-contests)",
     tabs: [
       tab("dsa", "Data structures and algorithms: what to study and how to practise."),
       tab(
@@ -797,6 +799,7 @@ export const ROADMAP_GROUPS: { label: string; tabs: RoadmapTab[] }[] = [
   },
   {
     label: "Build and ship",
+    color: "var(--board-github)",
     tabs: [
       tab("development", "Web, apps and backend: what to learn and in what order."),
       tab("project-ideas", "Project ideas by level and role, and how to finish them."),
@@ -807,6 +810,7 @@ export const ROADMAP_GROUPS: { label: string; tabs: RoadmapTab[] }[] = [
   },
   {
     label: "Jobs",
+    color: "var(--tier-blue)",
     tabs: [
       {
         label: "Roles and jobs",
