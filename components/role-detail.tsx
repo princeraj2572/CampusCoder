@@ -63,12 +63,14 @@ export function RoleDetail({ role }: { role: Role }) {
       }
       toc={[
         "The job",
+        "Where you will work",
         "Study plan",
         "What to build",
         "Tools",
         "A week of study",
         "A senior's advice",
         "Mistakes and questions",
+        "Myths and reality",
         "First 90 days",
         "Career ladder",
         "Interview preparation",
@@ -95,6 +97,20 @@ export function RoleDetail({ role }: { role: Role }) {
             </div>
           </div>
         </div>
+      </Block>
+
+      <Block
+        title="Where you will work"
+        note="The kinds of employer that hire for this role."
+      >
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {role.where.map((w) => (
+            <li key={w.type} className={card}>
+              <h3 className="font-display font-semibold">{w.type}</h3>
+              <p className="text-muted-foreground mt-1 leading-relaxed">{w.what}</p>
+            </li>
+          ))}
+        </ul>
       </Block>
 
       <Block
@@ -252,6 +268,30 @@ export function RoleDetail({ role }: { role: Role }) {
             <List items={role.ask} mark="?" color={c} />
           </div>
         </div>
+      </Block>
+
+      <Block
+        title="Myths and reality"
+        note="Things students often believe about this job."
+      >
+        <ul className="grid gap-4 lg:grid-cols-3">
+          {role.myths.map((m) => (
+            <li key={m.myth} className={`${card} flex flex-col gap-3`}>
+              <p>
+                <span className="font-semibold" style={{ color: "var(--tier-red)" }}>
+                  Myth:{" "}
+                </span>
+                <span className="text-foreground">{m.myth}</span>
+              </p>
+              <p>
+                <span className="font-semibold" style={{ color: "var(--tier-green)" }}>
+                  Reality:{" "}
+                </span>
+                <span className="text-muted-foreground leading-relaxed">{m.truth}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
       </Block>
 
       <Block

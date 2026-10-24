@@ -8,7 +8,9 @@ const CHOOSE: { like: string; roles: string }[] = [
   { like: "Seeing a whole feature finished by yourself", roles: "Full-stack" },
   { like: "Maths, experiments and measuring results", roles: "AI / ML, Data" },
   { like: "Automating work and keeping systems running", roles: "DevOps / cloud" },
-  { like: "Finding how things break, within the rules", roles: "Security" },
+  { like: "Finding how things break, within the rules", roles: "Security, QA" },
+  { like: "Electronics and making hardware do things", roles: "Embedded / IoT" },
+  { like: "Games, maths and real-time graphics", roles: "Game developer" },
 ];
 
 const RULES = [
