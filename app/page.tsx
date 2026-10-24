@@ -616,11 +616,11 @@ export default function LandingPage() {
 
         {/* Closing call to action */}
         <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:pb-16">
-          <div className="relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl border border-white/15 bg-[#1c222b] p-7 text-[#e3e7ee] sm:p-10">
+          <div className="relative flex flex-col items-start gap-5 overflow-hidden rounded-3xl border border-white/15 bg-[#252628] p-7 text-[#e3e4e6] sm:p-10">
             <h2 className="numeral max-w-xl text-5xl leading-[0.95] font-extrabold sm:text-6xl">
               Your rank is waiting.
             </h2>
-            <p className="max-w-md text-[#e3e7ee]/75">
+            <p className="max-w-md text-[#e3e4e6]/75">
               Join the board and find out where you stand. It takes a minute, and your
               scores appear within a minute after that.
             </p>
