@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 const SECTIONS = [
   { id: "live", label: "Live board", color: "var(--board-github)" },
   { id: "boards", label: "Boards", color: "var(--board-dsa)" },
+  { id: "roadmap", label: "Roadmap", color: "var(--board-github)" },
   { id: "profile", label: "Profile", color: "var(--board-contests)" },
   { id: "levels", label: "Levels", color: "var(--tier-blue)" },
   { id: "how", label: "How it works", color: "var(--board-dsa)" },

@@ -9,6 +9,7 @@ import { ProfileCard } from "@/components/profile-card";
 import { DifficultyBar, PercentileGauge, WeeklyBars } from "@/components/row-graphic";
 import { StatCards } from "@/components/stat-cards";
 import { TierChip } from "@/components/tier-chip";
+import { buttonVariants } from "@/components/ui/button";
 import { PLATFORM_BRAND } from "@/lib/boards/theme";
 
 const BOARDS = [
@@ -37,6 +38,45 @@ const BOARDS = [
         color="var(--board-github)"
       />
     ),
+  },
+];
+
+const ROADMAP_TOPICS = [
+  {
+    href: "/roadmap",
+    title: "Start here",
+    color: "var(--board-dsa)",
+    text: "The order to learn things in, with a plan for your first weeks.",
+  },
+  {
+    href: "/roadmap/dsa",
+    title: "DSA",
+    color: "var(--board-contests)",
+    text: "Striver, NeetCode and how to practise so it sticks.",
+  },
+  {
+    href: "/roadmap/roles",
+    title: "Roles and jobs",
+    color: "var(--board-github)",
+    text: "11 roles, from backend to security: what to study and build for each.",
+  },
+  {
+    href: "/roadmap/ai",
+    title: "Learning with AI",
+    color: "var(--board-dsa)",
+    text: "Use AI to learn faster without skipping the basics, and build with it.",
+  },
+  {
+    href: "/roadmap/project-ideas",
+    title: "Project ideas",
+    color: "var(--board-contests)",
+    text: "Beginner to advanced ideas, and how to finish them.",
+  },
+  {
+    href: "/roadmap/interview-qa",
+    title: "Interview Q&A",
+    color: "var(--board-github)",
+    text: "About 50 common questions with short answers.",
   },
 ];
 
@@ -204,6 +244,15 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
+              <p className="text-muted-foreground text-sm">
+                Not sure where to start?{" "}
+                <Link
+                  href="/roadmap"
+                  className="text-foreground font-medium underline underline-offset-4"
+                >
+                  Follow the learning roadmap
+                </Link>
+              </p>
             </div>
             <Suspense fallback={<HeroSkeleton />}>
               <LiveHero />
@@ -256,6 +305,56 @@ export default function LandingPage() {
                 </Link>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Learning roadmap */}
+        <section id="roadmap" className="border-border scroll-mt-28 border-t">
+          <div className="mx-auto grid w-full max-w-6xl items-start gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+            <div className="flex flex-col gap-4">
+              <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
+                Not sure what to learn? Follow the roadmap
+              </h2>
+              <p className="text-muted-foreground max-w-md">
+                A free guide for students: DSA, core subjects, development, open source
+                and placements, with a path for each role and free resources for every
+                step. No sign-in needed.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/roadmap" className={buttonVariants({ size: "lg" })}>
+                  Open the roadmap
+                </Link>
+                <Link
+                  href="/roadmap/roles"
+                  className={buttonVariants({ variant: "outline", size: "lg" })}
+                >
+                  Pick a role
+                </Link>
+              </div>
+            </div>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {ROADMAP_TOPICS.map((t) => (
+                <li key={t.href}>
+                  <Link
+                    href={t.href}
+                    className="group border-border focus-visible:ring-ring relative flex h-full flex-col gap-1 overflow-hidden rounded-2xl border p-4 pt-5 transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+                    style={{
+                      backgroundColor: `color-mix(in oklab, ${t.color} 8%, var(--background))`,
+                    }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-0 top-0 h-1.5"
+                      style={{ background: t.color }}
+                    />
+                    <span className="font-display text-lg font-semibold underline-offset-4 group-hover:underline">
+                      {t.title}
+                    </span>
+                    <span className="text-muted-foreground text-sm">{t.text}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
