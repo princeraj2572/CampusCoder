@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
+  BookIcon,
   BranchIcon,
   CloseIcon,
   CodeIcon,
@@ -125,6 +126,17 @@ function HeaderView({
             <UsersIcon size={16} />
             Students
           </Link>
+          <Link
+            href="/roadmap"
+            aria-label="Roadmap"
+            title="Roadmap"
+            className={`flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium ${focus} ${
+              pathname?.startsWith("/roadmap") ? "bg-foreground/10" : idle
+            }`}
+          >
+            <BookIcon size={16} />
+            <span className="hidden lg:inline">Roadmap</span>
+          </Link>
           <span aria-hidden="true" className="bg-border mx-1 h-6 w-px" />
           {authBar}
           <ThemeToggle />
@@ -177,6 +189,15 @@ function HeaderView({
             >
               <UsersIcon size={20} />
               Students
+            </Link>
+            <Link
+              href="/roadmap"
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium ${focus} ${
+                pathname?.startsWith("/roadmap") ? "bg-foreground/10" : idle
+              }`}
+            >
+              <BookIcon size={20} />
+              Roadmap
             </Link>
             <div className="border-border my-1 border-t" />
             {authMenu}

@@ -20,6 +20,9 @@ export function LandingFooter() {
           </a>
         </span>
         <nav aria-label="Legal" className="flex gap-4">
+          <Link href="/roadmap" className={link}>
+            Roadmap
+          </Link>
           <Link href="/privacy" className={link}>
             Privacy Policy
           </Link>

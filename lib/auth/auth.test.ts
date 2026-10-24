@@ -47,6 +47,8 @@ describe("isProtectedPath", () => {
     expect(isProtectedPath("/leaderboards/problem-solving")).toBe(false);
     expect(isProtectedPath("/privacy")).toBe(false);
     expect(isProtectedPath("/terms")).toBe(false);
+    expect(isProtectedPath("/roadmap")).toBe(false);
+    expect(isProtectedPath("/roadmap/dsa")).toBe(false);
     expect(isProtectedPath("/login")).toBe(false);
     expect(isProtectedPath("/auth/callback")).toBe(false);
     expect(isProtectedPath("/auth/signout")).toBe(false);

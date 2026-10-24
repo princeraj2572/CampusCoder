@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+The student learning roadmap (DSA, DBMS, development, open source and placements) is part of the site, at `/roadmap`.
+
 ## Getting Started
 
 First, run the development server:
