@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ROADMAP_TABS } from "@/lib/roadmap/pages";
+import { ROADMAP_GROUPS, ROADMAP_TABS, type RoadmapTab } from "@/lib/roadmap/pages";
 
 export const focus =
   "focus-visible:ring-ring rounded-sm focus-visible:ring-2 focus-visible:outline-none";
@@ -28,6 +28,39 @@ export function Rule({ colors }: { colors?: string[] }) {
   );
 }
 
+/** One link in the page switcher. */
+function TabLink({
+  t,
+  on,
+  className,
+  pill,
+}: {
+  t: RoadmapTab;
+  on: boolean;
+  className: string;
+  pill?: boolean;
+}) {
+  const state = on
+    ? "text-foreground font-semibold"
+    : "text-muted-foreground hover:text-foreground";
+  const shape = pill
+    ? `inline-block rounded-full border text-sm font-medium transition-colors ${
+        on
+          ? "border-foreground/30 bg-foreground/10"
+          : "hover:bg-foreground/[0.06] border-transparent"
+      }`
+    : "text-sm";
+  return (
+    <Link
+      href={t.href}
+      aria-current={on ? "page" : undefined}
+      className={`${shape} ${state} ${className} ${focus}`}
+    >
+      {t.label}
+    </Link>
+  );
+}
+
 /**
  * The frame every roadmap page shares: the page switcher, a title block, a sticky
  * "on this page" index on wide screens, and the content beside it.
@@ -50,29 +83,48 @@ export function RoadmapShell({
   eyebrow?: React.ReactNode;
   children: React.ReactNode;
 }) {
+  const current = ROADMAP_TABS.find((t) => t.href === active);
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:py-12">
       <nav aria-label="Roadmap" className="mb-8">
-        <ul className="flex [scrollbar-width:none] gap-1 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {ROADMAP_TABS.map((t) => {
-            const on = t.href === active;
-            return (
-              <li key={t.href} className="shrink-0">
-                <Link
-                  href={t.href}
-                  aria-current={on ? "page" : undefined}
-                  className={`rounded-full border px-3 py-1 text-sm font-medium transition-colors ${focus} ${
-                    on
-                      ? "border-foreground/30 bg-foreground/10 text-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.06] border-transparent"
-                  }`}
-                >
-                  {t.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <details className="border-border rounded-lg border px-3 py-2 md:hidden">
+          <summary className={`cursor-pointer text-sm font-semibold ${focus}`}>
+            Roadmap menu: {current?.label}
+          </summary>
+          <div className="mt-2 flex flex-col gap-3">
+            {ROADMAP_GROUPS.map((g) => (
+              <div key={g.label}>
+                <p className="text-muted-foreground mb-1 text-xs font-semibold tracking-wider uppercase">
+                  {g.label}
+                </p>
+                <ul className="flex flex-col">
+                  {g.tabs.map((t) => (
+                    <li key={t.href}>
+                      <TabLink t={t} on={t.href === active} className="block py-1.5" />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </details>
+
+        <div className="border-border hidden grid-cols-[auto_1fr_1fr_auto] gap-x-8 gap-y-2 border-b pb-4 md:grid">
+          {ROADMAP_GROUPS.map((g) => (
+            <div key={g.label} className="min-w-0">
+              <p className="text-muted-foreground mb-1.5 text-xs font-semibold tracking-wider uppercase">
+                {g.label}
+              </p>
+              <ul className="flex flex-wrap gap-1">
+                {g.tabs.map((t) => (
+                  <li key={t.href}>
+                    <TabLink t={t} on={t.href === active} className="px-3 py-1" pill />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </nav>
 
       <header className="mb-10 flex flex-col gap-3">

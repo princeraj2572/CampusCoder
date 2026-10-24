@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Block, RoadmapShell, focus } from "@/components/roadmap-shell";
-import { ROADMAP_TABS, roadmapHref } from "@/lib/roadmap/pages";
+import { ROADMAP_GROUPS, ROADMAP_TABS, roadmapHref } from "@/lib/roadmap/pages";
 import type { RoadmapPage as Page, RoadmapSection } from "@/lib/roadmap/types";
 
 function Body({ s }: { s: RoadmapSection }) {
@@ -100,6 +100,8 @@ function Body({ s }: { s: RoadmapSection }) {
   );
 }
 
+const ALL_TOPICS = "All topics";
+
 /** One topic page of the learning roadmap, with a link to the next page at the end. */
 export function RoadmapPage({ page }: { page: Page }) {
   const href = roadmapHref(page.slug);
@@ -111,8 +113,38 @@ export function RoadmapPage({ page }: { page: Page }) {
       active={href}
       title={page.title}
       intro={page.intro}
-      toc={page.sections.map((s) => s.heading)}
+      toc={[
+        ...(page.slug === "" ? [ALL_TOPICS] : []),
+        ...page.sections.map((s) => s.heading),
+      ]}
     >
+      {page.slug === "" && (
+        <Block title={ALL_TOPICS} note="Pick a topic, or follow the pages in order.">
+          <div className="flex flex-col gap-6">
+            {ROADMAP_GROUPS.filter((g) => g.label !== "Start").map((g) => (
+              <div key={g.label} className="flex flex-col gap-2">
+                <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                  {g.label}
+                </h3>
+                <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+                  {g.tabs.map((t) => (
+                    <li key={t.href}>
+                      <Link
+                        href={t.href}
+                        className={`border-border hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border px-3 py-2.5 transition-colors ${focus}`}
+                      >
+                        <span className="text-foreground font-medium">{t.label}</span>
+                        <span className="text-muted-foreground text-sm">{t.blurb}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Block>
+      )}
+
       {page.sections.map((s) => (
         <Block key={s.heading} title={s.heading}>
           <Body s={s} />
