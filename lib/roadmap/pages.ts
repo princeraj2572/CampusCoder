@@ -1,3 +1,4 @@
+import { tools } from "./tools";
 import type { RoadmapPage } from "./types";
 
 const start: RoadmapPage = {
@@ -711,6 +712,7 @@ export const ROADMAP_PAGES: RoadmapPage[] = [
   dsa,
   coreSubjects,
   development,
+  tools,
   openSource,
   career,
 ];
