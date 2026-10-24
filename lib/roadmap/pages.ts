@@ -1,3 +1,4 @@
+import { ai } from "./ai";
 import { ideas } from "./ideas";
 import { interview } from "./interview";
 import { patterns } from "./patterns";
@@ -749,6 +750,7 @@ export const ROADMAP_PAGES: RoadmapPage[] = [
   development,
   ideas,
   tools,
+  ai,
   openSource,
   career,
 ];
