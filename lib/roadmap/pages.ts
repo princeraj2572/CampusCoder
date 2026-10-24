@@ -299,7 +299,12 @@ const coreSubjects: RoadmapPage = {
         "Small projects that teach how things work underneath. Each builds on the one before. The last column is the test: you understand it when you can explain that out loud, without notes.",
       ],
       table: {
-        head: ["#", "Project", "Concept it clears", "You understand it when you can explain"],
+        head: [
+          "#",
+          "Project",
+          "Concept it clears",
+          "You understand it when you can explain",
+        ],
         rows: [
           [
             "1",
