@@ -74,7 +74,7 @@ function Body({ s }: { s: RoadmapSection }) {
                   {r.map((c, i) => (
                     <td
                       key={i}
-                      className={`px-3 py-2.5 align-top ${i === 0 ? "text-foreground font-medium whitespace-nowrap" : "text-muted-foreground"}`}
+                      className={`px-3 py-2.5 align-top ${i === 0 ? `text-foreground font-medium ${c.length <= 32 ? "whitespace-nowrap" : ""}` : "text-muted-foreground"}`}
                     >
                       {c}
                     </td>

@@ -109,13 +109,13 @@ export function RoadmapShell({
           </div>
         </details>
 
-        <div className="border-border hidden grid-cols-[auto_1fr_1fr_auto] gap-x-8 gap-y-2 border-b pb-4 md:grid">
+        <div className="border-border hidden flex-wrap gap-x-10 gap-y-4 border-b pb-5 md:flex">
           {ROADMAP_GROUPS.map((g) => (
-            <div key={g.label} className="min-w-0">
+            <div key={g.label}>
               <p className="text-muted-foreground mb-1.5 text-xs font-semibold tracking-wider uppercase">
                 {g.label}
               </p>
-              <ul className="flex flex-wrap gap-1">
+              <ul className="-ml-3 flex flex-wrap gap-1">
                 {g.tabs.map((t) => (
                   <li key={t.href}>
                     <TabLink t={t} on={t.href === active} className="px-3 py-1" pill />
