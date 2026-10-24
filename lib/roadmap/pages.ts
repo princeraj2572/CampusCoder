@@ -723,3 +723,14 @@ export function roadmapPage(slug: string): RoadmapPage | undefined {
 export function roadmapHref(slug: string): string {
   return slug ? `/roadmap/${slug}` : "/roadmap";
 }
+
+/** The page switcher: the start page, then the roles section, then the topic pages. */
+export const ROADMAP_TABS: { label: string; title: string; href: string }[] = [
+  ...ROADMAP_PAGES.slice(0, 1),
+  { slug: "roles", label: "Roles and jobs", title: "Roles and jobs" },
+  ...ROADMAP_PAGES.slice(1),
+].map((p) => ({
+  label: p.label,
+  title: p.title,
+  href: p.slug === "roles" ? "/roadmap/roles" : roadmapHref(p.slug),
+}));
