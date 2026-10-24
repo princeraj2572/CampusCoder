@@ -84,6 +84,24 @@ export function RoadmapShell({
         <p className="text-muted-foreground max-w-3xl text-lg">{intro}</p>
       </header>
 
+      <details className="border-border mb-8 rounded-lg border px-3 py-2 lg:hidden">
+        <summary className={`cursor-pointer text-sm font-semibold ${focus}`}>
+          On this page
+        </summary>
+        <ul className="mt-2 flex flex-col">
+          {toc.map((h) => (
+            <li key={h}>
+              <a
+                href={`#${anchor(h)}`}
+                className={`text-muted-foreground hover:text-foreground block py-1.5 text-sm ${focus}`}
+              >
+                {h}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+
       <div className="grid gap-10 lg:grid-cols-[13rem_minmax(0,1fr)]">
         <aside className="hidden lg:block">
           <nav aria-label="On this page" className="sticky top-20">
