@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { RoadmapPage } from "@/components/roadmap-page";
 import { ROADMAP_PAGES, roadmapPage } from "@/lib/roadmap/pages";
 
@@ -15,11 +16,18 @@ export async function generateMetadata({
   return { title: `${page.title} · Roadmap · CampusCoders`, description: page.intro };
 }
 
-export default async function RoadmapTopicPage({
-  params,
-}: PageProps<"/roadmap/[topic]">) {
+async function Topic({ params }: Pick<PageProps<"/roadmap/[topic]">, "params">) {
   const { topic } = await params;
   const page = topic ? roadmapPage(topic) : undefined;
   if (!page) notFound();
   return <RoadmapPage page={page} />;
+}
+
+// The pages are prerendered from generateStaticParams. Reading params inside Suspense keeps navigation instant.
+export default function RoadmapTopicPage({ params }: PageProps<"/roadmap/[topic]">) {
+  return (
+    <Suspense fallback={null}>
+      <Topic params={params} />
+    </Suspense>
+  );
 }
