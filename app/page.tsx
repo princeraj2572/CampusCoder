@@ -58,7 +58,7 @@ const ROADMAP_TOPICS = [
     href: "/roadmap/roles",
     title: "Roles and jobs",
     color: "var(--board-github)",
-    text: "11 roles, from backend to security: what to study and build for each.",
+    text: "14 roles, from backend to UI/UX design: what to study and build for each.",
   },
   {
     href: "/roadmap/ai",

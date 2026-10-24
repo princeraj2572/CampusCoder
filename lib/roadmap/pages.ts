@@ -813,7 +813,7 @@ export const ROADMAP_GROUPS: { label: string; tabs: RoadmapTab[] }[] = [
         title: "Roles and jobs",
         href: "/roadmap/roles",
         blurb:
-          "11 roles: what each does, what to study and build, and what seniors advise.",
+          "14 roles: what each does, what to study and build, and what seniors advise.",
       },
       tab("career", "Resume, LinkedIn, internships and placement preparation."),
     ],

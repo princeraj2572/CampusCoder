@@ -12,6 +12,15 @@ const CHOOSE: { like: string; roles: string }[] = [
   { like: "Finding how things break, within the rules", roles: "Security, QA" },
   { like: "Electronics and making hardware do things", roles: "Embedded / IoT" },
   { like: "Games, maths and real-time graphics", roles: "Game developer" },
+  { like: "Understanding people and making things easy to use", roles: "UI/UX designer" },
+  {
+    like: "Deciding what to build and why, and working with every team",
+    roles: "Product manager",
+  },
+  {
+    like: "Security, money and careful systems where mistakes cost",
+    roles: "Blockchain developer",
+  },
 ];
 
 const RULES = [
