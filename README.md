@@ -149,6 +149,92 @@ Start in your second year at the latest if you want GSoC or similar programmes: 
 - Do mock interviews with friends or on [Pramp](https://www.pramp.com) and [interviewing.io](https://interviewing.io).
 - Know your projects well enough to answer any question about them.
 
+### Pick a development track
+
+Do DSA for everyone. After the basics, go deep in one track instead of sampling all of them.
+
+| Track | Learn | Good first project |
+| --- | --- | --- |
+| Web (frontend) | HTML, CSS, JavaScript, TypeScript, React, Next.js, accessibility | A portfolio site and a dashboard with live data |
+| Web (backend) | Node.js or Python, REST APIs, SQL, authentication, caching, testing | A REST API with login, roles and a database |
+| Mobile | React Native with Expo, or Kotlin / Swift | A campus utility app (timetable, notes, bus timings) |
+| AI / ML | Python, NumPy, pandas, scikit-learn, then deep learning ([fast.ai](https://course.fast.ai), [Andrew Ng's ML course](https://www.coursera.org/specializations/machine-learning-introduction)) | A model on a real dataset from [Kaggle](https://www.kaggle.com), with a small demo app |
+| DevOps / Cloud | Linux, Docker, CI/CD with GitHub Actions, AWS or GCP basics | Deploy one of your projects with automated tests and deploys |
+| Security | Networking, web vulnerabilities, [OWASP Top 10](https://owasp.org/www-project-top-ten/), CTFs on [picoCTF](https://picoctf.org) | Solve beginner CTFs and write up what you learned |
+
+### Tools every student should know
+
+- **Terminal and Linux:** navigation, `grep`, `ssh`, permissions and shell scripts ([The Missing Semester](https://missing.csail.mit.edu) covers all of this).
+- **Git beyond the basics:** branches, rebase, resolving conflicts, writing clear commit messages, and opening pull requests.
+- **An editor and debugger:** learn VS Code shortcuts and how to use a debugger instead of adding print statements.
+- **Docker basics:** write a Dockerfile for one project.
+- **Reading documentation:** go to the official docs before a video. This one skill separates a beginner from a developer.
+- **Testing:** write a few unit tests for every project.
+
+### Aptitude and placement preparation
+
+- Many companies filter first on aptitude: quantitative, logical reasoning and verbal. Practise on [IndiaBIX](https://www.indiabix.com) for 20–30 minutes a day in your last year.
+- Learn the common puzzles and probability basics.
+- Write at least ten past questions from each target company's online assessment, such as those on GeeksforGeeks interview experiences and LeetCode Discuss.
+- Prepare "tell me about yourself", a project walkthrough, and a story each for teamwork, failure and conflict.
+
+### Hackathons, internships and clubs
+
+- **Hackathons:** join [Devpost](https://devpost.com), [Unstop](https://unstop.com) and [MLH](https://mlh.io) events. You learn more in 24 hours of building with a team than in weeks of tutorials.
+- **Internships:** apply from the second year onwards. Use [Internshala](https://internshala.com), [LinkedIn](https://www.linkedin.com), [Wellfound](https://wellfound.com) and your college's placement cell. Startups often take juniors.
+- **Clubs and community:** join or start a coding club on campus. Teaching others is the fastest way to learn something thoroughly.
+- **Write in public:** a short blog or LinkedIn post about what you built or learned helps recruiters find you and helps you remember.
+
+### Build a daily routine
+
+A realistic plan for a college day:
+
+| Slot | Activity |
+| --- | --- |
+| 45–60 min | Learn a DSA topic and solve 1–2 problems |
+| 30 min | Core subject (DBMS, OS, CN) or revise old problems |
+| 30–60 min | Project or open-source work |
+| Weekly | One contest, then upsolve it on the weekend |
+| Weekly | One rest day with no screens for study |
+
+Sleep, exercise and breaks are part of the plan, not extras. Burnout ends more streaks than lack of talent.
+
+### Using AI tools well
+
+- Use AI to explain a concept, review your code or suggest test cases. Do not use it to produce the solution before you have tried.
+- Never submit code you cannot explain line by line.
+- Verify every claim and every API it gives you against the official docs.
+- Ask it to quiz you or find the bug in your approach, rather than hand you the answer.
+
+### Using CampusCoder to stay on track
+
+- Link your LeetCode, Codeforces, CodeChef and GitHub accounts in your profile so your standing updates automatically.
+- Check your tier and your rank in your year and department boards, and set one concrete target for the next month.
+- Watch the weekly trend chart: a flat line tells you to adjust your routine, not to give up.
+- Use the boards to find peers a little ahead of you and learn from what they work on.
+
+### Frequently asked questions
+
+**I am a beginner. Where do I start today?** Pick a language, finish a basic course such as CS50, and solve one easy problem. Then open Striver's A2Z sheet and begin at step 1.
+
+**C++, Java or Python?** Whichever you will actually practise. C++ is the usual choice for competitive programming, Java for enterprise roles, Python for AI and quick scripting. Interviews accept all three.
+
+**How many problems are enough?** There is no fixed number. When you can identify the pattern in a new medium problem and solve it in 30–40 minutes, you are in good shape.
+
+**I am in my final year. Is it too late?** No. Focus on the SDE sheet, the core subjects and mock interviews, build one strong project, and apply right away.
+
+**Should I do DSA or development first?** Do both, in short daily slots. DSA gets you through the screening, and projects get you through the interview and the job.
+
+**My rank is low. Should I worry?** Rank only shows where you are today. Improve your trend week over week and keep going.
+
+### Further reading
+
+- *Cracking the Coding Interview* – Gayle Laakmann McDowell
+- *Introduction to Algorithms* (CLRS), as a reference rather than a first read
+- *Designing Data-Intensive Applications* – Martin Kleppmann, for backend and system design
+- *The Pragmatic Programmer* – Hunt and Thomas
+- *Competitive Programmer's Handbook* – Antti Laaksonen (free PDF)
+
 ## Getting Started
 
 First, run the development server:
