@@ -409,7 +409,7 @@ export default function LandingPage() {
                       value: 928,
                       color: "var(--board-github)",
                     },
-                    { label: "Best rank", value: "#1", color: "var(--medal-gold)" },
+                    { label: "Best rank", value: "#1", color: "var(--medal-gold-ink)" },
                   ]}
                 />
               </div>

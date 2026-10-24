@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Block, RoadmapShell, focus } from "@/components/roadmap-shell";
+import { ink } from "@/lib/boards/theme";
 import { ROLES, type Role } from "@/lib/roadmap/roles";
 
 const LEVEL_COLOR: Record<Role["projects"][number]["level"], string> = {
@@ -15,7 +16,7 @@ function Tint({ color, children }: { color: string; children: React.ReactNode })
     <span
       className="rounded-full border px-2.5 py-0.5 text-xs font-semibold"
       style={{
-        color,
+        color: ink(color),
         borderColor: `color-mix(in oklab, ${color} 50%, transparent)`,
         backgroundColor: `color-mix(in oklab, ${color} 12%, transparent)`,
       }}
@@ -239,7 +240,7 @@ export function RoleDetail({ role }: { role: Role }) {
           <div className={card}>
             <h3
               className="font-display mb-3 font-semibold"
-              style={{ color: "var(--tier-green)" }}
+              style={{ color: ink("var(--tier-green)") }}
             >
               Do
             </h3>
@@ -248,7 +249,7 @@ export function RoleDetail({ role }: { role: Role }) {
           <div className={card}>
             <h3
               className="font-display mb-3 font-semibold"
-              style={{ color: "var(--tier-red)" }}
+              style={{ color: ink("var(--tier-red)") }}
             >
               Avoid
             </h3>
@@ -278,13 +279,16 @@ export function RoleDetail({ role }: { role: Role }) {
           {role.myths.map((m) => (
             <li key={m.myth} className={`${card} flex flex-col gap-3`}>
               <p>
-                <span className="font-semibold" style={{ color: "var(--tier-red)" }}>
+                <span className="font-semibold" style={{ color: ink("var(--tier-red)") }}>
                   Myth:{" "}
                 </span>
                 <span className="text-foreground">{m.myth}</span>
               </p>
               <p>
-                <span className="font-semibold" style={{ color: "var(--tier-green)" }}>
+                <span
+                  className="font-semibold"
+                  style={{ color: ink("var(--tier-green)") }}
+                >
                   Reality:{" "}
                 </span>
                 <span className="text-muted-foreground leading-relaxed">{m.truth}</span>

@@ -22,3 +22,8 @@ const MEDALS = ["var(--medal-gold)", "var(--medal-silver)", "var(--medal-bronze)
 export function medalColor(rank: number): string | null {
   return rank >= 1 && rank <= 3 ? MEDALS[rank - 1] : null;
 }
+
+/** A small-text colour for an accent: the accent blended toward the text colour, so it stays readable on its own tint in both themes. */
+export function ink(color: string): string {
+  return `color-mix(in oklab, ${color} 60%, var(--foreground))`;
+}
