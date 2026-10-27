@@ -106,6 +106,38 @@ export const qa: Role = {
     "Explain how you would design an automation framework and avoid flaky tests.",
     "Differences between severity and priority, regression and retesting, smoke and sanity tests.",
   ],
+  concepts: [
+    {
+      name: "The test pyramid",
+      what: "Many fast unit tests, fewer integration tests and a small number of slow end-to-end tests.",
+      why: "It keeps feedback quick and the suite affordable.",
+    },
+    {
+      name: "Writing a good bug report",
+      what: "Steps to reproduce, expected result, actual result, environment and evidence.",
+      why: "A bug nobody can reproduce does not get fixed.",
+    },
+    {
+      name: "Test design techniques",
+      what: "Boundary values, equivalence classes and decision tables pick few tests that cover a lot.",
+      why: "You cannot test everything, so you choose well.",
+    },
+    {
+      name: "Flaky tests",
+      what: "Tests that pass and fail with no code change, usually from timing, shared data or the network.",
+      why: "They teach the team to ignore red builds.",
+    },
+    {
+      name: "Test automation",
+      what: "Playwright or Selenium drive a real browser, and API tests call endpoints directly.",
+      why: "Automation repeats the boring checks so people can explore.",
+    },
+    {
+      name: "Risk-based testing",
+      what: "Spend the most effort where a failure would hurt most or is most likely.",
+      why: "Time is limited, so you aim it at what matters.",
+    },
+  ],
   links: [
     {
       label: "Playwright documentation",

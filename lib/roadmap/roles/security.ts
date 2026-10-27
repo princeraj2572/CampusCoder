@@ -108,6 +108,38 @@ export const security: Role = {
     "Threat-model a simple login page.",
     "Python scripting and DSA at an easy level.",
   ],
+  concepts: [
+    {
+      name: "The CIA triad",
+      what: "Confidentiality, integrity and availability: keep data private, keep it correct and keep it reachable.",
+      why: "Every security decision trades between these three.",
+    },
+    {
+      name: "OWASP Top 10",
+      what: "The most common web flaws: broken access control, injection, weak crypto, misconfiguration and more.",
+      why: "It is the standard checklist for what to test and fix first.",
+    },
+    {
+      name: "Cryptography basics",
+      what: "Hashing, symmetric and public-key encryption, and what TLS does for you.",
+      why: "Use proven libraries, never invent your own.",
+    },
+    {
+      name: "Threat modelling",
+      what: "Ask what you are protecting, who attacks it, how, and what you will do about it.",
+      why: "It finds design flaws before they become code.",
+    },
+    {
+      name: "Networking fundamentals",
+      what: "IP, DNS, ports, TCP and HTTP: how machines find and talk to each other.",
+      why: "You cannot defend or attack what you do not understand.",
+    },
+    {
+      name: "Responsible disclosure",
+      what: "Report a flaw privately to the owner and give them time to fix it before sharing details.",
+      why: "It keeps you legal and trusted, and protects users.",
+    },
+  ],
   links: [
     {
       label: "PortSwigger Web Security Academy",

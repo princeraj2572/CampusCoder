@@ -105,6 +105,7 @@ export function RoleDetail({ role }: { role: Role }) {
         "The job",
         "Where you will work",
         "Study plan",
+        "Concepts to master",
         "What to build",
         "Tools",
         "A week of study",
@@ -215,6 +216,40 @@ export function RoleDetail({ role }: { role: Role }) {
             </li>
           ))}
         </ol>
+      </Block>
+
+      <Block
+        accent={c}
+        title="Concepts to master"
+        note="The ideas behind the tools. Learn what each one means and why it matters."
+      >
+        <ul className="grid gap-4 md:grid-cols-2">
+          {role.concepts.map((k, n) => (
+            <li key={k.name} className={`${card} flex flex-col gap-2`}>
+              <h3 className="font-display flex items-center gap-2 font-semibold">
+                <span
+                  aria-hidden="true"
+                  className="flex size-6 shrink-0 items-center justify-center rounded-md text-xs font-bold"
+                  style={{ background: c, color: "var(--on-board)" }}
+                >
+                  {n + 1}
+                </span>
+                {k.name}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">{k.what}</p>
+              <p
+                className="rounded-lg border-l-4 px-3 py-1.5 text-sm"
+                style={{
+                  borderColor: c,
+                  background: `color-mix(in oklab, ${c} 10%, transparent)`,
+                }}
+              >
+                <span className="text-foreground font-semibold">Why it matters: </span>
+                <span className="text-muted-foreground">{k.why}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
       </Block>
 
       <Block

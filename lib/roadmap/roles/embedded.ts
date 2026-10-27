@@ -107,6 +107,38 @@ export const embedded: Role = {
     "Design a state machine for a simple device, such as a washing machine.",
     "Walk through a hardware bug you debugged and how you found it.",
   ],
+  concepts: [
+    {
+      name: "Microcontrollers and registers",
+      what: "A small chip with memory, a CPU and peripherals you control by reading and writing hardware registers.",
+      why: "It is what your code actually talks to.",
+    },
+    {
+      name: "GPIO, ADC and PWM",
+      what: "Read and write digital pins, convert analogue voltages to numbers and fake analogue output with pulses.",
+      why: "These three cover most simple sensors and actuators.",
+    },
+    {
+      name: "Interrupts",
+      what: "Hardware signals that pause the main code to run a short handler right away.",
+      why: "They let a device react quickly without polling constantly.",
+    },
+    {
+      name: "Communication protocols",
+      what: "UART, I2C and SPI let chips and sensors exchange data over a few wires.",
+      why: "Almost every component you add speaks one of them.",
+    },
+    {
+      name: "Memory and C pointers",
+      what: "Fixed RAM and flash, no garbage collector and direct access through pointers.",
+      why: "A small mistake corrupts memory silently.",
+    },
+    {
+      name: "RTOS basics",
+      what: "A real-time operating system schedules tasks with fixed priorities and deadlines.",
+      why: "It keeps complex firmware predictable.",
+    },
+  ],
   links: [
     {
       label: "Arduino documentation",

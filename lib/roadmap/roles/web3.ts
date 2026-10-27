@@ -109,6 +109,38 @@ export const web3: Role = {
     "Describe how you would test and secure a contract that holds user funds.",
     "General coding and data structures, since many teams test them first.",
   ],
+  concepts: [
+    {
+      name: "Blockchain basics",
+      what: "A shared ledger of blocks linked by hashes, agreed on by many computers without a central owner.",
+      why: "It is what makes the records hard to alter.",
+    },
+    {
+      name: "Wallets and keys",
+      what: "A private key signs transactions and a public address receives funds. Lose the key and you lose the assets.",
+      why: "Self-custody puts security in your hands.",
+    },
+    {
+      name: "Smart contracts",
+      what: "Programs on a blockchain that run exactly as written and cannot be edited once deployed.",
+      why: "Bugs are permanent, so the code must be right the first time.",
+    },
+    {
+      name: "Gas and transactions",
+      what: "Each operation costs fees paid in the network's token, which rise with congestion.",
+      why: "Efficient code is cheaper code.",
+    },
+    {
+      name: "Common contract vulnerabilities",
+      what: "Reentrancy, overflow, access-control mistakes and oracle manipulation.",
+      why: "Real exploits have drained millions from them.",
+    },
+    {
+      name: "Tokens and standards",
+      what: "ERC-20 for fungible tokens and ERC-721 for NFTs define a shared interface.",
+      why: "Wallets and apps work with any token that follows the standard.",
+    },
+  ],
   links: [
     {
       label: "Solidity documentation",

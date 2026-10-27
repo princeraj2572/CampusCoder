@@ -110,6 +110,38 @@ export const aiMl: Role = {
     "SQL and data manipulation questions.",
     "How you would evaluate a language-model feature.",
   ],
+  concepts: [
+    {
+      name: "Train, validation and test sets",
+      what: "Split data so the model learns on one part, you tune on another and you judge it on a third it has never seen.",
+      why: "Without it you measure memory, not learning, and ship a model that fails on real data.",
+    },
+    {
+      name: "Overfitting",
+      what: "A model that fits its training data too closely and fails on new data.",
+      why: "It is the main way models look good in a notebook and bad in production.",
+    },
+    {
+      name: "Loss function and gradient descent",
+      what: "The loss scores how wrong the model is. Gradient descent nudges the weights to make it smaller, step by step.",
+      why: "This one loop is how nearly every neural network learns.",
+    },
+    {
+      name: "Features and data quality",
+      what: "The inputs you give a model, and whether they are clean, balanced and relevant.",
+      why: "Better data usually beats a fancier model.",
+    },
+    {
+      name: "Evaluation metrics",
+      what: "Accuracy, precision, recall, F1 and AUC each answer a different question about the errors.",
+      why: "On rare events such as fraud, accuracy alone can be 99% and useless.",
+    },
+    {
+      name: "Embeddings and transformers",
+      what: "Embeddings turn text or images into vectors of numbers where similar things sit close together. Transformers use attention to relate every part of the input to every other.",
+      why: "They sit behind modern language and vision models and search.",
+    },
+  ],
   links: [
     {
       label: "Machine Learning Specialization",

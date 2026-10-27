@@ -109,6 +109,38 @@ export const backend: Role = {
     "What happens when you type a URL; how HTTPS works; how sessions differ from JWTs.",
     "Walk through one of your projects, including a bug you fixed.",
   ],
+  concepts: [
+    {
+      name: "HTTP and REST",
+      what: "A request has a method (GET, POST, PUT, DELETE), a path, headers and a body. The server answers with a status code such as 200, 404 or 500 and a body.",
+      why: "Every API you build or call speaks HTTP. Knowing status codes and methods makes bugs easy to read.",
+    },
+    {
+      name: "Database indexes",
+      what: "An index is a sorted lookup structure the database keeps beside a table, so it can find rows without scanning all of them.",
+      why: "A missing index is the most common reason a query takes seconds instead of milliseconds.",
+    },
+    {
+      name: "Transactions and ACID",
+      what: "A transaction groups several writes so they all succeed or all fail. ACID means atomic, consistent, isolated and durable.",
+      why: "Transfers, orders and payments break without it: money leaves one account and never arrives in the other.",
+    },
+    {
+      name: "Authentication and authorisation",
+      what: "Authentication proves who you are (a password, a token). Authorisation decides what you may do once known.",
+      why: "Mixing them up leads to the classic bug where any logged-in user can read anyone's data.",
+    },
+    {
+      name: "Caching",
+      what: "Keep the answer to an expensive question in fast memory (Redis, an in-process map) and reuse it until it goes stale.",
+      why: "It cuts load and latency, but you must decide when cached data becomes wrong and how to refresh it.",
+    },
+    {
+      name: "Idempotency and retries",
+      what: "An operation is idempotent if doing it twice has the same effect as doing it once. Networks fail, so clients retry.",
+      why: "Without it, a retried payment request charges the customer twice.",
+    },
+  ],
   links: [
     {
       label: "roadmap.sh: Backend",

@@ -109,6 +109,38 @@ export const uiUx: Role = {
     "Critique an existing app: what works, what does not, and what you would change.",
     "Questions on accessibility, design systems and working with developers.",
   ],
+  concepts: [
+    {
+      name: "User research",
+      what: "Talk to and watch real users to learn their goals and problems before designing.",
+      why: "It stops you designing for yourself.",
+    },
+    {
+      name: "Information architecture",
+      what: "Organise content and navigation so people find things where they expect them.",
+      why: "People leave when they cannot find what they came for.",
+    },
+    {
+      name: "Visual hierarchy",
+      what: "Size, weight, colour and space show what matters most on the screen.",
+      why: "It guides the eye without the user noticing.",
+    },
+    {
+      name: "Usability heuristics",
+      what: "Nielsen's ten rules, such as visible status, error prevention and consistency.",
+      why: "They give a quick checklist to review any screen.",
+    },
+    {
+      name: "Design systems",
+      what: "Shared components, spacing and colour tokens used across a product.",
+      why: "They keep products consistent and speed up design and development.",
+    },
+    {
+      name: "Usability testing",
+      what: "Watch five people try to finish tasks with your prototype and note where they struggle.",
+      why: "Five tests find most of the big problems cheaply.",
+    },
+  ],
   links: [
     {
       label: "Laws of UX",

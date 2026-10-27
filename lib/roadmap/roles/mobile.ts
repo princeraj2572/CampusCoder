@@ -105,6 +105,38 @@ export const mobile: Role = {
     "How you would build an offline-first feed or chat screen.",
     "Walk through your published or demo app.",
   ],
+  concepts: [
+    {
+      name: "The app lifecycle",
+      what: "Apps are paused, backgrounded and killed by the OS at any moment, so you must save state and restore it.",
+      why: "Users lose work when the lifecycle is ignored.",
+    },
+    {
+      name: "Declarative UI",
+      what: "You describe what the screen looks like for a given state (Compose, SwiftUI, Flutter) and the framework updates it.",
+      why: "It removes a whole class of out-of-date-screen bugs.",
+    },
+    {
+      name: "Navigation",
+      what: "Screens form a stack or a graph with arguments passed between them and a back button that must behave.",
+      why: "Broken navigation is the most visible way an app feels unfinished.",
+    },
+    {
+      name: "Offline-first and local storage",
+      what: "Keep data on the device (SQLite, Room, Core Data) and sync when the network returns.",
+      why: "Mobile networks drop all the time, and users expect the app to still work.",
+    },
+    {
+      name: "Permissions and privacy",
+      what: "Ask for camera, location or notifications only when needed, and explain why.",
+      why: "Stores reject apps that ask carelessly, and users uninstall them.",
+    },
+    {
+      name: "Performance on small devices",
+      what: "Mind memory, battery and frame rate: lazy lists, small images and no work on the main thread.",
+      why: "A janky scroll on a cheap phone is what most of your users will see.",
+    },
+  ],
   links: [
     {
       label: "roadmap.sh: Android",

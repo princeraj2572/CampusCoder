@@ -108,6 +108,38 @@ export const game: Role = {
     "Design a system, such as an inventory or an enemy AI.",
     "Show a playable build and explain a technical problem you solved in it.",
   ],
+  concepts: [
+    {
+      name: "The game loop",
+      what: "Each frame: read input, update the world, draw it, then repeat 30 to 120 times a second.",
+      why: "Every game engine is built around it.",
+    },
+    {
+      name: "Delta time",
+      what: "Scale movement by the time since the last frame so speed does not depend on frame rate.",
+      why: "Without it, the game runs twice as fast on a fast machine.",
+    },
+    {
+      name: "Vectors and basic maths",
+      what: "Positions, directions and speeds are vectors, added, scaled and compared with dot products.",
+      why: "It is how movement, aiming and collision work.",
+    },
+    {
+      name: "Collision detection",
+      what: "Test whether shapes overlap using boxes, circles or rays, then decide what happens.",
+      why: "It makes the world feel solid.",
+    },
+    {
+      name: "Game feel",
+      what: "Small touches such as screen shake, sound and animation make actions satisfying.",
+      why: "Two games with the same rules can feel completely different.",
+    },
+    {
+      name: "Scope and prototyping",
+      what: "Build the smallest playable version first, then add what the testing shows is fun.",
+      why: "Most unfinished games die from too much scope.",
+    },
+  ],
   links: [
     {
       label: "Unity Learn",

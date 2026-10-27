@@ -103,6 +103,38 @@ export const fullStack: Role = {
     "Explain a project you shipped, including a trade-off you made.",
     "Authentication flows and common security mistakes.",
   ],
+  concepts: [
+    {
+      name: "Client and server split",
+      what: "The browser shows the interface and holds temporary state. The server holds the truth, the rules and the secrets.",
+      why: "Deciding what lives where is the main design choice in every full stack feature.",
+    },
+    {
+      name: "API contracts",
+      what: "An agreed shape for requests and responses, written down as types or an OpenAPI file.",
+      why: "Frontend and backend can then change separately without breaking each other.",
+    },
+    {
+      name: "Sessions, cookies and tokens",
+      what: "After login, the server hands back a cookie or token the browser sends on every request.",
+      why: "Getting this wrong is how accounts get hijacked.",
+    },
+    {
+      name: "Data modelling",
+      what: "Decide the tables, the keys and the relations before writing screens that depend on them.",
+      why: "Fixing a wrong schema later means migrating live data.",
+    },
+    {
+      name: "Server and client rendering",
+      what: "Pages can be built on the server, in the browser or both, trading first-load speed against interactivity.",
+      why: "It shapes SEO, speed and how much JavaScript users download.",
+    },
+    {
+      name: "Deployment",
+      what: "Build the app, set environment variables, run migrations and put it behind a URL, ideally from a pipeline.",
+      why: "A project that only runs on your laptop is not finished.",
+    },
+  ],
   links: [
     {
       label: "The Odin Project",

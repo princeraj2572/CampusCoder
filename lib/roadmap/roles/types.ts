@@ -33,6 +33,8 @@ export interface BaseRole {
   projects: RoleProject[];
   senior: { do: string[]; avoid: string[] };
   interview: string[];
+  /** The ideas a student must understand, in plain words. */
+  concepts: { name: string; what: string; why: string }[];
   links: RoadmapLink[];
 }
 

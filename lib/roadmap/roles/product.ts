@@ -109,6 +109,38 @@ export const product: Role = {
     "A behavioural question about influencing a team or handling a disagreement.",
     "A teardown of a product you know well, with a clear opinion.",
   ],
+  concepts: [
+    {
+      name: "Problem before solution",
+      what: "Define who has the problem, how often and how painful, before talking about features.",
+      why: "Teams waste months building solutions to problems nobody has.",
+    },
+    {
+      name: "Prioritisation",
+      what: "Rank work with frameworks such as RICE (reach, impact, confidence, effort) or impact versus effort.",
+      why: "You can only build a fraction of what is asked for.",
+    },
+    {
+      name: "Metrics",
+      what: "Pick a few numbers (activation, retention, revenue) that show whether the product works.",
+      why: "What you measure shapes what the team builds.",
+    },
+    {
+      name: "User stories and requirements",
+      what: "Describe what a user wants and why, with clear acceptance criteria.",
+      why: "Engineers build the right thing when the goal is clear.",
+    },
+    {
+      name: "Roadmaps and trade-offs",
+      what: "Order the work by outcome and say what you are not doing.",
+      why: "Saying no well is half the job.",
+    },
+    {
+      name: "Experiments",
+      what: "Run an A/B test or prototype to learn cheaply before building the full thing.",
+      why: "It replaces opinions with evidence.",
+    },
+  ],
   links: [
     {
       label: "Lenny's Newsletter",

@@ -107,6 +107,38 @@ export const data: Role = {
     "Pipeline design: how to load, test and monitor daily data.",
     "A project walk-through with the business question and result.",
   ],
+  concepts: [
+    {
+      name: "SQL joins and aggregation",
+      what: "Join tables on shared keys, then GROUP BY to count, sum and average.",
+      why: "Most analysis starts as a query, and wrong joins silently duplicate rows.",
+    },
+    {
+      name: "Data cleaning",
+      what: "Handle missing values, duplicates, wrong types and outliers before analysing anything.",
+      why: "Analysts spend most of their time here, and results on dirty data mislead.",
+    },
+    {
+      name: "Descriptive statistics",
+      what: "Mean, median, spread and distributions describe a column before you model it.",
+      why: "The median often tells the truth where the mean is pulled by outliers.",
+    },
+    {
+      name: "Correlation versus causation",
+      what: "Two things moving together does not mean one causes the other.",
+      why: "It is the most common wrong conclusion in reports.",
+    },
+    {
+      name: "Data visualisation",
+      what: "Choose the chart that makes the comparison obvious, label it and avoid decoration.",
+      why: "A good chart persuades faster than a table of numbers.",
+    },
+    {
+      name: "Pipelines and warehouses",
+      what: "Move data from sources into a warehouse on a schedule, then model it for reporting.",
+      why: "Dashboards are only as trustworthy as the pipeline feeding them.",
+    },
+  ],
   links: [
     {
       label: "Mode SQL Tutorial",

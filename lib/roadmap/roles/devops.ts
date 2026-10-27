@@ -107,6 +107,38 @@ export const devops: Role = {
     "Scenario: the site is down, what do you check first?",
     "Scripting, plus DSA at an easy to medium level.",
   ],
+  concepts: [
+    {
+      name: "Linux and the shell",
+      what: "Files, permissions, processes, services and logs, driven from the command line.",
+      why: "Nearly every server you will touch runs Linux.",
+    },
+    {
+      name: "Containers",
+      what: "Docker packs an app with everything it needs into an image that runs the same anywhere.",
+      why: "It ends the 'works on my machine' problem.",
+    },
+    {
+      name: "CI/CD",
+      what: "A pipeline tests and builds every commit, and deploys it automatically if all checks pass.",
+      why: "Small, frequent, automatic releases are safer than rare manual ones.",
+    },
+    {
+      name: "Infrastructure as code",
+      what: "Describe servers and networks in files (Terraform) kept in git instead of clicking in a console.",
+      why: "You can review, repeat and roll back infrastructure like any other code.",
+    },
+    {
+      name: "Observability",
+      what: "Logs, metrics and traces tell you what a running system is doing and why it is failing.",
+      why: "You cannot fix what you cannot see, especially at 3 a.m.",
+    },
+    {
+      name: "Reliability and incidents",
+      what: "Set targets (SLOs), plan for failure and write blameless post-mortems after outages.",
+      why: "Systems will fail, so what counts is how quickly you recover and learn.",
+    },
+  ],
   links: [
     {
       label: "roadmap.sh: DevOps",

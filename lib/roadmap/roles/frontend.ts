@@ -108,6 +108,38 @@ export const frontend: Role = {
     "React: hooks, why keys matter, how to avoid unnecessary renders.",
     "How you would make a page fast and accessible.",
   ],
+  concepts: [
+    {
+      name: "The box model and layout",
+      what: "Every element is a box with content, padding, border and margin. Flexbox and Grid decide how boxes sit next to each other.",
+      why: "Most CSS pain disappears once you can predict how a box is sized and placed.",
+    },
+    {
+      name: "The event loop",
+      what: "JavaScript runs one thing at a time. Slow work such as network calls is handed off, and its callback runs later from a queue.",
+      why: "It explains why code runs in a surprising order, and why one heavy loop freezes the whole page.",
+    },
+    {
+      name: "State and rendering",
+      what: "A component draws what its state says. When state changes, the framework works out what to redraw.",
+      why: "Most UI bugs are state bugs: the screen shows something the data no longer says.",
+    },
+    {
+      name: "Accessibility",
+      what: "Semantic HTML, labels, keyboard focus and enough colour contrast so everyone can use the page, including with a screen reader.",
+      why: "It is a legal requirement in many places, and it improves the page for every user.",
+    },
+    {
+      name: "Web performance",
+      what: "Load less, load it later and avoid blocking the page. Core Web Vitals (LCP, INP, CLS) measure how it feels.",
+      why: "A slow page loses users before they read a word.",
+    },
+    {
+      name: "Browser DevTools",
+      what: "Inspect elements, watch the network, step through code and profile slow pages inside the browser.",
+      why: "Debugging with DevTools is faster than guessing with console.log.",
+    },
+  ],
   links: [
     {
       label: "roadmap.sh: Frontend",
