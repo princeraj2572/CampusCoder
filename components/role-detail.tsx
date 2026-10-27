@@ -41,6 +41,45 @@ function List({ items, mark, color }: { items: string[]; mark: string; color: st
   );
 }
 
+/** The whole road on one line: each stage, then the job. Plain markup, so it adds no image or script. */
+function Journey({ role }: { role: Role }) {
+  const c = role.color;
+  const steps = [
+    ...role.stages.map((s) => ({ name: s.title, time: s.time })),
+    { name: role.name, time: "Job-ready" },
+  ];
+  return (
+    <ol
+      aria-label="The road at a glance"
+      className="flex flex-col gap-2 md:flex-row md:items-stretch"
+    >
+      {steps.map((x, n) => {
+        const last = n === steps.length - 1;
+        return (
+          <li
+            key={x.name}
+            className="flex flex-1 items-center gap-2 md:flex-col md:items-stretch"
+          >
+            <div
+              className="flex-1 rounded-lg border px-3 py-2 text-sm"
+              style={{
+                borderColor: `color-mix(in oklab, ${c} 50%, transparent)`,
+                background: last
+                  ? c
+                  : `color-mix(in oklab, ${c} ${8 + n * 4}%, transparent)`,
+                color: last ? "var(--on-board)" : undefined,
+              }}
+            >
+              <span className="block font-semibold">{x.name}</span>
+              <span className={last ? "" : "text-muted-foreground"}>{x.time}</span>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
 /** A full roadmap for one job: the role, a staged plan, projects, a senior's advice and where it leads. */
 export function RoleDetail({ role }: { role: Role }) {
   const i = ROLES.findIndex((r) => r.slug === role.slug);
@@ -120,6 +159,7 @@ export function RoleDetail({ role }: { role: Role }) {
         title="Study plan"
         note="Move through the stages in order. Do not start the next stage until you have built the project in the current one."
       >
+        <Journey role={role} />
         <ol className="flex flex-col">
           {role.stages.map((s, n) => (
             <li key={s.title} className="relative flex gap-4 pb-6 last:pb-0">
