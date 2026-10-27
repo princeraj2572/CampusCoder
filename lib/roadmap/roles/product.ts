@@ -29,6 +29,12 @@ export const product: Role = {
       ],
       build:
         "A one-page product spec for a feature you would add to an app you use daily.",
+      pitfall: "Starting with a feature list instead of a problem.",
+      ready: [
+        "Write a problem statement with a target user.",
+        "Explain how a product you use makes money.",
+        "Break a vague goal into a testable idea.",
+      ],
     },
     {
       title: "Users and data",
@@ -41,6 +47,12 @@ export const product: Role = {
       ],
       build:
         "Analyse a public dataset or your own project's usage and recommend one change.",
+      pitfall: "Trusting what users say over what they do.",
+      ready: [
+        "Interview five users and find a pattern.",
+        "Query or read a simple dashboard.",
+        "Choose a success metric and say why.",
+      ],
     },
     {
       title: "Work with a team",
@@ -53,6 +65,12 @@ export const product: Role = {
       ],
       build:
         "Be the product lead on a small student project: define the goal, scope it and ship it.",
+      pitfall: "Writing long specs that nobody reads.",
+      ready: [
+        "Write a one-page brief with acceptance criteria.",
+        "Prioritise a backlog and defend the order.",
+        "Run a planning meeting without dominating it.",
+      ],
     },
     {
       title: "Strategy and craft",
@@ -64,6 +82,12 @@ export const product: Role = {
         "Telling the story of a product decision in an interview.",
       ],
       build: "Three product teardowns and one launched project with measured results.",
+      pitfall: "Saying yes to every request.",
+      ready: [
+        "Write a roadmap with clear outcomes and trade-offs.",
+        "Present a decision to stakeholders with the evidence.",
+        "Plan an experiment and read the result honestly.",
+      ],
     },
   ],
   projects: [

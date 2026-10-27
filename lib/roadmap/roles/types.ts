@@ -7,6 +7,10 @@ export interface RoleStage {
   study: string[];
   /** What to make before moving on. */
   build: string;
+  /** A mistake students often make at this stage. */
+  pitfall: string;
+  /** Checks that show you are ready for the next stage. */
+  ready: string[];
 }
 
 export interface RoleProject {

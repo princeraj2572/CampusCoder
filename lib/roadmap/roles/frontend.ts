@@ -28,6 +28,13 @@ export const frontend: Role = {
       ],
       build:
         "Three static pages with no framework: a portfolio, a landing page and a form.",
+      pitfall:
+        "Copying layouts from tutorials without understanding the box model and flexbox.",
+      ready: [
+        "Build a responsive page with plain HTML and CSS.",
+        "Explain what the event loop does with a setTimeout.",
+        "Fetch data and render it without a framework.",
+      ],
     },
     {
       title: "Modern frontend",
@@ -41,6 +48,12 @@ export const frontend: Role = {
       ],
       build:
         "A dashboard that loads real API data, with search, filters and a dark mode.",
+      pitfall: "Keeping every piece of state in one place, or copying it into several.",
+      ready: [
+        "Split a page into components with clear props.",
+        "Decide whether a value is state, derived or a prop.",
+        "Handle loading, error and empty states for a fetch.",
+      ],
     },
     {
       title: "Quality",
@@ -52,6 +65,12 @@ export const frontend: Role = {
         "State management beyond local state, and caching server data.",
       ],
       build: "Audit your dashboard with Lighthouse and fix every issue you can explain.",
+      pitfall: "Treating accessibility and tests as a polish step for the end.",
+      ready: [
+        "Use the whole page with only a keyboard.",
+        "Pass a Lighthouse accessibility check.",
+        "Write a test that clicks a button and checks the result.",
+      ],
     },
     {
       title: "Depth",
@@ -63,6 +82,12 @@ export const frontend: Role = {
         "Basic backend skills, so you can build a full feature alone.",
       ],
       build: "A small design system with documented components and tests.",
+      pitfall: "Chasing the newest framework instead of learning how the browser works.",
+      ready: [
+        "Find and fix a slow render with the profiler.",
+        "Explain server versus client rendering and when each helps.",
+        "Review a teammate's pull request usefully.",
+      ],
     },
   ],
   projects: [

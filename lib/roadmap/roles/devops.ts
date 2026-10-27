@@ -28,6 +28,12 @@ export const devops: Role = {
       ],
       build:
         "Set up a Linux virtual machine, host a website on it with HTTPS, and write a backup script.",
+      pitfall: "Memorising commands without understanding what the system is doing.",
+      ready: [
+        "Find which process is using a port or memory.",
+        "Explain DNS, TCP and a TLS handshake simply.",
+        "Write a shell script that is safe to re-run.",
+      ],
     },
     {
       title: "Containers and CI/CD",
@@ -39,6 +45,12 @@ export const devops: Role = {
       ],
       build:
         "A pipeline that tests an app, builds an image and deploys it on every merge.",
+      pitfall: "Baking secrets and manual steps into images and pipelines.",
+      ready: [
+        "Write a Dockerfile with a small final image.",
+        "Have every push run tests and build automatically.",
+        "Explain the difference between an image and a container.",
+      ],
     },
     {
       title: "Cloud and infrastructure as code",
@@ -50,6 +62,12 @@ export const devops: Role = {
       ],
       build:
         "Define a small environment in Terraform: network, server, database. Create it and destroy it from code.",
+      pitfall: "Clicking infrastructure together in the console and never recording it.",
+      ready: [
+        "Create and destroy an environment from code.",
+        "Explain IAM roles and least privilege.",
+        "Keep state and secrets out of git.",
+      ],
     },
     {
       title: "Reliability",
@@ -62,6 +80,12 @@ export const devops: Role = {
       ],
       build:
         "Run an app on Kubernetes with monitoring, an alert and a documented runbook.",
+      pitfall: "Alerting on everything, so nobody listens when it matters.",
+      ready: [
+        "Set up a dashboard and an alert that you would act on.",
+        "Run a practice incident and write a post-mortem.",
+        "Roll back a bad release quickly.",
+      ],
     },
   ],
   projects: [

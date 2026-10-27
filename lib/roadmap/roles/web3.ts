@@ -29,6 +29,12 @@ export const web3: Role = {
       ],
       build:
         "Explain a transaction from wallet to block, and send one on a test network.",
+      pitfall: "Buying tokens before understanding how a transaction works.",
+      ready: [
+        "Explain blocks, hashes and consensus simply.",
+        "Create a wallet and send a testnet transaction.",
+        "Read a transaction on a block explorer.",
+      ],
     },
     {
       title: "Smart contracts",
@@ -41,6 +47,13 @@ export const web3: Role = {
       ],
       build:
         "An ERC-20 token and an NFT contract, fully tested and deployed to a testnet.",
+      pitfall:
+        "Deploying contracts without tests, because you can always fix them later. You cannot.",
+      ready: [
+        "Write and test a token contract with Hardhat or Foundry.",
+        "Explain storage, memory and gas.",
+        "Deploy to a testnet and verify the code.",
+      ],
     },
     {
       title: "Security",
@@ -53,6 +66,12 @@ export const web3: Role = {
       ],
       build:
         "Write-ups for ten security challenges, each explaining the bug and the fix.",
+      pitfall: "Trusting that code that compiles is code that is safe.",
+      ready: [
+        "Explain reentrancy and show a fix.",
+        "Run a static analyser and read its findings.",
+        "Review a contract for access-control mistakes.",
+      ],
     },
     {
       title: "Full applications",
@@ -64,6 +83,12 @@ export const web3: Role = {
         "Layer 2 networks and how costs and security differ.",
       ],
       build: "A complete app: contract, tests, front end and a testnet deployment.",
+      pitfall: "Building a dapp that only works on one machine with one wallet.",
+      ready: [
+        "Connect a frontend to a contract with a wallet.",
+        "Handle failed and pending transactions in the UI.",
+        "Document and publish the project.",
+      ],
     },
   ],
   projects: [

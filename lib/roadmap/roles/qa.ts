@@ -27,6 +27,12 @@ export const qa: Role = {
         "Basic programming in Python or JavaScript, plus SQL.",
       ],
       build: "A test plan and 30 written test cases for a website you use every day.",
+      pitfall: "Thinking testing is just clicking around until something breaks.",
+      ready: [
+        "Write clear test cases from a requirement.",
+        "Apply boundary values and equivalence classes.",
+        "File a bug report that others can reproduce.",
+      ],
     },
     {
       title: "API and interface automation",
@@ -38,6 +44,12 @@ export const qa: Role = {
         "Page objects and keeping tests easy to read and maintain.",
       ],
       build: "An automated suite for a demo shop: sign-in, search, cart and checkout.",
+      pitfall: "Automating every manual test, including the ones that change every week.",
+      ready: [
+        "Automate an API check with Postman or code.",
+        "Write a stable UI test with good selectors.",
+        "Explain why a test is flaky and fix it.",
+      ],
     },
     {
       title: "Quality in the pipeline",
@@ -50,6 +62,12 @@ export const qa: Role = {
       ],
       build:
         "Plug the suite into CI with a report, and make it run in under five minutes.",
+      pitfall: "A pipeline that is slow, so people skip the tests.",
+      ready: [
+        "Run your suite in CI on every pull request.",
+        "Keep the fast tests fast and separate the slow ones.",
+        "Report test results where the team will see them.",
+      ],
     },
     {
       title: "Beyond functional testing",
@@ -61,6 +79,12 @@ export const qa: Role = {
         "Contract testing and testing in production safely.",
       ],
       build: "A load test with a clear report on where the app slows down.",
+      pitfall: "Testing only the happy path.",
+      ready: [
+        "Run a basic load test and read the results.",
+        "Try common security checks on a form.",
+        "Test accessibility with a screen reader or a checker.",
+      ],
     },
   ],
   projects: [

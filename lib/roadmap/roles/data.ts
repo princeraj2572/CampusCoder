@@ -27,6 +27,13 @@ export const data: Role = {
         "Basic statistics: averages, medians, percentiles, correlation, sampling.",
       ],
       build: "Answer 20 business questions on a public dataset, with the SQL for each.",
+      pitfall:
+        "Using spreadsheets as a database and losing track of what each formula does.",
+      ready: [
+        "Write joins and window functions in SQL.",
+        "Build a pivot table that answers a question.",
+        "Explain a query to someone else line by line.",
+      ],
     },
     {
       title: "Python and analysis",
@@ -38,6 +45,12 @@ export const data: Role = {
         "Telling a story: one question, one chart, one conclusion.",
       ],
       build: "A dashboard with a written summary that a manager could act on.",
+      pitfall: "Plotting before understanding the data's shape and gaps.",
+      ready: [
+        "Clean a messy dataset with pandas.",
+        "Choose a chart that fits the comparison.",
+        "State one finding and the evidence behind it.",
+      ],
     },
     {
       title: "Data engineering",
@@ -51,6 +64,12 @@ export const data: Role = {
       ],
       build:
         "An automated pipeline that loads data daily, tests it and updates a dashboard.",
+      pitfall: "Writing one-off scripts that nobody can re-run.",
+      ready: [
+        "Build a pipeline that runs on a schedule.",
+        "Model data into clean tables for reporting.",
+        "Add a check that catches bad data early.",
+      ],
     },
     {
       title: "Scale",
@@ -62,6 +81,12 @@ export const data: Role = {
         "Privacy and access control for data.",
       ],
       build: "Process a large public dataset and compare the speed of two designs.",
+      pitfall: "Using big-data tools on data that fits in memory.",
+      ready: [
+        "Say when a warehouse or Spark is justified.",
+        "Tune a slow query on a large table.",
+        "Document where each number in a dashboard comes from.",
+      ],
     },
   ],
   projects: [

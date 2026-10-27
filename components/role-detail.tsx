@@ -202,8 +202,38 @@ export function RoleDetail({ role }: { role: Role }) {
                     </li>
                   ))}
                 </ul>
+                <h4 className="text-muted-foreground mt-4 mb-1.5 text-xs font-semibold tracking-wider uppercase">
+                  Ready to move on when you can
+                </h4>
+                <ul className="flex flex-col gap-1.5">
+                  {s.ready.map((x) => (
+                    <li
+                      key={x}
+                      className="text-muted-foreground flex gap-2.5 leading-relaxed"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-px shrink-0 font-bold"
+                        style={{ color: c }}
+                      >
+                        ◆
+                      </span>
+                      <span>{x}</span>
+                    </li>
+                  ))}
+                </ul>
                 <p
                   className="mt-4 rounded-lg border-l-4 px-3 py-2"
+                  style={{
+                    borderColor: ink("var(--tier-red)"),
+                    background: "color-mix(in oklab, var(--tier-red) 10%, transparent)",
+                  }}
+                >
+                  <span className="text-foreground font-semibold">Watch out: </span>
+                  <span className="text-muted-foreground">{s.pitfall}</span>
+                </p>
+                <p
+                  className="mt-3 rounded-lg border-l-4 px-3 py-2"
                   style={{
                     borderColor: c,
                     background: `color-mix(in oklab, ${c} 10%, transparent)`,

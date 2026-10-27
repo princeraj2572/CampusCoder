@@ -29,6 +29,12 @@ export const uiUx: Role = {
       ],
       build:
         "Recreate three screens of an app you like, pixel by pixel, then redesign one of them.",
+      pitfall: "Copying trendy screens without knowing why they work.",
+      ready: [
+        "Explain hierarchy, contrast and spacing on a real screen.",
+        "Pick type and colour that stay readable.",
+        "Recreate an existing screen faithfully in Figma.",
+      ],
     },
     {
       title: "Research and flows",
@@ -41,6 +47,12 @@ export const uiUx: Role = {
       ],
       build:
         "Interview five students about a problem on campus and map the main user flow.",
+      pitfall: "Designing from your own opinion instead of from what users do.",
+      ready: [
+        "Run a short interview and summarise it.",
+        "Map a user flow from start to goal.",
+        "Turn findings into a clear problem statement.",
+      ],
     },
     {
       title: "Prototype and test",
@@ -53,6 +65,12 @@ export const uiUx: Role = {
       ],
       build:
         "A full prototype tested with five people, with a short report of what you changed.",
+      pitfall: "Making a pretty prototype and never testing it with people.",
+      ready: [
+        "Build a clickable prototype of one flow.",
+        "Test it with five people and record what went wrong.",
+        "Change the design based on what you saw.",
+      ],
     },
     {
       title: "Systems and handoff",
@@ -64,6 +82,12 @@ export const uiUx: Role = {
         "Telling the story of a project in a portfolio case study.",
       ],
       build: "A small design system and a portfolio with three case studies.",
+      pitfall: "Handing over screens without states, spacing rules or edge cases.",
+      ready: [
+        "Build a small component library with tokens.",
+        "Specify hover, error, empty and loading states.",
+        "Walk a developer through a handoff.",
+      ],
     },
   ],
   projects: [

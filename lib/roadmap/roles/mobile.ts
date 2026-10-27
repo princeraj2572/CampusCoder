@@ -26,6 +26,13 @@ export const mobile: Role = {
       ],
       build:
         "A command-line or console app that fetches and prints data from a public API.",
+      pitfall:
+        "Starting with a UI toolkit before you can write a clean program in the language.",
+      ready: [
+        "Write classes, collections and async code comfortably.",
+        "Explain how a screen is described and drawn in your toolkit.",
+        "Run the app on both an emulator and a real device.",
+      ],
     },
     {
       title: "First apps",
@@ -37,6 +44,13 @@ export const mobile: Role = {
         "Local storage.",
       ],
       build: "A multi-screen app that talks to an API and saves data on the device.",
+      pitfall:
+        "Putting all logic in the screen code, so rotating or leaving the screen breaks it.",
+      ready: [
+        "Build a multi-screen app with navigation.",
+        "Keep state alive across a rotation.",
+        "Call an API and show loading and error states.",
+      ],
     },
     {
       title: "Real-world behaviour",
@@ -49,6 +63,12 @@ export const mobile: Role = {
         "Crash reporting and analytics.",
       ],
       build: "Make your app work offline and add push notifications and sign-in.",
+      pitfall: "Testing only on a fast phone with a fast connection.",
+      ready: [
+        "Make the app useful offline.",
+        "Handle a denied permission without crashing.",
+        "Profile memory and frame time on a low-end device.",
+      ],
     },
     {
       title: "Release",
@@ -60,6 +80,12 @@ export const mobile: Role = {
         "CI for building and testing.",
       ],
       build: "Publish an app to the Play Store or TestFlight and collect feedback.",
+      pitfall: "Leaving the store listing, privacy policy and signing until launch day.",
+      ready: [
+        "Produce a signed release build.",
+        "Pass the store's review checklist.",
+        "Track crashes after release and fix the top one.",
+      ],
     },
   ],
   projects: [

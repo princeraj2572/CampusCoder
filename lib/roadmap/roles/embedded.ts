@@ -28,6 +28,12 @@ export const embedded: Role = {
       ],
       build:
         "A blinking LED, then a button-controlled light with debouncing, then a temperature display.",
+      pitfall: "Copying library code for every peripheral without reading the datasheet.",
+      ready: [
+        "Write C with pointers, structs and bit operations.",
+        "Read a schematic and a datasheet for one chip.",
+        "Blink an LED and read a button without a library.",
+      ],
     },
     {
       title: "Communication and sensors",
@@ -39,6 +45,13 @@ export const embedded: Role = {
         "Wi-Fi and Bluetooth, with MQTT for sending data.",
       ],
       build: "A weather station that sends readings to a dashboard over Wi-Fi.",
+      pitfall:
+        "Polling everything in a loop and wondering why it is slow or misses events.",
+      ready: [
+        "Read a sensor over I2C or SPI.",
+        "Use an interrupt correctly and keep the handler short.",
+        "Debug with a logic analyser or serial output.",
+      ],
     },
     {
       title: "Real-time and professional firmware",
@@ -50,6 +63,12 @@ export const embedded: Role = {
         "Low-power design and watchdog timers.",
       ],
       build: "A multi-task device with a state machine, a watchdog and a low-power mode.",
+      pitfall: "Using global variables shared with interrupts without protection.",
+      ready: [
+        "Run tasks under an RTOS.",
+        "Explain a race condition on a real example.",
+        "Measure and cut power use.",
+      ],
     },
     {
       title: "Product-level skills",
@@ -62,6 +81,12 @@ export const embedded: Role = {
       ],
       build:
         "A complete device with a custom board, firmware updates and a written test plan.",
+      pitfall: "Building a prototype that cannot be updated or tested after it ships.",
+      ready: [
+        "Add a bootloader or safe update method.",
+        "Write tests for the logic that does not need hardware.",
+        "Document a board for someone else to build.",
+      ],
     },
   ],
   projects: [

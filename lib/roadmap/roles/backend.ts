@@ -27,6 +27,13 @@ export const backend: Role = {
         "Basic SQL: tables, joins, GROUP BY.",
       ],
       build: "A small command-line tool and a plain HTTP server with three endpoints.",
+      pitfall:
+        "Jumping to a framework before you understand what an HTTP request actually contains.",
+      ready: [
+        "Explain what happens between typing a URL and seeing a page.",
+        "Write a join and a GROUP BY query without looking them up.",
+        "Read a stack trace and find the line that failed.",
+      ],
     },
     {
       title: "Core backend",
@@ -39,6 +46,13 @@ export const backend: Role = {
         "Automated tests: unit tests and API tests.",
       ],
       build: "A CRUD API with login, roles, a real database, tests and a deploy.",
+      pitfall:
+        "Putting business rules in route handlers, so nothing can be tested or reused.",
+      ready: [
+        "Design endpoints with sensible status codes and error bodies.",
+        "Explain why you hash passwords and what a JWT contains.",
+        "Have tests that fail when you break an endpoint.",
+      ],
     },
     {
       title: "Make it fast and reliable",
@@ -52,6 +66,12 @@ export const backend: Role = {
       ],
       build:
         "Add a cache, a job queue and rate limiting to the previous project, and measure the difference.",
+      pitfall: "Adding a cache or a queue before measuring where the time actually goes.",
+      ready: [
+        "Find a slow query with EXPLAIN and fix it with an index.",
+        "Make a retried request safe to repeat.",
+        "Say what happens to your service when Redis is down.",
+      ],
     },
     {
       title: "Systems thinking",
@@ -64,6 +84,12 @@ export const backend: Role = {
       ],
       build:
         "A design document and working prototype for a URL shortener or a notification system.",
+      pitfall: "Drawing a diagram of ten services for an app that one server can handle.",
+      ready: [
+        "Sketch a design for a URL shortener and justify each part.",
+        "Explain consistency versus availability with an example.",
+        "Describe how you would roll out a risky change safely.",
+      ],
     },
   ],
   projects: [

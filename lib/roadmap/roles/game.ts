@@ -28,6 +28,12 @@ export const game: Role = {
       ],
       build:
         "A tiny 2D game with no engine, such as Pong or Snake, using a simple graphics library.",
+      pitfall: "Starting with a huge game idea before you can move a square around.",
+      ready: [
+        "Write a game loop with delta time.",
+        "Use vectors for movement and aiming.",
+        "Detect a collision between two shapes.",
+      ],
     },
     {
       title: "An engine and your first games",
@@ -40,6 +46,12 @@ export const game: Role = {
       ],
       build:
         "A complete 2D game with a start screen, levels, sound, a win and a lose state.",
+      pitfall: "Using an engine's features without knowing what they do under the hood.",
+      ready: [
+        "Make a small game in Unity, Godot or Unreal.",
+        "Use scenes, prefabs or nodes sensibly.",
+        "Finish one tiny game completely.",
+      ],
     },
     {
       title: "Systems and polish",
@@ -52,6 +64,12 @@ export const game: Role = {
       ],
       build:
         "Add AI enemies and object pooling to your game, and hold 60 frames a second on an older laptop.",
+      pitfall: "Polishing visuals while the game is not yet fun.",
+      ready: [
+        "Add save, menus and sound.",
+        "Profile and hit a steady frame rate.",
+        "Playtest with a stranger and change something based on it.",
+      ],
     },
     {
       title: "Ship it",
@@ -63,6 +81,12 @@ export const game: Role = {
         "Game jams: finishing a game in 48 hours.",
       ],
       build: "Publish a game on itch.io and take feedback from real players.",
+      pitfall: "Never releasing, because it is never good enough.",
+      ready: [
+        "Publish a build on itch.io or a store.",
+        "Take part in a game jam.",
+        "Write a short post-mortem of what you learned.",
+      ],
     },
   ],
   projects: [

@@ -28,6 +28,12 @@ export const security: Role = {
       ],
       build:
         "Set up a home lab with virtual machines and capture and read your own network traffic.",
+      pitfall: "Running tools without understanding the protocols they attack.",
+      ready: [
+        "Explain the CIA triad with examples.",
+        "Read a packet capture of a simple request.",
+        "Use Linux comfortably from the command line.",
+      ],
     },
     {
       title: "Web security",
@@ -40,6 +46,12 @@ export const security: Role = {
       ],
       build:
         "Complete the PortSwigger Web Security Academy labs and write up three of them.",
+      pitfall: "Learning attacks and forgetting how to fix them.",
+      ready: [
+        "Explain SQL injection, XSS and CSRF and how to prevent each.",
+        "Find a bug in a deliberately vulnerable app.",
+        "Review code for missing access checks.",
+      ],
     },
     {
       title: "Practice in safe places",
@@ -52,6 +64,12 @@ export const security: Role = {
       ],
       build:
         "A public write-up series of CTF challenges you solved, explained for a beginner.",
+      pitfall: "Testing systems you do not have written permission to test.",
+      ready: [
+        "Finish easy rooms and labs without hints.",
+        "Write up a solution clearly.",
+        "Use only targets built for practice, or ones you own.",
+      ],
     },
     {
       title: "Specialise",
@@ -63,6 +81,12 @@ export const security: Role = {
         "Certifications only if your target employers ask for them.",
       ],
       build: "Threat-model one of your own projects and fix what you find.",
+      pitfall: "Collecting certificates instead of showing real work.",
+      ready: [
+        "Pick a path such as appsec, cloud or blue team.",
+        "Publish a write-up or tool.",
+        "Report a real issue responsibly.",
+      ],
     },
   ],
   projects: [

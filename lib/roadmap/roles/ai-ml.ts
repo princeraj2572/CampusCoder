@@ -28,6 +28,12 @@ export const aiMl: Role = {
         "Plotting with matplotlib.",
       ],
       build: "Analyse a real dataset and write up three findings with charts.",
+      pitfall: "Skipping the maths and then not knowing why a model fails.",
+      ready: [
+        "Explain mean, variance and a gradient in plain words.",
+        "Manipulate data with NumPy and pandas fluently.",
+        "Plot a distribution and spot an outlier.",
+      ],
     },
     {
       title: "Classical machine learning",
@@ -40,6 +46,12 @@ export const aiMl: Role = {
       ],
       build:
         "A model on a Kaggle dataset, with a clear metric and an honest error analysis.",
+      pitfall: "Judging a model on the data it trained on.",
+      ready: [
+        "Split data correctly and explain why.",
+        "Choose a metric that matches the problem.",
+        "Compare two models fairly with cross-validation.",
+      ],
     },
     {
       title: "Deep learning and language models",
@@ -52,6 +64,12 @@ export const aiMl: Role = {
       ],
       build:
         "A retrieval-based question-answering app over a document set, with a test set to measure quality.",
+      pitfall: "Fine-tuning a huge model when a better prompt or better data would do.",
+      ready: [
+        "Train a small network from scratch and watch the loss fall.",
+        "Explain tokens, embeddings and attention simply.",
+        "Build a retrieval-based question answerer and test where it fails.",
+      ],
     },
     {
       title: "Production",
@@ -65,6 +83,12 @@ export const aiMl: Role = {
       ],
       build:
         "Deploy your model or app with logging, an evaluation script and a short model card.",
+      pitfall: "Shipping a notebook instead of a service someone can call and monitor.",
+      ready: [
+        "Serve a model behind an API with tests.",
+        "Monitor inputs and outputs for drift.",
+        "Explain a model's failures to a non-technical person.",
+      ],
     },
   ],
   projects: [

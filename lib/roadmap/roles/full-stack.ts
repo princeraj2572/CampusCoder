@@ -25,6 +25,12 @@ export const fullStack: Role = {
         "Git and a deployment workflow.",
       ],
       build: "A static site plus a tiny API, deployed.",
+      pitfall: "Learning frontend and backend in parallel but never connecting them.",
+      ready: [
+        "Build a page that calls your own API.",
+        "Explain the same request from both the browser and the server side.",
+        "Store and read data from a real database.",
+      ],
     },
     {
       title: "One stack, end to end",
@@ -37,6 +43,12 @@ export const fullStack: Role = {
       ],
       build:
         "A full app with sign-in, a database and a deploy. This leaderboard is a good model.",
+      pitfall: "Using many technologies in a project instead of finishing it on one.",
+      ready: [
+        "Ship a full app with login, data and a UI.",
+        "Validate input on both client and server.",
+        "Explain every file in your project.",
+      ],
     },
     {
       title: "Production habits",
@@ -48,6 +60,13 @@ export const fullStack: Role = {
         "Error tracking and basic monitoring.",
       ],
       build: "Add tests, CI and error tracking to your app.",
+      pitfall:
+        "Putting secrets, config or database access where the browser can reach them.",
+      ready: [
+        "Deploy with environment variables and a real database.",
+        "Run migrations safely on live data.",
+        "Read your own logs when something breaks in production.",
+      ],
     },
     {
       title: "Product sense",
@@ -58,6 +77,13 @@ export const fullStack: Role = {
         "Reading and shaping requirements, not just implementing them.",
       ],
       build: "A product with real users, even if only 20 of them.",
+      pitfall:
+        "Building every feature you can think of before anyone has used the product.",
+      ready: [
+        "Get real people to use your app and report back.",
+        "Cut a feature on purpose and explain why.",
+        "Estimate how long a feature will take, and be roughly right.",
+      ],
     },
   ],
   projects: [
