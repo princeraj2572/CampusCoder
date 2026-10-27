@@ -209,6 +209,37 @@ const dsa: RoadmapPage = {
         "Read how top-rated people solved the problems you could not.",
       ],
     },
+    {
+      heading: "How to review a problem you solved",
+      steps: [
+        "Write the idea in one sentence before you look at the code again.",
+        "State the time and space cost, and say what limits it.",
+        "Read one other solution and note what it does differently.",
+        "Name the pattern (two pointers, sliding window, BFS and so on) and add the problem to a list under that name.",
+        "Come back in a week and solve it again from a blank page.",
+      ],
+    },
+    {
+      heading: "A weekly rhythm",
+      table: {
+        head: ["Day", "What to do"],
+        rows: [
+          ["Mon to Thu", "One topic: learn it, then solve 3 to 5 problems on it."],
+          ["Friday", "Redo two problems you got wrong earlier."],
+          ["Saturday", "Take a timed contest or a mock interview."],
+          ["Sunday", "Upsolve what you missed and write notes on new patterns."],
+        ],
+      },
+    },
+    {
+      heading: "Signs you are ready to move on",
+      bullets: [
+        "You can explain the approach before you start typing.",
+        "You solve easy problems in this topic in under 15 minutes.",
+        "When you are stuck, you know which pattern to try next.",
+        "You can say why a brute-force solution is too slow.",
+      ],
+    },
   ],
 };
 
@@ -400,6 +431,36 @@ const coreSubjects: RoadmapPage = {
         "Explain it to a friend, or record yourself for 3 minutes. Wherever you get stuck is the concept to revisit.",
       ],
     },
+    {
+      heading: "A four-step revision loop",
+      steps: [
+        "Read one topic from a book or lecture, then close it.",
+        "Write what you remember on a blank page, then check what you missed.",
+        "Answer three interview questions on the topic out loud.",
+        "Use it once: write a query, run a command or sketch a diagram. Revise it again after a week.",
+      ],
+    },
+    {
+      heading: "Questions that tie the subjects together",
+      qa: [
+        {
+          q: "What happens when you type a URL and press Enter?",
+          a: "The browser looks up the address with DNS, opens a TCP connection and a TLS session, sends an HTTP request, the server runs code and queries a database, and the browser renders the response. It touches networks, operating systems and databases at once.",
+        },
+        {
+          q: "Why can an index make writes slower?",
+          a: "Every insert or update must also update each index on the table, so more indexes mean faster reads but more work on each write.",
+        },
+        {
+          q: "What is the difference between a process and a thread?",
+          a: "A process has its own memory space. Threads inside a process share memory, so they communicate easily but can corrupt each other's data without locks.",
+        },
+        {
+          q: "How does a deadlock happen, and how do you avoid it?",
+          a: "Two tasks each hold a resource the other needs and wait forever. Avoid it by always taking locks in the same order, holding them briefly or using timeouts.",
+        },
+      ],
+    },
   ],
 };
 
@@ -536,6 +597,50 @@ const development: RoadmapPage = {
         "Be ready to explain why you made each design choice.",
       ],
     },
+    {
+      heading: "What happens when you open a web page",
+      steps: [
+        "The browser finds the server's address using DNS.",
+        "It opens a TCP connection, then a TLS session so the traffic is encrypted.",
+        "It sends an HTTP request: a method, a path, headers and sometimes a body.",
+        "The server runs your code, which may read or write a database, and builds a response.",
+        "The browser receives HTML, then fetches the CSS, JavaScript and images it points to.",
+        "It builds the page, runs the scripts and responds to clicks.",
+      ],
+    },
+    {
+      heading: "Choosing a stack",
+      table: {
+        head: ["Goal", "A good starting point", "Why"],
+        rows: [
+          [
+            "First website",
+            "HTML, CSS and JavaScript",
+            "You see results at once and learn how the browser works.",
+          ],
+          [
+            "A full web app",
+            "React or Next.js with Node.js and PostgreSQL",
+            "One language across the stack, with large communities.",
+          ],
+          [
+            "An Android app",
+            "Kotlin with Jetpack Compose",
+            "The platform's own modern toolkit.",
+          ],
+          [
+            "An app for both phones",
+            "Flutter or React Native",
+            "One codebase for iOS and Android.",
+          ],
+          [
+            "Data or AI work",
+            "Python with pandas and a notebook",
+            "The libraries and tutorials are plentiful.",
+          ],
+        ],
+      },
+    },
   ],
 };
 
@@ -616,6 +721,26 @@ const openSource: RoadmapPage = {
       ],
       paragraphs: [
         "Start in your second year at the latest if you want GSoC or similar programmes. Applications open early in the year, and they look for a history of merged work.",
+      ],
+    },
+    {
+      heading: "What counts as a contribution",
+      bullets: [
+        "Fixing a typo or unclear sentence in the documentation.",
+        "Reproducing a bug and adding details to the issue.",
+        "Writing or improving a test.",
+        "Fixing a small bug marked good first issue.",
+        "Reviewing and testing someone else's pull request.",
+      ],
+    },
+    {
+      heading: "Etiquette that gets your pull request merged",
+      bullets: [
+        "Read the contributing guide and the code of conduct first.",
+        "Comment on an issue to claim it, and wait for a maintainer to agree.",
+        "Keep each pull request small and about one thing.",
+        "Follow the project's style and run its tests before you push.",
+        "Be polite when you get feedback, and respond to it quickly.",
       ],
     },
   ],
@@ -736,6 +861,39 @@ const career: RoadmapPage = {
         "The Pragmatic Programmer, by Hunt and Thomas.",
         "Competitive Programmer's Handbook, by Antti Laaksonen (free PDF).",
       ],
+    },
+    {
+      heading: "Reading an offer",
+      bullets: [
+        "Separate the fixed pay from bonuses, joining bonuses and stock, and ask what is guaranteed.",
+        "Ask about the notice period, any service agreement and what happens if you leave early.",
+        "Ask what team you will join and what you will work on, not only the company name.",
+        "Get the offer in writing and read it fully before accepting.",
+        "Be polite and clear if you need time or want to ask a question. That is normal.",
+      ],
+    },
+    {
+      heading: "Service, product and startup companies",
+      table: {
+        head: ["Type", "What it is usually like", "Good fit if"],
+        rows: [
+          [
+            "Service companies",
+            "You build software for clients, often in large batches of new joiners with set training.",
+            "You want a structured start and exposure to many domains.",
+          ],
+          [
+            "Product companies",
+            "You build and own one product for its users, and the hiring bar is often higher.",
+            "You want depth in one product and a strong engineering culture.",
+          ],
+          [
+            "Startups",
+            "Small teams, wide responsibility and quick changes, with less structure.",
+            "You want to learn fast and are comfortable with uncertainty.",
+          ],
+        ],
+      },
     },
   ],
 };
