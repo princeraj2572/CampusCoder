@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Block, RoadmapShell, focus } from "@/components/roadmap-shell";
+import { ink } from "@/lib/boards/theme";
 import { ROADMAP_GROUPS, ROADMAP_TABS, roadmapHref } from "@/lib/roadmap/pages";
 import type { RoadmapPage as Page, RoadmapSection } from "@/lib/roadmap/types";
 
@@ -12,16 +13,24 @@ function Body({ s }: { s: RoadmapSection }) {
             <p key={p}>{p}</p>
           ))}
           {s.steps && (
-            <ol className="flex flex-col gap-2">
+            <ol className="flex flex-col">
               {s.steps.map((x, i) => (
-                <li key={x} className="flex gap-3">
+                <li key={x} className="relative flex gap-3 pb-4 last:pb-0">
+                  {i < s.steps!.length - 1 && (
+                    <span
+                      aria-hidden="true"
+                      className="bg-border absolute top-8 bottom-0 left-3 w-px"
+                    />
+                  )}
                   <span
                     aria-hidden="true"
-                    className="bg-foreground/10 text-foreground mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                    className="bg-foreground text-background relative mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
                   >
                     {i + 1}
                   </span>
-                  <span>{x}</span>
+                  <span className="border-border flex-1 rounded-lg border px-3 py-2">
+                    {x}
+                  </span>
                 </li>
               ))}
             </ol>
@@ -123,7 +132,15 @@ export function RoadmapPage({ page }: { page: Page }) {
           <div className="flex flex-col gap-6">
             {ROADMAP_GROUPS.filter((g) => g.label !== "Start").map((g) => (
               <div key={g.label} className="flex flex-col gap-2">
-                <h3 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                <h3
+                  className="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase"
+                  style={{ color: ink(g.color) }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="size-2.5 rounded-full"
+                    style={{ background: g.color }}
+                  />
                   {g.label}
                 </h3>
                 <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
@@ -131,7 +148,8 @@ export function RoadmapPage({ page }: { page: Page }) {
                     <li key={t.href}>
                       <Link
                         href={t.href}
-                        className={`border-border hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border px-3 py-2.5 transition-colors ${focus}`}
+                        className={`border-border hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
+                        style={{ borderLeftColor: g.color }}
                       >
                         <span className="text-foreground font-medium">{t.label}</span>
                         <span className="text-muted-foreground text-sm">{t.blurb}</span>

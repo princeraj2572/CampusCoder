@@ -359,8 +359,20 @@ export function RoleDetail({ role }: { role: Role }) {
         note="What to aim for in your first internship or job."
       >
         <ol className="grid gap-4 lg:grid-cols-3">
-          {role.first90.map((d) => (
-            <li key={d.days} className={card}>
+          {role.first90.map((d, n) => (
+            <li key={d.days} className={`${card} flex flex-col gap-3`}>
+              <span
+                aria-hidden="true"
+                className="bg-foreground/10 h-1.5 overflow-hidden rounded-full"
+              >
+                <span
+                  className="block h-full rounded-full"
+                  style={{
+                    background: c,
+                    width: `${((n + 1) / role.first90.length) * 100}%`,
+                  }}
+                />
+              </span>
               <Tint color={c}>{d.days}</Tint>
               <p className="text-muted-foreground mt-3 leading-relaxed">{d.goal}</p>
             </li>
@@ -373,9 +385,13 @@ export function RoleDetail({ role }: { role: Role }) {
         title="Career ladder"
         note="Where the road leads, so you know what you are building towards."
       >
-        <ol className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <ol className="grid gap-4 md:grid-cols-2 md:items-end xl:grid-cols-4">
           {role.ladder.map((l, n) => (
-            <li key={l.level} className={`${card} flex flex-col gap-2`}>
+            <li
+              key={l.level}
+              className={`${card} flex flex-col gap-2`}
+              style={{ paddingTop: `${1 + n * 1.5}rem` }}
+            >
               <span
                 aria-hidden="true"
                 className="h-1 rounded-full"
