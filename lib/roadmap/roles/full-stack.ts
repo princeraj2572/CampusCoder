@@ -125,19 +125,34 @@ export const fullStack: Role = {
       note: "A visual checklist of topics",
     },
     {
-      label: "YouTube: Traversy Media",
+      label: "YouTube (Global): Traversy Media",
       href: "https://www.youtube.com/@TraversyMedia",
       note: "Full stack project builds, start to finish",
     },
     {
-      label: "YouTube: The Net Ninja",
+      label: "YouTube (Global): The Net Ninja",
       href: "https://www.youtube.com/@NetNinja",
       note: "Short playlists on React, Node and databases",
     },
     {
-      label: "YouTube: CodeWithHarry",
+      label: "YouTube (India): CodeWithHarry",
       href: "https://www.youtube.com/@CodeWithHarry",
       note: "Web development in Hindi",
+    },
+    {
+      label: "YouTube (India): 100xDevs",
+      href: "https://www.youtube.com/@100xDevs",
+      note: "Full stack and open-source cohort content",
+    },
+    {
+      label: "YouTube (India): Thapa Technical",
+      href: "https://www.youtube.com/@ThapaTechnical",
+      note: "MERN stack in Hindi",
+    },
+    {
+      label: "YouTube (Global): Theo",
+      href: "https://www.youtube.com/@t3dotgg",
+      note: "Modern full stack with TypeScript",
     },
   ],
   tools: [

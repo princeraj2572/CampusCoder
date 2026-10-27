@@ -130,19 +130,34 @@ export const frontend: Role = {
       note: "Learn React from the official docs",
     },
     {
-      label: "YouTube: Kevin Powell",
+      label: "YouTube (Global): Kevin Powell",
       href: "https://www.youtube.com/@KevinPowell",
       note: "The best CSS teacher on YouTube",
     },
     {
-      label: "YouTube: Web Dev Simplified",
+      label: "YouTube (Global): Web Dev Simplified",
       href: "https://www.youtube.com/@WebDevSimplified",
       note: "Clear JavaScript and React tutorials",
     },
     {
-      label: "YouTube: Traversy Media",
+      label: "YouTube (Global): Traversy Media",
       href: "https://www.youtube.com/@TraversyMedia",
       note: "Crash courses and project builds",
+    },
+    {
+      label: "YouTube (India): Akshay Saini",
+      href: "https://www.youtube.com/@akshaymarch7",
+      note: "Namaste JavaScript: how JS really works",
+    },
+    {
+      label: "YouTube (India): Chai aur Code",
+      href: "https://www.youtube.com/@chaiaurcode",
+      note: "Web development in Hindi, project-led",
+    },
+    {
+      label: "YouTube (Global): Theo",
+      href: "https://www.youtube.com/@t3dotgg",
+      note: "Modern web and TypeScript opinions",
     },
   ],
   tools: [

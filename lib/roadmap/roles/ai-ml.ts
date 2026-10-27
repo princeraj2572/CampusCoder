@@ -132,24 +132,44 @@ export const aiMl: Role = {
       note: "A visual checklist of topics",
     },
     {
-      label: "YouTube: Andrej Karpathy",
+      label: "YouTube (Global): Andrej Karpathy",
       href: "https://www.youtube.com/@AndrejKarpathy",
       note: "Build neural networks and LLMs from scratch",
     },
     {
-      label: "YouTube: 3Blue1Brown",
+      label: "YouTube (Global): 3Blue1Brown",
       href: "https://www.youtube.com/@3blue1brown",
       note: "Visual maths behind neural networks",
     },
     {
-      label: "YouTube: StatQuest",
+      label: "YouTube (Global): StatQuest",
       href: "https://www.youtube.com/@statquest",
       note: "Statistics and ML explained step by step",
     },
     {
-      label: "YouTube: Krish Naik",
+      label: "YouTube (India): Krish Naik",
       href: "https://www.youtube.com/@krishnaik06",
       note: "Data science and ML projects",
+    },
+    {
+      label: "YouTube (India): CampusX",
+      href: "https://www.youtube.com/@campusx-official",
+      note: "Machine learning in depth, in Hindi",
+    },
+    {
+      label: "YouTube (India): codebasics",
+      href: "https://www.youtube.com/@codebasics",
+      note: "Practical data science and ML projects",
+    },
+    {
+      label: "YouTube (Global): DeepLearning.AI",
+      href: "https://www.youtube.com/@Deeplearningai",
+      note: "Andrew Ng's courses and talks",
+    },
+    {
+      label: "YouTube (Global): sentdex",
+      href: "https://www.youtube.com/@sentdex",
+      note: "Python and neural networks by example",
     },
   ],
   tools: [

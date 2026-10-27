@@ -146,14 +146,24 @@ export const web3: Role = {
       note: "Free courses on Solidity, testing and security",
     },
     {
-      label: "YouTube: Patrick Collins",
+      label: "YouTube (Global): Patrick Collins",
       href: "https://www.youtube.com/@PatrickAlphaC",
       note: "Free long Solidity and smart contract courses",
     },
     {
-      label: "YouTube: Dapp University",
+      label: "YouTube (Global): Dapp University",
       href: "https://www.youtube.com/@DappUniversity",
       note: "Build blockchain apps step by step",
+    },
+    {
+      label: "YouTube (Global): Smart Contract Programmer",
+      href: "https://www.youtube.com/@smartcontractprogrammer",
+      note: "Solidity tutorials with examples",
+    },
+    {
+      label: "YouTube (Global): Whiteboard Crypto",
+      href: "https://www.youtube.com/@WhiteboardCrypto",
+      note: "Crypto and blockchain concepts, explained simply",
     },
   ],
   tools: [

@@ -136,14 +136,29 @@ export const product: Role = {
       note: "Learn the SQL a product manager uses to answer questions",
     },
     {
-      label: "YouTube: Product School",
+      label: "YouTube (Global): Product School",
       href: "https://www.youtube.com/@ProductSchool",
       note: "Talks and lessons from working product managers",
     },
     {
-      label: "YouTube: The Futur",
+      label: "YouTube (Global): The Futur",
       href: "https://www.youtube.com/@thefutur",
       note: "Communication and thinking skills",
+    },
+    {
+      label: "YouTube (India): Ankur Warikoo",
+      href: "https://www.youtube.com/@warikoo",
+      note: "Career and business thinking",
+    },
+    {
+      label: "YouTube (Global): Exponent",
+      href: "https://www.youtube.com/@tryexponent",
+      note: "Product management interview prep",
+    },
+    {
+      label: "YouTube (Global): Lenny's Podcast",
+      href: "https://www.youtube.com/@LennysPodcast",
+      note: "Interviews with product leaders",
     },
   ],
   tools: [

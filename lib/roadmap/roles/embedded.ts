@@ -129,19 +129,29 @@ export const embedded: Role = {
       note: "Free tool for schematics and circuit boards",
     },
     {
-      label: "YouTube: Ben Eater",
+      label: "YouTube (Global): Ben Eater",
       href: "https://www.youtube.com/@BenEater",
       note: "Build a computer from chips to learn how hardware works",
     },
     {
-      label: "YouTube: Phil's Lab",
+      label: "YouTube (Global): Phil's Lab",
       href: "https://www.youtube.com/@PhilsLab",
       note: "PCB design and embedded firmware",
     },
     {
-      label: "YouTube: Low Level Learning",
+      label: "YouTube (Global): Low Level Learning",
       href: "https://www.youtube.com/@LowLevelTV",
       note: "C, systems and low-level programming",
+    },
+    {
+      label: "YouTube (India): Gate Smashers",
+      href: "https://www.youtube.com/@GateSmashers",
+      note: "Computer architecture and OS basics",
+    },
+    {
+      label: "YouTube (Global): Jacob Sorber",
+      href: "https://www.youtube.com/@JacobSorber",
+      note: "C and embedded systems programming",
     },
   ],
   tools: [

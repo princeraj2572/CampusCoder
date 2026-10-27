@@ -126,19 +126,34 @@ export const security: Role = {
       note: "A deliberately vulnerable app to practise on",
     },
     {
-      label: "YouTube: NetworkChuck",
+      label: "YouTube (Global): NetworkChuck",
       href: "https://www.youtube.com/@NetworkChuck",
       note: "Friendly networking and hacking basics",
     },
     {
-      label: "YouTube: John Hammond",
+      label: "YouTube (Global): John Hammond",
       href: "https://www.youtube.com/@_JohnHammond",
       note: "CTF walkthroughs and malware analysis",
     },
     {
-      label: "YouTube: LiveOverflow",
+      label: "YouTube (Global): LiveOverflow",
       href: "https://www.youtube.com/@LiveOverflow",
       note: "How exploits actually work",
+    },
+    {
+      label: "YouTube (India): Hacker Vlog",
+      href: "https://www.youtube.com/@HackerVlogs",
+      note: "Ethical hacking in Hindi",
+    },
+    {
+      label: "YouTube (Global): David Bombal",
+      href: "https://www.youtube.com/@davidbombal",
+      note: "Networking and security labs",
+    },
+    {
+      label: "YouTube (Global): IppSec",
+      href: "https://www.youtube.com/@ippsec",
+      note: "Hack The Box walkthroughs",
     },
   ],
   tools: [

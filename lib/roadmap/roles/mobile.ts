@@ -127,19 +127,29 @@ export const mobile: Role = {
       note: "A free structured course for iOS",
     },
     {
-      label: "YouTube: Philipp Lackner",
+      label: "YouTube (Global): Philipp Lackner",
       href: "https://www.youtube.com/@PhilippLackner",
       note: "Android and Kotlin, current and practical",
     },
     {
-      label: "YouTube: Flutter",
+      label: "YouTube (Global): Flutter",
       href: "https://www.youtube.com/@flutterdev",
       note: "Official Flutter tutorials and widget guides",
     },
     {
-      label: "YouTube: Programming with Mosh",
+      label: "YouTube (Global): Programming with Mosh",
       href: "https://www.youtube.com/@programmingwithmosh",
       note: "Clear, structured language and framework courses",
+    },
+    {
+      label: "YouTube (India): Telusko",
+      href: "https://www.youtube.com/@Telusko",
+      note: "Java and Android fundamentals",
+    },
+    {
+      label: "YouTube (Global): Code With Andrea",
+      href: "https://www.youtube.com/@CodeWithAndrea",
+      note: "Flutter apps, architecture and state management",
     },
   ],
   tools: [

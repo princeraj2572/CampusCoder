@@ -129,19 +129,29 @@ export const devops: Role = {
       note: "Free books on running reliable services",
     },
     {
-      label: "YouTube: TechWorld with Nana",
+      label: "YouTube (Global): TechWorld with Nana",
       href: "https://www.youtube.com/@TechWorldwithNana",
       note: "Docker, Kubernetes and CI/CD made clear",
     },
     {
-      label: "YouTube: Kunal Kushwaha",
+      label: "YouTube (India): Kunal Kushwaha",
       href: "https://www.youtube.com/@KunalKushwaha",
       note: "DevOps and cloud-native basics",
     },
     {
-      label: "YouTube: freeCodeCamp",
+      label: "YouTube (Global): freeCodeCamp",
       href: "https://www.youtube.com/@freecodecamp",
       note: "Long free courses on Linux, AWS and Docker",
+    },
+    {
+      label: "YouTube (India): Abhishek Veeramalla",
+      href: "https://www.youtube.com/@AbhishekVeeramalla",
+      note: "DevOps, Kubernetes and cloud, step by step",
+    },
+    {
+      label: "YouTube (Global): DevOps Toolkit",
+      href: "https://www.youtube.com/@DevOpsToolkit",
+      note: "Kubernetes and platform tooling in depth",
     },
   ],
   tools: [

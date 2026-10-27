@@ -146,19 +146,24 @@ export const uiUx: Role = {
       note: "The accessibility rules, searchable",
     },
     {
-      label: "YouTube: DesignCourse",
+      label: "YouTube (Global): DesignCourse",
       href: "https://www.youtube.com/@DesignCourse",
       note: "UI design and Figma tutorials",
     },
     {
-      label: "YouTube: The Futur",
+      label: "YouTube (Global): The Futur",
       href: "https://www.youtube.com/@thefutur",
       note: "Design thinking and the business of design",
     },
     {
-      label: "YouTube: Figma",
+      label: "YouTube (Global): Figma",
       href: "https://www.youtube.com/@Figma",
       note: "Official Figma tutorials",
+    },
+    {
+      label: "YouTube (Global): Flux Academy",
+      href: "https://www.youtube.com/@FluxAcademy",
+      note: "Web design and UI skills",
     },
   ],
   tools: [

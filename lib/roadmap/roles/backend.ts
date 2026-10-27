@@ -131,19 +131,34 @@ export const backend: Role = {
       note: "The risks every backend developer should know",
     },
     {
-      label: "YouTube: Hussein Nasser",
+      label: "YouTube (Global): Hussein Nasser",
       href: "https://www.youtube.com/@hnasr",
       note: "Backend engineering, databases and networking, explained deeply",
     },
     {
-      label: "YouTube: freeCodeCamp",
+      label: "YouTube (Global): freeCodeCamp",
       href: "https://www.youtube.com/@freecodecamp",
       note: "Free full-length courses on APIs, SQL and more",
     },
     {
-      label: "YouTube: Apna College",
+      label: "YouTube (India): Apna College",
       href: "https://www.youtube.com/@ApnaCollegeOfficial",
       note: "Beginner-friendly Java and DSA in Hindi and English",
+    },
+    {
+      label: "YouTube (India): Telusko",
+      href: "https://www.youtube.com/@Telusko",
+      note: "Java, Spring and backend basics, clearly explained",
+    },
+    {
+      label: "YouTube (India): Piyush Garg",
+      href: "https://www.youtube.com/@PiyushGarg",
+      note: "Node.js and backend projects",
+    },
+    {
+      label: "YouTube (Global): Computerphile",
+      href: "https://www.youtube.com/@Computerphile",
+      note: "The computer science ideas behind servers and systems",
     },
   ],
   tools: [

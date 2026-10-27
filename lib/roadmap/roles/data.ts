@@ -129,19 +129,39 @@ export const data: Role = {
       note: "A visual checklist of topics",
     },
     {
-      label: "YouTube: Alex The Analyst",
+      label: "YouTube (Global): Alex The Analyst",
       href: "https://www.youtube.com/@AlexTheAnalyst",
       note: "SQL, Excel and Power BI for beginners",
     },
     {
-      label: "YouTube: Luke Barousse",
+      label: "YouTube (Global): Luke Barousse",
       href: "https://www.youtube.com/@LukeBarousse",
       note: "Data analyst skills and portfolio projects",
     },
     {
-      label: "YouTube: StatQuest",
+      label: "YouTube (Global): StatQuest",
       href: "https://www.youtube.com/@statquest",
       note: "Statistics you need for data work",
+    },
+    {
+      label: "YouTube (India): codebasics",
+      href: "https://www.youtube.com/@codebasics",
+      note: "Data analytics, SQL and Power BI projects",
+    },
+    {
+      label: "YouTube (India): CampusX",
+      href: "https://www.youtube.com/@campusx-official",
+      note: "Data science with Python, in Hindi",
+    },
+    {
+      label: "YouTube (Global): Ken Jee",
+      href: "https://www.youtube.com/@KenJee_ds",
+      note: "Data science careers and projects",
+    },
+    {
+      label: "YouTube (Global): Tina Huang",
+      href: "https://www.youtube.com/@TinaHuang1",
+      note: "Learning data skills and landing the job",
     },
   ],
   tools: [

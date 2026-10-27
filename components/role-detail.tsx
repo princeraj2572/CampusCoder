@@ -397,7 +397,7 @@ export function RoleDetail({ role }: { role: Role }) {
       <Block accent={c} title="Resources">
         <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
           {role.links.map((l) => {
-            const yt = l.label.startsWith("YouTube: ");
+            const yt = l.label.startsWith("YouTube");
             const tint = yt ? "var(--tier-red)" : c;
             return (
               <li key={l.href}>

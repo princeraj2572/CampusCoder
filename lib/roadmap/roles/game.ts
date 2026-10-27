@@ -130,19 +130,29 @@ export const game: Role = {
       note: "A free book on structuring game code",
     },
     {
-      label: "YouTube: Brackeys",
+      label: "YouTube (Global): Brackeys",
       href: "https://www.youtube.com/@Brackeys",
       note: "Unity and game dev starter tutorials",
     },
     {
-      label: "YouTube: Sebastian Lague",
+      label: "YouTube (Global): Sebastian Lague",
       href: "https://www.youtube.com/@SebastianLague",
       note: "Game programming and algorithms, beautifully explained",
     },
     {
-      label: "YouTube: Fireship",
+      label: "YouTube (Global): Fireship",
       href: "https://www.youtube.com/@Fireship",
       note: "Short, fast looks at tools and ideas",
+    },
+    {
+      label: "YouTube (Global): Game Maker's Toolkit",
+      href: "https://www.youtube.com/@GMTK",
+      note: "Why games work, and how designers think",
+    },
+    {
+      label: "YouTube (Global): GDQuest",
+      href: "https://www.youtube.com/@Gdquest",
+      note: "Godot tutorials",
     },
   ],
   tools: [

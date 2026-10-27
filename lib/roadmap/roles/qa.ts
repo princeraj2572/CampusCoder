@@ -128,14 +128,19 @@ export const qa: Role = {
       note: "Performance testing with code",
     },
     {
-      label: "YouTube: Rahul Shetty Academy",
+      label: "YouTube (India): Rahul Shetty Academy",
       href: "https://www.youtube.com/@RahulShettyAcademy",
       note: "Selenium, API testing and automation",
     },
     {
-      label: "YouTube: freeCodeCamp",
+      label: "YouTube (Global): freeCodeCamp",
       href: "https://www.youtube.com/@freecodecamp",
       note: "Free testing and automation courses",
+    },
+    {
+      label: "YouTube (Global): Joe Colantonio",
+      href: "https://www.youtube.com/@JoeColantonio",
+      note: "Test automation news and how-tos",
     },
   ],
   tools: [
