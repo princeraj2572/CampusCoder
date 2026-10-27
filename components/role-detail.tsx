@@ -9,7 +9,7 @@ const LEVEL_COLOR: Record<Role["projects"][number]["level"], string> = {
   Advanced: "var(--tier-red)",
 };
 
-const card = "border-border rounded-xl border p-4";
+const card = "border-border rounded-xl border border-t-[3px] border-t-[var(--role)] p-4";
 
 function Tint({ color, children }: { color: string; children: React.ReactNode }) {
   return (
@@ -78,7 +78,7 @@ export function RoleDetail({ role }: { role: Role }) {
         "Resources",
       ]}
     >
-      <Block title="The job">
+      <Block accent={c} title="The job">
         <p className="text-muted-foreground max-w-3xl text-lg leading-relaxed">
           {role.job}
         </p>
@@ -101,6 +101,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Where you will work"
         note="The kinds of employer that hire for this role."
       >
@@ -115,6 +116,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Study plan"
         note="Move through the stages in order. Do not start the next stage until you have built the project in the current one."
       >
@@ -176,6 +178,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="What to build"
         note="Three projects, in order. Together they show a reviewer how you have grown."
       >
@@ -196,12 +199,20 @@ export function RoleDetail({ role }: { role: Role }) {
         </ul>
       </Block>
 
-      <Block title="Tools" note="Install these early and get comfortable with them.">
+      <Block
+        accent={c}
+        title="Tools"
+        note="Install these early and get comfortable with them."
+      >
         <ul className="flex flex-wrap gap-2">
           {role.tools.map((t) => (
             <li
               key={t}
-              className="border-border text-muted-foreground rounded-lg border px-3 py-1.5 text-sm"
+              className="text-foreground rounded-lg border px-3 py-1.5 text-sm"
+              style={{
+                borderColor: `color-mix(in oklab, ${c} 45%, transparent)`,
+                background: `color-mix(in oklab, ${c} 10%, transparent)`,
+              }}
             >
               {t}
             </li>
@@ -210,6 +221,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="A week of study"
         note="About 6–7 hours alongside college. Adjust the hours, but keep the rhythm."
       >
@@ -221,6 +233,7 @@ export function RoleDetail({ role }: { role: Role }) {
                   <th
                     scope="row"
                     className="w-32 px-3 py-2.5 align-top font-semibold whitespace-nowrap"
+                    style={{ color: ink(c) }}
                   >
                     {w.when}
                   </th>
@@ -233,6 +246,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="A senior's advice"
         note="What an experienced engineer would tell a junior on day one."
       >
@@ -258,7 +272,7 @@ export function RoleDetail({ role }: { role: Role }) {
         </div>
       </Block>
 
-      <Block title="Mistakes and questions">
+      <Block accent={c} title="Mistakes and questions">
         <div className="grid gap-4 lg:grid-cols-2">
           <div className={card}>
             <h3 className="font-display mb-3 font-semibold">Mistakes juniors make</h3>
@@ -272,6 +286,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Myths and reality"
         note="Things students often believe about this job."
       >
@@ -299,6 +314,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="First 90 days"
         note="What to aim for in your first internship or job."
       >
@@ -313,6 +329,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Career ladder"
         note="Where the road leads, so you know what you are building towards."
       >
@@ -331,29 +348,44 @@ export function RoleDetail({ role }: { role: Role }) {
         </ol>
       </Block>
 
-      <Block title="Interview preparation">
+      <Block accent={c} title="Interview preparation">
         <div className={card}>
           <List items={role.interview} mark="→" color={c} />
         </div>
       </Block>
 
-      <Block title="Resources">
+      <Block accent={c} title="Resources">
         <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-          {role.links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`border-border hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border px-3 py-2.5 transition-colors ${focus}`}
-              >
-                <span className="text-foreground font-medium">{l.label}</span>
-                {l.note && (
-                  <span className="text-muted-foreground text-sm">{l.note}</span>
-                )}
-              </a>
-            </li>
-          ))}
+          {role.links.map((l) => {
+            const yt = l.label.startsWith("YouTube: ");
+            const tint = yt ? "var(--tier-red)" : c;
+            return (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
+                  style={{
+                    borderColor: `color-mix(in oklab, ${tint} 45%, transparent)`,
+                    borderLeftColor: tint,
+                  }}
+                >
+                  <span className="text-foreground font-medium">
+                    {yt && (
+                      <span aria-hidden="true" style={{ color: ink(tint) }}>
+                        ▶{" "}
+                      </span>
+                    )}
+                    {l.label}
+                  </span>
+                  {l.note && (
+                    <span className="text-muted-foreground text-sm">{l.note}</span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </Block>
 

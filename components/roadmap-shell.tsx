@@ -206,7 +206,12 @@ export function RoadmapShell({
             </ul>
           </details>
 
-          <div className="flex flex-col gap-12">{children}</div>
+          <div
+            className="flex flex-col gap-12"
+            style={accent ? ({ "--role": accent } as React.CSSProperties) : undefined}
+          >
+            {children}
+          </div>
         </div>
 
         <aside className="hidden xl:block">
@@ -237,16 +242,24 @@ export function RoadmapShell({
 export function Block({
   title,
   note,
+  accent,
   children,
 }: {
   title: string;
   note?: string;
+  /** Colours a bar beside the heading. */
+  accent?: string;
   children: React.ReactNode;
 }) {
   return (
     <section id={anchor(title)} className="flex scroll-mt-24 flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <h2 className="font-display text-2xl font-semibold">{title}</h2>
+        <h2
+          className={`font-display text-2xl font-semibold ${accent ? "border-l-4 pl-3" : ""}`}
+          style={accent ? { borderColor: accent } : undefined}
+        >
+          {title}
+        </h2>
         {note && <p className="text-muted-foreground max-w-3xl">{note}</p>}
       </div>
       {children}
