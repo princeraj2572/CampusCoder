@@ -131,6 +131,26 @@ export const aiMl: Role = {
       href: "https://roadmap.sh/ai-data-scientist",
       note: "A visual checklist of topics",
     },
+    {
+      label: "YouTube: Andrej Karpathy",
+      href: "https://www.youtube.com/@AndrejKarpathy",
+      note: "Build neural networks and LLMs from scratch",
+    },
+    {
+      label: "YouTube: 3Blue1Brown",
+      href: "https://www.youtube.com/@3blue1brown",
+      note: "Visual maths behind neural networks",
+    },
+    {
+      label: "YouTube: StatQuest",
+      href: "https://www.youtube.com/@statquest",
+      note: "Statistics and ML explained step by step",
+    },
+    {
+      label: "YouTube: Krish Naik",
+      href: "https://www.youtube.com/@krishnaik06",
+      note: "Data science and ML projects",
+    },
   ],
   tools: [
     "Python with Jupyter or VS Code notebooks",

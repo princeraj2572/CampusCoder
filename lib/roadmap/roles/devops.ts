@@ -128,6 +128,21 @@ export const devops: Role = {
       href: "https://sre.google/books/",
       note: "Free books on running reliable services",
     },
+    {
+      label: "YouTube: TechWorld with Nana",
+      href: "https://www.youtube.com/@TechWorldwithNana",
+      note: "Docker, Kubernetes and CI/CD made clear",
+    },
+    {
+      label: "YouTube: Kunal Kushwaha",
+      href: "https://www.youtube.com/@KunalKushwaha",
+      note: "DevOps and cloud-native basics",
+    },
+    {
+      label: "YouTube: freeCodeCamp",
+      href: "https://www.youtube.com/@freecodecamp",
+      note: "Long free courses on Linux, AWS and Docker",
+    },
   ],
   tools: [
     "A Linux machine or WSL, and a good terminal",

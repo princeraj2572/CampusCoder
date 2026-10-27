@@ -128,6 +128,21 @@ export const embedded: Role = {
       href: "https://www.kicad.org",
       note: "Free tool for schematics and circuit boards",
     },
+    {
+      label: "YouTube: Ben Eater",
+      href: "https://www.youtube.com/@BenEater",
+      note: "Build a computer from chips to learn how hardware works",
+    },
+    {
+      label: "YouTube: Phil's Lab",
+      href: "https://www.youtube.com/@PhilsLab",
+      note: "PCB design and embedded firmware",
+    },
+    {
+      label: "YouTube: Low Level Learning",
+      href: "https://www.youtube.com/@LowLevelTV",
+      note: "C, systems and low-level programming",
+    },
   ],
   tools: [
     "An ESP32 or STM32 board and an Arduino",

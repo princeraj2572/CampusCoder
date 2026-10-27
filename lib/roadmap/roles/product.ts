@@ -135,6 +135,16 @@ export const product: Role = {
       href: "https://mode.com/sql-tutorial/",
       note: "Learn the SQL a product manager uses to answer questions",
     },
+    {
+      label: "YouTube: Product School",
+      href: "https://www.youtube.com/@ProductSchool",
+      note: "Talks and lessons from working product managers",
+    },
+    {
+      label: "YouTube: The Futur",
+      href: "https://www.youtube.com/@thefutur",
+      note: "Communication and thinking skills",
+    },
   ],
   tools: [
     "A notes and docs app for writing specs",

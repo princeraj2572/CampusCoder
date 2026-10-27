@@ -125,6 +125,21 @@ export const security: Role = {
       href: "https://owasp.org/www-project-juice-shop/",
       note: "A deliberately vulnerable app to practise on",
     },
+    {
+      label: "YouTube: NetworkChuck",
+      href: "https://www.youtube.com/@NetworkChuck",
+      note: "Friendly networking and hacking basics",
+    },
+    {
+      label: "YouTube: John Hammond",
+      href: "https://www.youtube.com/@_JohnHammond",
+      note: "CTF walkthroughs and malware analysis",
+    },
+    {
+      label: "YouTube: LiveOverflow",
+      href: "https://www.youtube.com/@LiveOverflow",
+      note: "How exploits actually work",
+    },
   ],
   tools: [
     "Kali Linux or Parrot in a virtual machine",

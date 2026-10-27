@@ -145,6 +145,21 @@ export const uiUx: Role = {
       href: "https://www.w3.org/WAI/WCAG22/quickref/",
       note: "The accessibility rules, searchable",
     },
+    {
+      label: "YouTube: DesignCourse",
+      href: "https://www.youtube.com/@DesignCourse",
+      note: "UI design and Figma tutorials",
+    },
+    {
+      label: "YouTube: The Futur",
+      href: "https://www.youtube.com/@thefutur",
+      note: "Design thinking and the business of design",
+    },
+    {
+      label: "YouTube: Figma",
+      href: "https://www.youtube.com/@Figma",
+      note: "Official Figma tutorials",
+    },
   ],
   tools: [
     "Figma",

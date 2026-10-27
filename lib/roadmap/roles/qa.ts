@@ -127,6 +127,16 @@ export const qa: Role = {
       href: "https://grafana.com/docs/k6/latest/",
       note: "Performance testing with code",
     },
+    {
+      label: "YouTube: Rahul Shetty Academy",
+      href: "https://www.youtube.com/@RahulShettyAcademy",
+      note: "Selenium, API testing and automation",
+    },
+    {
+      label: "YouTube: freeCodeCamp",
+      href: "https://www.youtube.com/@freecodecamp",
+      note: "Free testing and automation courses",
+    },
   ],
   tools: [
     "Playwright or Selenium",

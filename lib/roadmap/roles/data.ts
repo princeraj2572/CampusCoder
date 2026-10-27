@@ -128,6 +128,21 @@ export const data: Role = {
       href: "https://roadmap.sh/data-analyst",
       note: "A visual checklist of topics",
     },
+    {
+      label: "YouTube: Alex The Analyst",
+      href: "https://www.youtube.com/@AlexTheAnalyst",
+      note: "SQL, Excel and Power BI for beginners",
+    },
+    {
+      label: "YouTube: Luke Barousse",
+      href: "https://www.youtube.com/@LukeBarousse",
+      note: "Data analyst skills and portfolio projects",
+    },
+    {
+      label: "YouTube: StatQuest",
+      href: "https://www.youtube.com/@statquest",
+      note: "Statistics you need for data work",
+    },
   ],
   tools: [
     "PostgreSQL, plus a free warehouse tier such as BigQuery",

@@ -145,6 +145,16 @@ export const web3: Role = {
       href: "https://updraft.cyfrin.io",
       note: "Free courses on Solidity, testing and security",
     },
+    {
+      label: "YouTube: Patrick Collins",
+      href: "https://www.youtube.com/@PatrickAlphaC",
+      note: "Free long Solidity and smart contract courses",
+    },
+    {
+      label: "YouTube: Dapp University",
+      href: "https://www.youtube.com/@DappUniversity",
+      note: "Build blockchain apps step by step",
+    },
   ],
   tools: [
     "Foundry or Hardhat",

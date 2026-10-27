@@ -124,6 +124,21 @@ export const fullStack: Role = {
       href: "https://roadmap.sh/full-stack",
       note: "A visual checklist of topics",
     },
+    {
+      label: "YouTube: Traversy Media",
+      href: "https://www.youtube.com/@TraversyMedia",
+      note: "Full stack project builds, start to finish",
+    },
+    {
+      label: "YouTube: The Net Ninja",
+      href: "https://www.youtube.com/@NetNinja",
+      note: "Short playlists on React, Node and databases",
+    },
+    {
+      label: "YouTube: CodeWithHarry",
+      href: "https://www.youtube.com/@CodeWithHarry",
+      note: "Web development in Hindi",
+    },
   ],
   tools: [
     "VS Code, Git and GitHub",

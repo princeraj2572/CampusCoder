@@ -129,6 +129,21 @@ export const game: Role = {
       href: "https://gameprogrammingpatterns.com",
       note: "A free book on structuring game code",
     },
+    {
+      label: "YouTube: Brackeys",
+      href: "https://www.youtube.com/@Brackeys",
+      note: "Unity and game dev starter tutorials",
+    },
+    {
+      label: "YouTube: Sebastian Lague",
+      href: "https://www.youtube.com/@SebastianLague",
+      note: "Game programming and algorithms, beautifully explained",
+    },
+    {
+      label: "YouTube: Fireship",
+      href: "https://www.youtube.com/@Fireship",
+      note: "Short, fast looks at tools and ideas",
+    },
   ],
   tools: [
     "Unity, Godot or Unreal Engine",

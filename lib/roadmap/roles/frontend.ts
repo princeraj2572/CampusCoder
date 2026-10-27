@@ -129,6 +129,21 @@ export const frontend: Role = {
       href: "https://react.dev/learn",
       note: "Learn React from the official docs",
     },
+    {
+      label: "YouTube: Kevin Powell",
+      href: "https://www.youtube.com/@KevinPowell",
+      note: "The best CSS teacher on YouTube",
+    },
+    {
+      label: "YouTube: Web Dev Simplified",
+      href: "https://www.youtube.com/@WebDevSimplified",
+      note: "Clear JavaScript and React tutorials",
+    },
+    {
+      label: "YouTube: Traversy Media",
+      href: "https://www.youtube.com/@TraversyMedia",
+      note: "Crash courses and project builds",
+    },
   ],
   tools: [
     "VS Code with ESLint and Prettier",

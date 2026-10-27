@@ -130,6 +130,21 @@ export const backend: Role = {
       href: "https://owasp.org/www-project-top-ten/",
       note: "The risks every backend developer should know",
     },
+    {
+      label: "YouTube: Hussein Nasser",
+      href: "https://www.youtube.com/@hnasr",
+      note: "Backend engineering, databases and networking, explained deeply",
+    },
+    {
+      label: "YouTube: freeCodeCamp",
+      href: "https://www.youtube.com/@freecodecamp",
+      note: "Free full-length courses on APIs, SQL and more",
+    },
+    {
+      label: "YouTube: Apna College",
+      href: "https://www.youtube.com/@ApnaCollegeOfficial",
+      note: "Beginner-friendly Java and DSA in Hindi and English",
+    },
   ],
   tools: [
     "PostgreSQL or MySQL, plus a client such as DBeaver",
