@@ -784,6 +784,20 @@ export const ROADMAP_GROUPS: { label: string; color: string; tabs: RoadmapTab[] 
     ],
   },
   {
+    label: "Jobs",
+    color: "var(--tier-blue)",
+    tabs: [
+      {
+        label: "Roles and jobs",
+        title: "Roles and jobs",
+        href: "/roadmap/roles",
+        blurb:
+          "14 roles: what each does, what to study and build, and what seniors advise.",
+      },
+      tab("career", "Resume, LinkedIn, internships and placement preparation."),
+    ],
+  },
+  {
     label: "Learn the basics",
     color: "var(--board-contests)",
     tabs: [
@@ -806,20 +820,6 @@ export const ROADMAP_GROUPS: { label: string; color: string; tabs: RoadmapTab[] 
       tab("tools", "Git, the terminal, Docker and the tools every developer uses."),
       tab("ai", "Learn with AI without skipping the basics, and build with it."),
       tab("open-source", "How to find a project and make your first contribution."),
-    ],
-  },
-  {
-    label: "Jobs",
-    color: "var(--tier-blue)",
-    tabs: [
-      {
-        label: "Roles and jobs",
-        title: "Roles and jobs",
-        href: "/roadmap/roles",
-        blurb:
-          "14 roles: what each does, what to study and build, and what seniors advise.",
-      },
-      tab("career", "Resume, LinkedIn, internships and placement preparation."),
     ],
   },
 ];
