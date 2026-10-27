@@ -53,7 +53,7 @@ function Body({ s }: { s: RoadmapSection }) {
                 href={l.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`border-border hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border px-3 py-2.5 transition-colors ${focus}`}
+                className={`border-border hover:bg-foreground/[0.06] lift flex h-full flex-col gap-0.5 rounded-lg border px-3 py-2.5 transition-colors ${focus}`}
               >
                 <span className="text-foreground font-medium">{l.label}</span>
                 {l.note && (
@@ -148,7 +148,7 @@ export function RoadmapPage({ page }: { page: Page }) {
                     <li key={t.href}>
                       <Link
                         href={t.href}
-                        className={`border-border hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
+                        className={`border-border hover:bg-foreground/[0.06] lift flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
                         style={{ borderLeftColor: g.color }}
                       >
                         <span className="text-foreground font-medium">{t.label}</span>
@@ -172,7 +172,7 @@ export function RoadmapPage({ page }: { page: Page }) {
       {next && (
         <Link
           href={next.href}
-          className={`border-border hover:bg-foreground/[0.06] flex flex-col gap-0.5 rounded-lg border px-4 py-3 transition-colors ${focus}`}
+          className={`border-border hover:bg-foreground/[0.06] lift flex flex-col gap-0.5 rounded-lg border px-4 py-3 transition-colors ${focus}`}
         >
           <span className="text-muted-foreground text-sm">Next</span>
           <span className="text-foreground font-medium">{next.title}</span>

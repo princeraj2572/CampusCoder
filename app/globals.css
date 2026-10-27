@@ -238,3 +238,46 @@
     scroll-behavior: smooth;
   }
 }
+
+/* Roadmap pages: sections and cards fade up as they scroll into view; bars grow; links lift on hover. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .grow {
+      transform-origin: left;
+      animation: grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 60%;
+    }
+    @keyframes grow {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+  .lift {
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease;
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+}

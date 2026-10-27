@@ -431,7 +431,7 @@ export function RoleDetail({ role }: { role: Role }) {
                 className="bg-foreground/10 h-1.5 overflow-hidden rounded-full"
               >
                 <span
-                  className="block h-full rounded-full"
+                  className="block h-full grow rounded-full"
                   style={{
                     background: c,
                     width: `${((n + 1) / role.first90.length) * 100}%`,
@@ -454,12 +454,12 @@ export function RoleDetail({ role }: { role: Role }) {
           {role.ladder.map((l, n) => (
             <li
               key={l.level}
-              className={`${card} flex flex-col gap-2`}
-              style={{ paddingTop: `${1 + n * 1.5}rem` }}
+              className={`${card} flex flex-col gap-2 md:pt-[var(--step)]`}
+              style={{ "--step": `${1 + n * 1.5}rem` } as React.CSSProperties}
             >
               <span
                 aria-hidden="true"
-                className="h-1 rounded-full"
+                className="h-1 grow rounded-full"
                 style={{ background: c, width: `${(n + 1) * 25}%` }}
               />
               <h3 className="font-display font-semibold">{l.level}</h3>
@@ -486,7 +486,7 @@ export function RoleDetail({ role }: { role: Role }) {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
+                  className={`hover:bg-foreground/[0.06] lift flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
                   style={{
                     borderColor: `color-mix(in oklab, ${tint} 45%, transparent)`,
                     borderLeftColor: tint,
@@ -514,7 +514,7 @@ export function RoleDetail({ role }: { role: Role }) {
         {prev ? (
           <Link
             href={`/roadmap/roles/${prev.slug}`}
-            className={`border-border hover:bg-foreground/[0.06] flex flex-col gap-0.5 rounded-lg border px-4 py-3 transition-colors ${focus}`}
+            className={`border-border hover:bg-foreground/[0.06] lift flex flex-col gap-0.5 rounded-lg border px-4 py-3 transition-colors ${focus}`}
           >
             <span className="text-muted-foreground text-sm">Previous role</span>
             <span className="text-foreground font-medium">{prev.name}</span>
