@@ -51,7 +51,7 @@ export function UnratedList({
             >
               <span
                 aria-hidden="true"
-                className="numeral flex size-11 shrink-0 items-center justify-center rounded-xl text-lg leading-none font-extrabold text-[#0b0f17]"
+                className="numeral flex size-11 shrink-0 items-center justify-center rounded-xl text-lg leading-none font-extrabold text-(--on-board)"
                 style={{ background: "var(--board-contests)" }}
               >
                 {initials(s.fullName)}

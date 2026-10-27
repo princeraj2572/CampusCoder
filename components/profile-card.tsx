@@ -2,7 +2,7 @@ import { TierChip } from "@/components/tier-chip";
 import { describeUpdated } from "@/lib/boards/format";
 import { PLATFORM_NAME, PLATFORM_ORDER, PROFILE_URL } from "@/lib/boards/platform-links";
 import type { ProfileAccount, ProfileStudent } from "@/lib/boards/profile-data";
-import { PLATFORM_BRAND } from "@/lib/boards/theme";
+import { PLATFORM_BRAND, ink } from "@/lib/boards/theme";
 import { DOMAIN_LABELS } from "@/lib/registration/schema";
 
 const formatDate = (iso: string) =>
@@ -25,7 +25,7 @@ export function initials(name: string): string {
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-sm text-black/55 dark:text-white/55">{label}</dt>
+      <dt className="text-sm text-black/65 dark:text-white/55">{label}</dt>
       <dd className="mt-0.5 text-base font-medium">{children}</dd>
     </div>
   );
@@ -67,11 +67,11 @@ export function ProfileCard({
   const connected = PLATFORM_ORDER.filter((p) => byPlatform.has(p));
 
   return (
-    <section className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] sm:p-8 dark:border-white/15 dark:bg-[#161616] dark:text-white dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)]">
+    <section className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] sm:p-8 dark:border-white/15 dark:bg-[#252628] dark:text-[#dcdde0] dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)]">
       <div className="flex flex-wrap items-start gap-5">
         <span
           aria-hidden="true"
-          className="numeral flex size-20 shrink-0 items-center justify-center rounded-2xl text-4xl leading-none font-extrabold text-[#0b0f17] ring-2 ring-white/40 sm:size-24 sm:text-5xl"
+          className="numeral flex size-20 shrink-0 items-center justify-center rounded-2xl text-4xl leading-none font-extrabold text-(--on-board) ring-2 ring-white/40 sm:size-24 sm:text-5xl"
           style={{ background: "var(--board-dsa)" }}
         >
           {initials(student.fullName)}
@@ -81,7 +81,7 @@ export function ProfileCard({
             <h1 className="numeral text-5xl leading-none font-extrabold sm:text-6xl">
               {student.fullName}
             </h1>
-            <span className="rounded-full p-0.5 empty:hidden dark:bg-white/90">
+            <span className="empty:hidden">
               <TierChip rating={contestRating} />
             </span>
           </div>
@@ -115,7 +115,7 @@ export function ProfileCard({
           <>
             <Fact label="Google account">
               {ownerEmail ?? "–"}
-              <span className="block text-xs font-normal text-black/50 dark:text-white/50">
+              <span className="block text-xs font-normal text-black/60 dark:text-white/60">
                 Only you can see this.
               </span>
             </Fact>
@@ -146,7 +146,7 @@ export function ProfileCard({
                   className="absolute inset-y-0 left-0 w-1.5"
                   style={{ background: brand }}
                 />
-                <span className="text-sm font-semibold" style={{ color: brand }}>
+                <span className="text-sm font-semibold" style={{ color: ink(brand) }}>
                   {PLATFORM_NAME[p]}
                 </span>
                 <a
@@ -157,7 +157,7 @@ export function ProfileCard({
                 >
                   {a.username}
                 </a>
-                <span className="text-xs text-black/50 dark:text-white/50">
+                <span className="text-xs text-black/60 dark:text-white/60">
                   {updated}
                 </span>
               </li>

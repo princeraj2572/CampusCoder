@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Block, RoadmapShell, focus } from "@/components/roadmap-shell";
+import { ink } from "@/lib/boards/theme";
 import { ROLES, type Role } from "@/lib/roadmap/roles";
 
 const LEVEL_COLOR: Record<Role["projects"][number]["level"], string> = {
@@ -8,14 +9,14 @@ const LEVEL_COLOR: Record<Role["projects"][number]["level"], string> = {
   Advanced: "var(--tier-red)",
 };
 
-const card = "border-border rounded-xl border p-4";
+const card = "border-border rounded-xl border border-t-[3px] border-t-[var(--role)] p-4";
 
 function Tint({ color, children }: { color: string; children: React.ReactNode }) {
   return (
     <span
       className="rounded-full border px-2.5 py-0.5 text-xs font-semibold"
       style={{
-        color,
+        color: ink(color),
         borderColor: `color-mix(in oklab, ${color} 50%, transparent)`,
         backgroundColor: `color-mix(in oklab, ${color} 12%, transparent)`,
       }}
@@ -37,6 +38,45 @@ function List({ items, mark, color }: { items: string[]; mark: string; color: st
         </li>
       ))}
     </ul>
+  );
+}
+
+/** The whole road on one line: each stage, then the job. Plain markup, so it adds no image or script. */
+function Journey({ role }: { role: Role }) {
+  const c = role.color;
+  const steps = [
+    ...role.stages.map((s) => ({ name: s.title, time: s.time })),
+    { name: role.name, time: "Job-ready" },
+  ];
+  return (
+    <ol
+      aria-label="The road at a glance"
+      className="flex flex-col gap-2 md:flex-row md:items-stretch"
+    >
+      {steps.map((x, n) => {
+        const last = n === steps.length - 1;
+        return (
+          <li
+            key={x.name}
+            className="flex flex-1 items-center gap-2 md:flex-col md:items-stretch"
+          >
+            <div
+              className="flex-1 rounded-lg border px-3 py-2 text-sm"
+              style={{
+                borderColor: `color-mix(in oklab, ${c} 50%, transparent)`,
+                background: last
+                  ? c
+                  : `color-mix(in oklab, ${c} ${8 + n * 4}%, transparent)`,
+                color: last ? "var(--on-board)" : undefined,
+              }}
+            >
+              <span className="block font-semibold">{x.name}</span>
+              <span className={last ? "" : "text-muted-foreground"}>{x.time}</span>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -65,6 +105,7 @@ export function RoleDetail({ role }: { role: Role }) {
         "The job",
         "Where you will work",
         "Study plan",
+        "Concepts to master",
         "What to build",
         "Tools",
         "A week of study",
@@ -77,7 +118,7 @@ export function RoleDetail({ role }: { role: Role }) {
         "Resources",
       ]}
     >
-      <Block title="The job">
+      <Block accent={c} title="The job">
         <p className="text-muted-foreground max-w-3xl text-lg leading-relaxed">
           {role.job}
         </p>
@@ -100,6 +141,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Where you will work"
         note="The kinds of employer that hire for this role."
       >
@@ -114,9 +156,11 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Study plan"
         note="Move through the stages in order. Do not start the next stage until you have built the project in the current one."
       >
+        <Journey role={role} />
         <ol className="flex flex-col">
           {role.stages.map((s, n) => (
             <li key={s.title} className="relative flex gap-4 pb-6 last:pb-0">
@@ -158,8 +202,38 @@ export function RoleDetail({ role }: { role: Role }) {
                     </li>
                   ))}
                 </ul>
+                <h4 className="text-muted-foreground mt-4 mb-1.5 text-xs font-semibold tracking-wider uppercase">
+                  Ready to move on when you can
+                </h4>
+                <ul className="flex flex-col gap-1.5">
+                  {s.ready.map((x) => (
+                    <li
+                      key={x}
+                      className="text-muted-foreground flex gap-2.5 leading-relaxed"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-px shrink-0 font-bold"
+                        style={{ color: c }}
+                      >
+                        ◆
+                      </span>
+                      <span>{x}</span>
+                    </li>
+                  ))}
+                </ul>
                 <p
                   className="mt-4 rounded-lg border-l-4 px-3 py-2"
+                  style={{
+                    borderColor: ink("var(--tier-red)"),
+                    background: "color-mix(in oklab, var(--tier-red) 10%, transparent)",
+                  }}
+                >
+                  <span className="text-foreground font-semibold">Watch out: </span>
+                  <span className="text-muted-foreground">{s.pitfall}</span>
+                </p>
+                <p
+                  className="mt-3 rounded-lg border-l-4 px-3 py-2"
                   style={{
                     borderColor: c,
                     background: `color-mix(in oklab, ${c} 10%, transparent)`,
@@ -175,6 +249,41 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
+        title="Concepts to master"
+        note="The ideas behind the tools. Learn what each one means and why it matters."
+      >
+        <ul className="grid gap-4 md:grid-cols-2">
+          {role.concepts.map((k, n) => (
+            <li key={k.name} className={`${card} flex flex-col gap-2`}>
+              <h3 className="font-display flex items-center gap-2 font-semibold">
+                <span
+                  aria-hidden="true"
+                  className="flex size-6 shrink-0 items-center justify-center rounded-md text-xs font-bold"
+                  style={{ background: c, color: "var(--on-board)" }}
+                >
+                  {n + 1}
+                </span>
+                {k.name}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">{k.what}</p>
+              <p
+                className="rounded-lg border-l-4 px-3 py-1.5 text-sm"
+                style={{
+                  borderColor: c,
+                  background: `color-mix(in oklab, ${c} 10%, transparent)`,
+                }}
+              >
+                <span className="text-foreground font-semibold">Why it matters: </span>
+                <span className="text-muted-foreground">{k.why}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </Block>
+
+      <Block
+        accent={c}
         title="What to build"
         note="Three projects, in order. Together they show a reviewer how you have grown."
       >
@@ -195,12 +304,20 @@ export function RoleDetail({ role }: { role: Role }) {
         </ul>
       </Block>
 
-      <Block title="Tools" note="Install these early and get comfortable with them.">
+      <Block
+        accent={c}
+        title="Tools"
+        note="Install these early and get comfortable with them."
+      >
         <ul className="flex flex-wrap gap-2">
           {role.tools.map((t) => (
             <li
               key={t}
-              className="border-border text-muted-foreground rounded-lg border px-3 py-1.5 text-sm"
+              className="text-foreground rounded-lg border px-3 py-1.5 text-sm"
+              style={{
+                borderColor: `color-mix(in oklab, ${c} 45%, transparent)`,
+                background: `color-mix(in oklab, ${c} 10%, transparent)`,
+              }}
             >
               {t}
             </li>
@@ -209,6 +326,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="A week of study"
         note="About 6–7 hours alongside college. Adjust the hours, but keep the rhythm."
       >
@@ -220,6 +338,7 @@ export function RoleDetail({ role }: { role: Role }) {
                   <th
                     scope="row"
                     className="w-32 px-3 py-2.5 align-top font-semibold whitespace-nowrap"
+                    style={{ color: ink(c) }}
                   >
                     {w.when}
                   </th>
@@ -232,6 +351,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="A senior's advice"
         note="What an experienced engineer would tell a junior on day one."
       >
@@ -239,7 +359,7 @@ export function RoleDetail({ role }: { role: Role }) {
           <div className={card}>
             <h3
               className="font-display mb-3 font-semibold"
-              style={{ color: "var(--tier-green)" }}
+              style={{ color: ink("var(--tier-green)") }}
             >
               Do
             </h3>
@@ -248,7 +368,7 @@ export function RoleDetail({ role }: { role: Role }) {
           <div className={card}>
             <h3
               className="font-display mb-3 font-semibold"
-              style={{ color: "var(--tier-red)" }}
+              style={{ color: ink("var(--tier-red)") }}
             >
               Avoid
             </h3>
@@ -257,7 +377,7 @@ export function RoleDetail({ role }: { role: Role }) {
         </div>
       </Block>
 
-      <Block title="Mistakes and questions">
+      <Block accent={c} title="Mistakes and questions">
         <div className="grid gap-4 lg:grid-cols-2">
           <div className={card}>
             <h3 className="font-display mb-3 font-semibold">Mistakes juniors make</h3>
@@ -271,6 +391,7 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Myths and reality"
         note="Things students often believe about this job."
       >
@@ -278,13 +399,16 @@ export function RoleDetail({ role }: { role: Role }) {
           {role.myths.map((m) => (
             <li key={m.myth} className={`${card} flex flex-col gap-3`}>
               <p>
-                <span className="font-semibold" style={{ color: "var(--tier-red)" }}>
+                <span className="font-semibold" style={{ color: ink("var(--tier-red)") }}>
                   Myth:{" "}
                 </span>
                 <span className="text-foreground">{m.myth}</span>
               </p>
               <p>
-                <span className="font-semibold" style={{ color: "var(--tier-green)" }}>
+                <span
+                  className="font-semibold"
+                  style={{ color: ink("var(--tier-green)") }}
+                >
                   Reality:{" "}
                 </span>
                 <span className="text-muted-foreground leading-relaxed">{m.truth}</span>
@@ -295,12 +419,25 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="First 90 days"
         note="What to aim for in your first internship or job."
       >
         <ol className="grid gap-4 lg:grid-cols-3">
-          {role.first90.map((d) => (
-            <li key={d.days} className={card}>
+          {role.first90.map((d, n) => (
+            <li key={d.days} className={`${card} flex flex-col gap-3`}>
+              <span
+                aria-hidden="true"
+                className="bg-foreground/10 h-1.5 overflow-hidden rounded-full"
+              >
+                <span
+                  className="block h-full rounded-full"
+                  style={{
+                    background: c,
+                    width: `${((n + 1) / role.first90.length) * 100}%`,
+                  }}
+                />
+              </span>
               <Tint color={c}>{d.days}</Tint>
               <p className="text-muted-foreground mt-3 leading-relaxed">{d.goal}</p>
             </li>
@@ -309,12 +446,17 @@ export function RoleDetail({ role }: { role: Role }) {
       </Block>
 
       <Block
+        accent={c}
         title="Career ladder"
         note="Where the road leads, so you know what you are building towards."
       >
-        <ol className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <ol className="grid gap-4 md:grid-cols-2 md:items-end xl:grid-cols-4">
           {role.ladder.map((l, n) => (
-            <li key={l.level} className={`${card} flex flex-col gap-2`}>
+            <li
+              key={l.level}
+              className={`${card} flex flex-col gap-2`}
+              style={{ paddingTop: `${1 + n * 1.5}rem` }}
+            >
               <span
                 aria-hidden="true"
                 className="h-1 rounded-full"
@@ -327,29 +469,44 @@ export function RoleDetail({ role }: { role: Role }) {
         </ol>
       </Block>
 
-      <Block title="Interview preparation">
+      <Block accent={c} title="Interview preparation">
         <div className={card}>
           <List items={role.interview} mark="→" color={c} />
         </div>
       </Block>
 
-      <Block title="Resources">
+      <Block accent={c} title="Resources">
         <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-          {role.links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`border-border hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border px-3 py-2.5 transition-colors ${focus}`}
-              >
-                <span className="text-foreground font-medium">{l.label}</span>
-                {l.note && (
-                  <span className="text-muted-foreground text-sm">{l.note}</span>
-                )}
-              </a>
-            </li>
-          ))}
+          {role.links.map((l) => {
+            const yt = l.label.startsWith("YouTube");
+            const tint = yt ? "var(--tier-red)" : c;
+            return (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`hover:bg-foreground/[0.06] flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
+                  style={{
+                    borderColor: `color-mix(in oklab, ${tint} 45%, transparent)`,
+                    borderLeftColor: tint,
+                  }}
+                >
+                  <span className="text-foreground font-medium">
+                    {yt && (
+                      <span aria-hidden="true" style={{ color: ink(tint) }}>
+                        ▶{" "}
+                      </span>
+                    )}
+                    {l.label}
+                  </span>
+                  {l.note && (
+                    <span className="text-muted-foreground text-sm">{l.note}</span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </Block>
 

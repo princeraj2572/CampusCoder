@@ -237,6 +237,18 @@ export const ideas: RoadmapPage = {
             "A connected sensor device with firmware updates and a custom board",
           ],
           ["Game", "A published game with a finished loop, from a game jam"],
+          [
+            "UI/UX",
+            "A redesign case study with research, a tested prototype and a small design system",
+          ],
+          [
+            "Product",
+            "A student product you led, with a spec, a launch and a write-up of the numbers",
+          ],
+          [
+            "Blockchain",
+            "A tested contract with fuzz tests, a front end, and write-ups of security challenges",
+          ],
         ],
       },
     },

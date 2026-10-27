@@ -58,7 +58,7 @@ export function StudentCard({
       <div className="flex items-center gap-3">
         <span
           aria-hidden="true"
-          className="numeral flex size-12 shrink-0 items-center justify-center rounded-xl text-xl leading-none font-extrabold text-[#0b0f17]"
+          className="numeral flex size-12 shrink-0 items-center justify-center rounded-xl text-xl leading-none font-extrabold text-(--on-board)"
           style={{
             background: accent,
           }}
