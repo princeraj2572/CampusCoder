@@ -212,6 +212,38 @@ export const patterns: RoadmapPage = {
       },
     },
     {
+      heading: "A starter problem for each pattern",
+      paragraphs: [
+        "Solve these first. Each one is the classic way to learn its pattern. All are on LeetCode.",
+      ],
+      table: {
+        head: ["Pattern", "Start with"],
+        rows: [
+          ["Hashing", "Two Sum"],
+          ["Prefix sums", "Subarray Sum Equals K"],
+          ["Two pointers", "3Sum, Container With Most Water"],
+          ["Sliding window", "Longest Substring Without Repeating Characters"],
+          ["Binary search", "Search in Rotated Sorted Array"],
+          ["Stack", "Valid Parentheses, Daily Temperatures"],
+          ["Linked list", "Reverse Linked List, Linked List Cycle"],
+          ["Intervals", "Merge Intervals"],
+          [
+            "Trees",
+            "Maximum Depth of Binary Tree, Lowest Common Ancestor of a Binary Tree",
+          ],
+          ["BFS and DFS", "Number of Islands"],
+          ["Topological sort", "Course Schedule"],
+          ["Heap", "Kth Largest Element in an Array, Top K Frequent Elements"],
+          ["Backtracking", "Subsets, Permutations"],
+          [
+            "Dynamic programming",
+            "Climbing Stairs, Coin Change, Longest Common Subsequence",
+          ],
+          ["Union-find", "Number of Connected Components in an Undirected Graph"],
+        ],
+      },
+    },
+    {
       heading: "Big-O cheat sheet",
       table: {
         head: ["Structure", "Access", "Search", "Insert", "Delete"],
