@@ -283,6 +283,89 @@ export const tools: RoadmapPage = {
       ],
     },
     {
+      heading: "Linux: a learning path",
+      paragraphs: [
+        "Work through these in order and tick them off. Each step takes an evening, and you can practise on Windows with WSL, or on a free cloud server.",
+      ],
+      steps: [
+        "Get a Linux shell: install WSL on Windows, or a Ubuntu virtual machine, or use a Linux laptop.",
+        "Learn to move around: pwd, ls -la, cd, mkdir, cp, mv and rm, and use Tab to complete names.",
+        "Read files: cat, less, head, tail -f, and search with grep and find.",
+        "Learn the file tree: /home is your files, /etc is configuration, /var/log is logs, /usr/bin is programs.",
+        "Understand permissions: read the rwxr-xr-x in ls -l, then change them with chmod and chown.",
+        "Use pipes and redirects: command | command, > to write a file, >> to append, 2> for errors.",
+        "Manage processes: ps, top or htop, kill, and run a job in the background with & and nohup.",
+        "Install software with a package manager (apt, or dnf on Fedora) and keep the system updated.",
+        "Write a shell script with variables, if, for, and arguments, and make it executable.",
+        "Connect to a server with ssh and keys, copy files with scp, and set up a firewall rule.",
+        "Schedule a task with cron and read its output in the logs.",
+        "Explain out loud what happens when you run ls | grep x.",
+      ],
+    },
+    {
+      heading: "Linux permissions, explained",
+      paragraphs: [
+        "Every file has an owner, a group and three sets of permissions: for the owner, the group and everyone else. Each set has read (r, 4), write (w, 2) and execute (x, 1).",
+      ],
+      table: {
+        head: ["You see", "Number", "Meaning"],
+        rows: [
+          [
+            "rwxr-xr-x",
+            "755",
+            "Owner can do everything; others can read and run it. Typical for programs.",
+          ],
+          [
+            "rw-r--r--",
+            "644",
+            "Owner can edit; others can only read. Typical for ordinary files.",
+          ],
+          [
+            "rw-------",
+            "600",
+            "Only the owner can read or write. Required for SSH private keys.",
+          ],
+          [
+            "rwxrwxrwx",
+            "777",
+            "Anyone can change it. Avoid it; it is almost never the right fix.",
+          ],
+        ],
+      },
+      bullets: [
+        "A 'permission denied' error means your user lacks a needed bit. Check with ls -l before reaching for sudo.",
+        "sudo runs one command as the administrator. Read the command twice before you run it.",
+      ],
+    },
+    {
+      heading: "Shell scripting basics",
+      bullets: [
+        "Start the file with #!/usr/bin/env bash, then run chmod +x script.sh to make it runnable.",
+        "Use set -euo pipefail near the top so the script stops on the first error instead of carrying on.",
+        'Quote your variables: "$name", so file names with spaces do not break the script.',
+        "Read arguments with $1, $2 and $@, and check them before you use them.",
+        "Automate something you actually do: back up a folder, rename files, or set up a new project.",
+        "For anything longer than about 50 lines, consider Python instead.",
+      ],
+      links: [
+        {
+          label: "ShellCheck",
+          href: "https://www.shellcheck.net",
+          note: "Paste a script in and it points out mistakes",
+        },
+        {
+          label: "Bash Guide for Beginners",
+          href: "https://tldp.org/LDP/Bash-Beginners-Guide/html/",
+          note: "A free introduction to scripting",
+        },
+        {
+          label: "explainshell",
+          href: "https://explainshell.com",
+          note: "Paste any command and see what each part means",
+        },
+      ],
+    },
+    {
       heading: "Editor, debugger and shortcuts",
       bullets: [
         "Pick one editor (VS Code is a good default) and learn its shortcuts: multi-cursor, go to definition, rename symbol, search across files, command palette.",
