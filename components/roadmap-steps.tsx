@@ -85,7 +85,7 @@ export function RoadmapSteps({
               {checked ? "✓" : i + 1}
             </span>
             <label
-              className={`border-border has-focus-visible:ring-ring flex flex-1 cursor-pointer items-start gap-2 rounded-lg border px-3 py-2 has-focus-visible:ring-2 ${checked ? "opacity-60" : ""}`}
+              className={`hover:bg-foreground/[0.05] has-focus-visible:ring-ring flex flex-1 cursor-pointer items-start gap-2 rounded-lg px-2 py-1 has-focus-visible:ring-2 ${checked ? "opacity-60" : ""}`}
             >
               <input
                 type="checkbox"

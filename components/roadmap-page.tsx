@@ -27,18 +27,20 @@ function Body({ s, slug, color }: { s: RoadmapSection; slug: string; color: stri
       )}
 
       {s.links && (
-        <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="divide-border border-border divide-y border-y">
           {s.links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`border-border hover:bg-foreground/[0.06] lift flex h-full flex-col gap-0.5 rounded-lg border px-3 py-2.5 transition-colors ${focus}`}
+                className={`hover:bg-foreground/[0.05] flex flex-col gap-0.5 px-1 py-2.5 transition-colors sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 ${focus}`}
               >
                 <span className="text-foreground font-medium">{l.label}</span>
                 {l.note && (
-                  <span className="text-muted-foreground text-sm">{l.note}</span>
+                  <span className="text-muted-foreground text-sm sm:text-right">
+                    {l.note}
+                  </span>
                 )}
               </a>
             </li>
@@ -77,9 +79,9 @@ function Body({ s, slug, color }: { s: RoadmapSection; slug: string; color: stri
       )}
 
       {s.qa && (
-        <dl className="grid gap-3 md:grid-cols-2">
+        <dl className="grid gap-x-10 md:grid-cols-2">
           {s.qa.map((x) => (
-            <div key={x.q} className="border-border rounded-lg border p-4">
+            <div key={x.q} className="border-border border-t py-3">
               <dt className="text-foreground font-medium">{x.q}</dt>
               <dd className="text-muted-foreground mt-1.5 leading-relaxed">{x.a}</dd>
             </div>
@@ -139,7 +141,7 @@ export function RoadmapPage({ page }: { page: Page }) {
                     <li key={t.href}>
                       <Link
                         href={t.href}
-                        className={`border-border hover:bg-foreground/[0.06] lift flex h-full flex-col gap-0.5 rounded-lg border border-l-4 px-3 py-2.5 transition-colors ${focus}`}
+                        className={`hover:bg-foreground/[0.05] flex h-full flex-col gap-0.5 border-l-4 py-1.5 pr-2 pl-3 transition-colors ${focus}`}
                         style={{ borderLeftColor: g.color }}
                       >
                         <span className="text-foreground font-medium">{t.label}</span>
