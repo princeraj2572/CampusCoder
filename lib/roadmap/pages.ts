@@ -842,6 +842,28 @@ const openSource: RoadmapPage = {
       ],
     },
     {
+      heading: "Finding an issue on GitHub",
+      bullets: [
+        'Search issues with filters, for example: label:"good first issue" language:typescript is:open no:assignee',
+        "Sort by recently updated, and skip issues that are old or already have an open pull request.",
+        "Prefer projects with recent commits, a CONTRIBUTING.md and maintainers who reply to issues.",
+        "Read the whole issue thread before you comment, so you do not repeat a question.",
+      ],
+    },
+    {
+      heading: "The Git commands for a pull request",
+      steps: [
+        "Fork the repository on GitHub, then clone your fork: git clone <your-fork-url>.",
+        "Add the original as a remote: git remote add upstream <original-url>.",
+        "Create a branch for the change: git switch -c fix-typo-in-readme.",
+        "Make the change, run the project's tests, then git add and git commit with a clear message.",
+        "Push the branch to your fork: git push -u origin fix-typo-in-readme.",
+        "Open a pull request on GitHub, link the issue (for example Fixes #123) and describe what you changed.",
+        "If the main branch has moved on, update with git fetch upstream and git rebase upstream/main, then push again.",
+        "After it is merged, switch back to main, pull from upstream and delete your branch.",
+      ],
+    },
+    {
       heading: "Programmes to aim for",
       links: [
         {
