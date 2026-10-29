@@ -506,6 +506,57 @@ const coreSubjects: RoadmapPage = {
       ],
     },
     {
+      heading: "A six-week plan for the core subjects",
+      table: {
+        head: ["Week", "Focus", "Finish by"],
+        rows: [
+          [
+            "1",
+            "ER model, keys and basic SQL",
+            "Writing joins and GROUP BY without help",
+          ],
+          [
+            "2",
+            "Normalisation, transactions and indexes",
+            "Explaining ACID and isolation levels",
+          ],
+          [
+            "3",
+            "Processes, threads and CPU scheduling",
+            "Comparing FCFS, SJF and round robin",
+          ],
+          [
+            "4",
+            "Synchronisation, deadlock and memory",
+            "Explaining paging and virtual memory",
+          ],
+          ["5", "Network layers, TCP, HTTP, DNS", "Describing a URL request end to end"],
+          ["6", "OOP, SOLID and revision", "Answering the cross-subject questions below"],
+        ],
+      },
+    },
+    {
+      heading: "SQL queries to practise",
+      table: {
+        head: ["Task", "Idea it tests"],
+        rows: [
+          ["Second highest salary", "A subquery, or DENSE_RANK()"],
+          ["Find duplicate emails", "GROUP BY with HAVING COUNT(*) > 1"],
+          ["Employees who earn more than their manager", "A self join"],
+          [
+            "Top three salaries in each department",
+            "A window function with PARTITION BY",
+          ],
+          [
+            "Customers who never placed an order",
+            "LEFT JOIN with IS NULL, or NOT EXISTS",
+          ],
+          ["Running total of sales by date", "SUM() OVER (ORDER BY date)"],
+          ["Consecutive days a user logged in", "Window functions and date arithmetic"],
+        ],
+      },
+    },
+    {
       heading: "Rules for every project",
       steps: [
         "Write it yourself. Use AI as a tutor that gives tasks and reviews your work, not one that writes the code.",
