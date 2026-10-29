@@ -106,6 +106,7 @@ export function RoadmapShell({
   toc,
   accent,
   eyebrow,
+  progress,
   children,
 }: {
   /** The href of the tab to highlight. */
@@ -115,6 +116,8 @@ export function RoadmapShell({
   toc: string[];
   accent?: string;
   eyebrow?: React.ReactNode;
+  /** A progress meter shown under the intro. */
+  progress?: React.ReactNode;
   children: React.ReactNode;
 }) {
   const current = ROADMAP_TABS.find((t) => t.href === active);
@@ -186,6 +189,7 @@ export function RoadmapShell({
             </h1>
             <Rule colors={accent ? [accent, accent, accent] : undefined} />
             <p className="text-muted-foreground max-w-3xl text-lg">{intro}</p>
+            {progress}
           </header>
 
           <details className="border-border mb-8 rounded-lg border px-3 py-2 xl:hidden">

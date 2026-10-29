@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { RoadmapSteps } from "@/components/roadmap-steps";
+import { RoadmapProgress, RoadmapSteps } from "@/components/roadmap-steps";
 import { Block, RoadmapShell, focus } from "@/components/roadmap-shell";
 import { ink } from "@/lib/boards/theme";
 import { ROADMAP_GROUPS, ROADMAP_TABS, roadmapHref } from "@/lib/roadmap/pages";
 import type { RoadmapPage as Page, RoadmapSection } from "@/lib/roadmap/types";
 
-function Body({ s, slug }: { s: RoadmapSection; slug: string }) {
+function Body({ s, slug, color }: { s: RoadmapSection; slug: string; color: string }) {
   return (
     <div className="flex flex-col gap-4">
       {(s.paragraphs || s.steps || s.bullets) && (
@@ -13,7 +13,9 @@ function Body({ s, slug }: { s: RoadmapSection; slug: string }) {
           {s.paragraphs?.map((p) => (
             <p key={p}>{p}</p>
           ))}
-          {s.steps && <RoadmapSteps id={`${slug}/${s.heading}`} steps={s.steps} />}
+          {s.steps && (
+            <RoadmapSteps id={`${slug}/${s.heading}`} steps={s.steps} color={color} />
+          )}
           {s.bullets && (
             <ul className="flex list-disc flex-col gap-1.5 pl-5">
               {s.bullets.map((x) => (
@@ -95,12 +97,21 @@ export function RoadmapPage({ page }: { page: Page }) {
   const href = roadmapHref(page.slug);
   const i = ROADMAP_TABS.findIndex((t) => t.href === href);
   const next = ROADMAP_TABS[i + 1];
+  const color =
+    ROADMAP_GROUPS.find((g) => g.tabs.some((t) => t.href === href))?.color ??
+    "var(--board-dsa)";
+  const totalSteps = page.sections.reduce((n, s) => n + (s.steps?.length ?? 0), 0);
 
   return (
     <RoadmapShell
       active={href}
       title={page.title}
       intro={page.intro}
+      progress={
+        totalSteps > 0 ? (
+          <RoadmapProgress slug={page.slug} total={totalSteps} color={color} />
+        ) : undefined
+      }
       toc={[
         ...(page.slug === "" ? [ALL_TOPICS] : []),
         ...page.sections.map((s) => s.heading),
@@ -144,7 +155,7 @@ export function RoadmapPage({ page }: { page: Page }) {
 
       {page.sections.map((s) => (
         <Block key={s.heading} title={s.heading}>
-          <Body s={s} slug={page.slug} />
+          <Body s={s} slug={page.slug} color={color} />
         </Block>
       ))}
 
