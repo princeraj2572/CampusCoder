@@ -194,6 +194,46 @@ export const interview: RoadmapPage = {
       ],
     },
     {
+      heading: "Java and concurrency",
+      paragraphs: [
+        "Asked in most Java backend interviews. The ideas carry over to other languages as well.",
+      ],
+      qa: [
+        {
+          q: "Why are strings immutable in Java?",
+          a: "A string never changes after it is created. That makes it safe to share between threads, lets the JVM reuse identical strings from a pool, keeps its hash code stable for use as a map key, and stops code from altering values such as file paths or class names after they are checked.",
+        },
+        {
+          q: "What is the difference between == and equals()?",
+          a: "== compares references, so it asks whether two variables point at the same object. equals() compares content, if the class overrides it. If you override equals(), override hashCode() too, or hash-based collections will break.",
+        },
+        {
+          q: "What does synchronized do, and what does volatile do?",
+          a: "synchronized gives one thread at a time access to a block and also makes its changes visible to the next thread that takes the lock. volatile only guarantees visibility and ordering of a single variable. It does not make count++ safe, because that is a read and a write.",
+        },
+        {
+          q: "Why must wait() be called inside synchronized and inside a loop?",
+          a: "wait() releases the lock you hold, so you must hold it first. Without the lock, a notify can arrive between your check and your wait and be lost. The loop re-checks the condition after waking, because a thread can wake up when the condition is still false.",
+        },
+        {
+          q: "How does HashMap work?",
+          a: "It hashes the key to pick a bucket, then compares keys with equals() inside that bucket. Colliding entries form a list that turns into a tree when it grows long. When the map gets too full it doubles its buckets and rehashes. It is not thread-safe, so use ConcurrentHashMap across threads.",
+        },
+        {
+          q: "What are the thread states in Java?",
+          a: "NEW, RUNNABLE, BLOCKED (waiting for a lock), WAITING (waiting with no time limit), TIMED_WAITING (sleep or a timed wait) and TERMINATED.",
+        },
+        {
+          q: "Why use a thread pool instead of creating threads?",
+          a: "Creating a thread is expensive and unlimited threads can exhaust memory. A pool reuses a fixed set of threads and queues extra work, which keeps load predictable.",
+        },
+        {
+          q: "What is the Java Memory Model's happens-before rule?",
+          a: "It says when one thread's writes are guaranteed to be visible to another: unlocking a monitor before the next lock, a volatile write before a later read, and Thread.start() before anything in the new thread. Without such a link, a thread may see stale values.",
+        },
+      ],
+    },
+    {
       heading: "Behavioural questions",
       paragraphs: [
         "Use the STAR shape: Situation, Task, Action and Result. Keep each answer to about two minutes, say 'I' for what you did, and end with a result and what you learned.",
@@ -228,6 +268,11 @@ export const interview: RoadmapPage = {
     {
       heading: "More practice",
       links: [
+        {
+          label: "Engineering Atlas",
+          href: "https://engineering-atlas.in",
+          note: "Deep dives on Java, concurrency and backend interviews",
+        },
         {
           label: "GeeksforGeeks interview experiences",
           href: "https://www.geeksforgeeks.org/company-interview-corner/",
