@@ -1069,6 +1069,34 @@ const career: RoadmapPage = {
       ],
     },
     {
+      heading: "A four-week placement sprint",
+      table: {
+        head: ["Week", "Focus", "Output"],
+        rows: [
+          [
+            "1",
+            "Resume, LinkedIn and a project explanation",
+            "A one-page PDF and a two-minute project story",
+          ],
+          [
+            "2",
+            "Aptitude and company online-assessment practice",
+            "Timed sets with the weak areas listed",
+          ],
+          [
+            "3",
+            "DSA revision on your saved wrong problems, plus core subject questions",
+            "Three timed mock rounds",
+          ],
+          [
+            "4",
+            "Mock interviews, behavioural stories and applications",
+            "Two mocks with feedback, ten applications sent",
+          ],
+        ],
+      },
+    },
+    {
       heading: "Reading an offer",
       bullets: [
         "Separate the fixed pay from bonuses, joining bonuses and stock, and ask what is guaranteed.",
