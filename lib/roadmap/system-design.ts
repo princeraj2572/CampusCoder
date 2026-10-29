@@ -200,6 +200,122 @@ export const systemDesign: RoadmapPage = {
       },
     },
     {
+      heading: "More design problems by difficulty",
+      paragraphs: [
+        "Work through these in order. HLD means servers and data; LLD means classes and code.",
+      ],
+      table: {
+        head: ["Problem", "Type", "Level", "Main idea"],
+        rows: [
+          ["Parking lot", "LLD", "Easy", "Spots, vehicles and a fee strategy"],
+          ["Vending machine", "LLD", "Easy", "The State pattern for its modes"],
+          ["Snake and ladder", "LLD", "Easy", "Board, dice and turn handling"],
+          [
+            "URL shortener (and Pastebin)",
+            "HLD",
+            "Easy",
+            "ID generation, base62, read-heavy cache",
+          ],
+          [
+            "LRU cache",
+            "LLD",
+            "Medium",
+            "A hash map plus a doubly linked list, both O(1)",
+          ],
+          ["Splitwise", "LLD", "Medium", "Store money in paise, simplify debts"],
+          [
+            "Notification system",
+            "LLD",
+            "Medium",
+            "Channels, retries and user preferences",
+          ],
+          ["Rate limiter", "HLD", "Medium", "Token bucket and counters in Redis"],
+          [
+            "Typeahead (autocomplete)",
+            "HLD",
+            "Medium",
+            "A trie, top-k per prefix, caching",
+          ],
+          ["Web crawler", "HLD", "Medium", "A URL frontier, politeness, de-duplication"],
+          ["Live leaderboard", "HLD", "Medium", "Redis sorted sets plus a durable table"],
+          [
+            "Distributed logging",
+            "HLD",
+            "Medium",
+            "Agents, a queue, indexed storage, retention",
+          ],
+          [
+            "Elevator system",
+            "LLD",
+            "Hard",
+            "Scheduling requests across cars, state machines",
+          ],
+          ["Key-value store", "HLD", "Hard", "Partitioning, replication, LSM storage"],
+          ["Uber", "HLD", "Hard", "Geospatial index, matching, location updates"],
+          ["YouTube", "HLD", "Hard", "Upload and transcoding pipeline, CDN"],
+          [
+            "Change data capture (CDC)",
+            "HLD",
+            "Hard",
+            "Reading the database log to feed other systems",
+          ],
+        ],
+      },
+    },
+    {
+      heading: "Databases in a design interview",
+      steps: [
+        "Start from the access pattern: what is read, what is written, how often, and how fast it must be.",
+        "Pick the family. A relational database for relations and transactions, a key-value store for lookups by key, a document store for flexible records, a wide-column store for huge write volume, a search index for text.",
+        "Name the indexes. Say which columns you filter and sort by, and that each index costs write speed and space.",
+        "State the consistency you need per piece of data. Money needs transactions; a like counter can be eventually consistent.",
+        "Scale reads first with a cache and read replicas. Shard only when one machine cannot hold or write the data.",
+        "Say how you keep other systems in sync: an outbox table or change data capture, not two writes that can disagree.",
+      ],
+      paragraphs: [
+        "Why writes are fast: databases append to a write-ahead log first, which is a sequential write, and apply the change to the data pages later. Sequential writes are far cheaper than random ones, and the log is what lets the database recover after a crash.",
+      ],
+      table: {
+        head: ["Storage engine", "How it works", "Good at"],
+        rows: [
+          [
+            "B-tree",
+            "Updates pages in place in a sorted tree",
+            "Reads and range queries, the usual SQL choice",
+          ],
+          [
+            "LSM tree",
+            "Buffers writes in memory, flushes sorted files, merges them later",
+            "Heavy write loads, as in Cassandra and RocksDB",
+          ],
+        ],
+      },
+    },
+    {
+      heading: "Designing an API",
+      bullets: [
+        "Pick the style: REST for most public APIs, GraphQL when clients need flexible queries, gRPC between internal services.",
+        "Model resources as nouns (/orders/42) and use the HTTP verbs for the actions. Return the right status codes.",
+        "Paginate every list. Cursor-based pagination stays stable when new rows arrive; offsets do not.",
+        "Make writes idempotent with an idempotency key, so a retry does not charge a customer twice.",
+        "Move slow work behind an async job: return 202 with a job ID the client can poll.",
+        "Plan for versioning, authentication and rate limits from the start.",
+      ],
+    },
+    {
+      heading: "How a search query travels",
+      steps: [
+        "The browser resolves the domain with DNS and reaches a CDN or load balancer.",
+        "An application server checks a cache such as Redis for a recent identical query.",
+        "On a miss, it asks the search cluster (Elasticsearch or similar), where a coordinator sends the query to every shard.",
+        "Each shard looks the words up in its inverted index (word to list of documents), scores matches with TF-IDF or BM25, and returns its best few.",
+        "The coordinator merges the shard results, fetches the documents, and the app returns them.",
+      ],
+      paragraphs: [
+        "New data reaches the index through a queue or change data capture, and becomes searchable after the next refresh, usually within a second or so. That delay is why search is near real-time, not instant. Autocomplete uses a trie or prefix index, fuzzy search tolerates typos, and vector search finds meaning rather than exact words.",
+      ],
+    },
+    {
       heading: "Low-level design (object-oriented design)",
       paragraphs: [
         "Many fresher interviews ask for classes and relationships instead of servers. The aim is clean, extensible code.",
@@ -251,9 +367,62 @@ export const systemDesign: RoadmapPage = {
           note: "Object-oriented design problems with code",
         },
         {
+          label: "Engineering Atlas",
+          href: "https://engineering-atlas.in",
+          note: "Step-by-step design problems and system design deep dives; some are free, others need a membership",
+        },
+        {
           label: "Engineering blogs",
           href: "https://github.com/kilimchoi/engineering-blogs",
           note: "A list of company blogs where real designs are explained",
+        },
+      ],
+    },
+    {
+      heading: "How real companies built it",
+      paragraphs: [
+        "Reading how a team solved a real problem teaches more than a textbook. Pick one post a week and write down the problem, the choice they made and what they gave up.",
+      ],
+      links: [
+        {
+          label: "Netflix Tech Blog",
+          href: "https://netflixtechblog.com",
+          note: "Streaming, resilience and data",
+        },
+        {
+          label: "Uber Engineering",
+          href: "https://www.uber.com/blog/engineering/",
+          note: "Maps, matching and large-scale data",
+        },
+        {
+          label: "Stripe Engineering",
+          href: "https://stripe.com/blog/engineering",
+          note: "Payments, APIs and reliability",
+        },
+        {
+          label: "Meta Engineering",
+          href: "https://engineering.fb.com",
+          note: "Infrastructure and large systems",
+        },
+        {
+          label: "Cloudflare Blog",
+          href: "https://blog.cloudflare.com",
+          note: "Networking, security and performance",
+        },
+        {
+          label: "Discord Engineering",
+          href: "https://discord.com/category/engineering",
+          note: "Real-time messaging at scale",
+        },
+        {
+          label: "Flipkart Engineering",
+          href: "https://blog.flipkart.tech",
+          note: "E-commerce at Indian scale",
+        },
+        {
+          label: "Razorpay Engineering",
+          href: "https://engineering.razorpay.com",
+          note: "Payments in India",
         },
       ],
     },
