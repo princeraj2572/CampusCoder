@@ -89,6 +89,17 @@ const start: RoadmapPage = {
       ],
     },
     {
+      heading: "Check yourself each month",
+      bullets: [
+        "Did I solve something on at least 20 days this month?",
+        "Can I explain one pattern I learned, to a friend, without notes?",
+        "Did I upsolve at least two contests?",
+        "Did I add or improve something in a project or a pull request?",
+        "Did I revise a core subject, not only DSA?",
+        "Is my trend on the weekly chart flat or rising? If flat, change one thing in my routine.",
+      ],
+    },
+    {
       heading: "Common mistakes to avoid",
       bullets: [
         "Watching videos without coding along.",
