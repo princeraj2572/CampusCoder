@@ -804,6 +804,39 @@ const career: RoadmapPage = {
       ],
     },
     {
+      heading: "Turn a small piece of work into a project",
+      paragraphs: [
+        "Interviewers ask about your projects far more than about the job description. Even a single bug fix or feature can become a strong story if you can explain it end to end.",
+      ],
+      steps: [
+        "Write the problem in one sentence: who had it and what went wrong.",
+        "Describe the before: how it worked, what it cost in time, errors or users affected.",
+        "Explain the design: the parts involved and why you chose this approach over one alternative.",
+        "Name the hardest bug or trade-off, and what you did about it.",
+        "State the result with a number: time saved, errors removed, users served.",
+        "List what you would change with more time.",
+      ],
+      bullets: [
+        "Quantify every resume bullet. 'Reduced page load from 4s to 1.5s by caching' beats 'Improved performance'.",
+        "Prepare a two-minute version and a ten-minute version of each project.",
+        "Use AI to quiz you with follow-up questions on your own project, then answer out loud. Do not let it write answers you cannot defend.",
+      ],
+    },
+    {
+      heading: "AI-assisted coding rounds",
+      paragraphs: [
+        "Some companies now let you use an AI assistant in the interview, or run rounds on debugging, integration, SQL or performance in an existing codebase. They score how you think, not how much you type.",
+      ],
+      bullets: [
+        "Read the code and the task before you prompt. State your plan first.",
+        "Give the assistant small, specific tasks and check every answer. Say aloud what you are verifying.",
+        "Run the tests and try edge cases yourself. Interviewers watch whether you catch its mistakes.",
+        "Be ready to explain every line you keep, and to solve the problem without the assistant if asked.",
+        "In debugging rounds, reproduce the failure, form a hypothesis, then change one thing at a time.",
+        "In performance rounds, measure before you change anything, and say what the bottleneck is.",
+      ],
+    },
+    {
       heading: "LinkedIn and cold outreach",
       steps: [
         "Use a clear photo, a headline with your role and skills, and an About section with two or three lines on what you build.",
@@ -827,6 +860,11 @@ const career: RoadmapPage = {
         "Write in public: a short blog or LinkedIn post about what you built or learned helps recruiters find you and helps you remember.",
       ],
       links: [
+        {
+          label: "Engineering Atlas career guides",
+          href: "https://engineering-atlas.in/career-guide/",
+          note: "A backend roadmap, resume guide and project deep-dive playbook",
+        },
         { label: "Devpost", href: "https://devpost.com", note: "Hackathons" },
         {
           label: "Unstop",
