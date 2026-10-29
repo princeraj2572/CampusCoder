@@ -48,6 +48,115 @@ export const linux: RoadmapPage = {
       ],
     },
     {
+      heading: "Ways to get Linux",
+      paragraphs: [
+        "You do not need to wipe your laptop. Start with the lightest option and move up when you want more.",
+      ],
+      table: {
+        head: ["Option", "How", "Good for", "Watch out for"],
+        rows: [
+          [
+            "WSL (Windows)",
+            "Open PowerShell as administrator and run wsl --install, then restart. It installs Ubuntu by default; wsl --install -d <name> picks another.",
+            "Learning the shell and developing alongside Windows",
+            "Keep project files inside the Linux home folder for speed, not under /mnt/c",
+          ],
+          [
+            "Virtual machine",
+            "Install VirtualBox or VMware, download an ISO, and create a VM with about 4 GB of RAM and 25 GB of disk.",
+            "Safe experiments and a full desktop, on Windows, macOS or Linux",
+            "Slower than a real install; turn on virtualisation in the BIOS if it fails to start",
+          ],
+          [
+            "Live USB",
+            "Write an ISO to a USB stick with Rufus, balenaEtcher or Ventoy, then boot from it.",
+            "Trying a distro without installing anything",
+            "Changes are lost on restart unless you set up persistence",
+          ],
+          [
+            "Dual boot",
+            "Shrink your Windows partition, then install Linux in the free space beside it.",
+            "Full speed and real hardware, like a daily driver",
+            "Back up first. Turn off Windows Fast Startup and check Secure Boot. A mistake here can cost data.",
+          ],
+          [
+            "Cloud server",
+            "Rent a small virtual server from a cloud provider and log in with ssh.",
+            "Practising servers, ssh, firewalls and deployment",
+            "Costs money after any free tier. Never leave a password login open to the internet.",
+          ],
+          [
+            "Main install",
+            "Replace your current system with Linux.",
+            "When you are sure and your files are backed up",
+            "Check that your Wi-Fi, graphics and laptop keys are supported first",
+          ],
+        ],
+      },
+    },
+    {
+      heading: "Choosing a distro",
+      paragraphs: [
+        "A distro is Linux packaged with a package manager, a desktop and defaults. The commands you learn work on all of them, so pick one and stay with it for a few months before you compare.",
+      ],
+      table: {
+        head: ["Distro", "Best for", "Package manager", "Notes"],
+        rows: [
+          [
+            "Ubuntu LTS",
+            "Most students, and most tutorials",
+            "apt",
+            "The safest first choice. Long-term releases get five years of updates.",
+          ],
+          [
+            "Linux Mint",
+            "Moving from Windows",
+            "apt",
+            "Based on Ubuntu with a familiar desktop that works out of the box.",
+          ],
+          [
+            "Debian",
+            "Stability, and learning how servers work",
+            "apt",
+            "What many servers and Docker images are built on. Fewer new features, fewer surprises.",
+          ],
+          [
+            "Fedora",
+            "Newer software and the Red Hat world",
+            "dnf",
+            "Close to what Red Hat enterprise systems use, which helps for DevOps roles.",
+          ],
+          [
+            "Arch Linux",
+            "Learning by building your own system",
+            "pacman",
+            "Excellent documentation, but you configure everything yourself. Try it after you are comfortable.",
+          ],
+        ],
+      },
+      bullets: [
+        "Unsure? Choose Ubuntu LTS. Most guides and answers online assume it.",
+        "Pick a desktop you like (GNOME, KDE Plasma or Xfce). You can change it later without losing your files.",
+        "The same task has different commands on different families: apt install on Ubuntu and Debian, dnf install on Fedora, pacman -S on Arch.",
+      ],
+    },
+    {
+      heading: "After you install: a setup checklist",
+      steps: [
+        "Update everything. On Ubuntu or Debian: sudo apt update && sudo apt upgrade.",
+        "Install the basics: git, curl, a compiler and build tools (on Ubuntu, sudo apt install git curl build-essential).",
+        "Set your Git name and email, then create an SSH key with ssh-keygen and add the public key to GitHub.",
+        "Install your language runtimes through your package manager or a version manager (nvm for Node, pyenv for Python, SDKMAN for Java).",
+        "Install Docker or Podman if you plan to use containers, and add yourself to the docker group.",
+        "Install a code editor, and learn its terminal and debugger.",
+        "Set up automatic security updates, and make a backup of your home folder.",
+        "Keep a notes file of commands you had to look up, and reread it each month.",
+      ],
+      paragraphs: [
+        "If something breaks, copy the exact error text into a search before you reinstall. Most problems are a missing package or a permission, and the error message names it.",
+      ],
+    },
+    {
       heading: "Linux: a learning path",
       paragraphs: [
         "Work through these in order and tick them off. Each step takes an evening, and you can practise on Windows with WSL, or on a free cloud server.",
