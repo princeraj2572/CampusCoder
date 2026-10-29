@@ -1,6 +1,7 @@
 import { ai } from "./ai";
 import { ideas } from "./ideas";
 import { interview } from "./interview";
+import { linux } from "./linux";
 import { patterns } from "./patterns";
 import { systemDesign } from "./system-design";
 import { tools } from "./tools";
@@ -946,6 +947,7 @@ export const ROADMAP_PAGES: RoadmapPage[] = [
   development,
   ideas,
   tools,
+  linux,
   ai,
   openSource,
   career,
@@ -1013,7 +1015,8 @@ export const ROADMAP_GROUPS: { label: string; color: string; tabs: RoadmapTab[] 
     tabs: [
       tab("development", "Web, apps and backend: what to learn and in what order."),
       tab("project-ideas", "Project ideas by level and role, and how to finish them."),
-      tab("tools", "Git, the terminal, Docker and the tools every developer uses."),
+      tab("tools", "Git, Docker, editors and the tools every developer uses."),
+      tab("linux", "The terminal, permissions, shell scripts and servers, step by step."),
       tab("ai", "Learn with AI without skipping the basics, and build with it."),
       tab("open-source", "How to find a project and make your first contribution."),
     ],
