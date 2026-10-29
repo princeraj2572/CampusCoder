@@ -95,6 +95,71 @@ export const linux: RoadmapPage = {
       },
     },
     {
+      heading: "Install on Windows with WSL, step by step",
+      paragraphs: [
+        "The quickest start on Windows 10 (version 2004 or later) or Windows 11. You get a real Linux command line without leaving Windows.",
+      ],
+      steps: [
+        "Right-click the Start button and open Terminal (Admin) or PowerShell as administrator.",
+        "Run wsl --install. It turns on the needed Windows features and downloads Ubuntu.",
+        "Restart the computer when asked.",
+        "Open Ubuntu from the Start menu. The first launch takes a minute while it finishes setting up.",
+        "Choose a username and password. The password will not show as you type, which is normal. You need it for sudo.",
+        "Run sudo apt update && sudo apt upgrade -y to bring everything up to date.",
+        "Check the version with wsl -l -v in PowerShell. VERSION should say 2.",
+        "Keep your projects inside the Linux home folder (cd ~), not /mnt/c, because file access there is much faster.",
+        "Open a project in VS Code from the Linux shell with code . after you install the WSL extension.",
+      ],
+      bullets: [
+        "If wsl --install does nothing, turn on virtualisation in the BIOS and enable 'Virtual Machine Platform' in Windows Features.",
+        "To pick another distro, run wsl --list --online, then wsl --install -d <name>.",
+        "To start fresh, run wsl --unregister Ubuntu. This deletes everything inside that distro.",
+      ],
+    },
+    {
+      heading: "Install in a virtual machine, step by step",
+      steps: [
+        "Turn on virtualisation (Intel VT-x or AMD-V) in the BIOS if it is off. Most laptops have it on already.",
+        "Install VirtualBox, which is free, or VMware Workstation Player.",
+        "Download the Ubuntu LTS desktop ISO from ubuntu.com. Check the file size matches the download page.",
+        "Create a new VM, choose Linux and Ubuntu (64-bit), and select the ISO.",
+        "Give it at least 4 GB of RAM, 2 CPU cores and 25 GB of disk. More is better if your laptop can spare it.",
+        "Start the VM and choose Install Ubuntu. Accept 'Erase disk': this only affects the virtual disk, not your real one.",
+        "Pick your language, keyboard and timezone, then create your user and password.",
+        "Restart when asked, and remove the ISO if the VM asks you to.",
+        "Install the guest additions (VirtualBox) or VMware Tools for full-screen display, copy and paste, and shared folders.",
+        "Take a snapshot now. If you break something later, you can roll back in seconds.",
+      ],
+    },
+    {
+      heading: "Make a live USB, step by step",
+      steps: [
+        "Download the ISO of the distro you want, and a USB stick of at least 8 GB. Everything on the stick will be erased.",
+        "Install Rufus (Windows), balenaEtcher (any system) or Ventoy (keeps several ISOs on one stick).",
+        "Select the ISO and the USB drive, double-check you picked the right drive, and write it.",
+        "Restart the laptop and open the boot menu with its key (often F12, F10, Esc or F2; it varies by brand).",
+        "Choose the USB stick. Pick 'Try Ubuntu' to run it without installing.",
+        "Check that Wi-Fi, sound, the display and the trackpad all work before you decide to install.",
+      ],
+    },
+    {
+      heading: "Dual boot with Windows, step by step",
+      paragraphs: [
+        "This changes your disk. Back up everything you cannot lose before you begin, and keep the charger plugged in.",
+      ],
+      steps: [
+        "Back up your important files to an external drive or cloud storage.",
+        "In Windows, open Disk Management and shrink the main partition by at least 60 GB to leave free space.",
+        "Turn off Windows Fast Startup and BitLocker, or save your BitLocker recovery key first.",
+        "Make a live USB with the Ubuntu ISO (see the steps above) and boot from it.",
+        "Check the live session works, then start the installer.",
+        "Choose 'Install Ubuntu alongside Windows Boot Manager'. Use the free space you made, not the Windows partition.",
+        "Finish the install and restart. The GRUB menu lets you pick Ubuntu or Windows at each start.",
+        "If Windows is missing from the menu, boot Ubuntu and run sudo update-grub.",
+        "Keep Windows updated, and note that a big Windows update can sometimes replace the boot menu. Keep the live USB handy to repair it.",
+      ],
+    },
+    {
       heading: "Choosing a distro",
       paragraphs: [
         "A distro is Linux packaged with a package manager, a desktop and defaults. The commands you learn work on all of them, so pick one and stay with it for a few months before you compare.",
