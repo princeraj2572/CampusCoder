@@ -17,6 +17,7 @@ const BOARDS = [
     href: "/leaderboards/problem-solving",
     title: "DSA",
     color: "var(--board-dsa)",
+    learn: { label: "Learn DSA", href: "/roadmap/dsa" },
     line: "Every easy, medium and hard counts. LeetCode, Codeforces and CodeChef feed one score.",
     graphic: <DifficultyBar easy={120} medium={160} hard={48} />,
   },
@@ -24,6 +25,7 @@ const BOARDS = [
     href: "/leaderboards/contests",
     title: "Contests",
     color: "var(--board-contests)",
+    learn: { label: "Practise for contests", href: "/roadmap/dsa" },
     line: "LeetCode contest rating, with a tier from Grey to Red and your top percentage.",
     graphic: <PercentileGauge top={14} color="var(--tier-blue)" />,
   },
@@ -31,6 +33,7 @@ const BOARDS = [
     href: "/leaderboards/github",
     title: "GitHub",
     color: "var(--board-github)",
+    learn: { label: "Start with open source", href: "/roadmap/open-source" },
     line: "Commits, pull requests and streaks over the last twelve months.",
     graphic: (
       <WeeklyBars
@@ -208,9 +211,6 @@ export default function LandingPage() {
             className="mx-auto grid w-full max-w-6xl scroll-mt-28 items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16"
           >
             <div className="flex flex-col gap-6">
-              <p className="border-border bg-background/70 w-fit rounded-full border px-3 py-1 text-sm font-medium backdrop-blur">
-                For our students, by our students
-              </p>
               <h1 className="numeral text-6xl leading-[0.88] font-extrabold sm:text-7xl lg:text-8xl">
                 Code<span style={{ color: "var(--board-dsa)" }}>.</span>
                 <br />
@@ -227,14 +227,11 @@ export default function LandingPage() {
                 <LandingCta />
               </Suspense>
               <ul
-                className="flex flex-wrap items-center gap-2 text-sm"
+                className="text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-1 text-sm"
                 aria-label="Pulls data from"
               >
                 {PLATFORMS.map((p) => (
-                  <li
-                    key={p.name}
-                    className="border-border bg-background/70 flex items-center gap-2 rounded-full border px-3 py-1 backdrop-blur"
-                  >
+                  <li key={p.name} className="flex items-center gap-2">
                     <span
                       aria-hidden="true"
                       className="size-2 rounded-full"
@@ -264,47 +261,52 @@ export default function LandingPage() {
           <LiveStats />
         </Suspense>
 
-        {/* Three boards */}
+        {/* Boards, each with the roadmap page that improves it */}
         <section id="boards" className="border-border scroll-mt-28 border-t">
           <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
             <div className="mb-8 flex max-w-xl flex-col gap-2">
               <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
-                Three boards, three ways to win
+                Rank, then improve
               </h2>
               <p className="text-muted-foreground">
-                Strong at problem solving, contests or open source? Each board ranks one
-                thing, so everyone has somewhere to shine.
+                Each board ranks one thing, so everyone has somewhere to shine. Next to
+                it, the roadmap page that helps you climb.
               </p>
             </div>
-            <div className="grid gap-4 md:grid-cols-3">
+            <ul className="divide-border border-border divide-y border-y">
               {BOARDS.map((b) => (
-                <Link
+                <li
                   key={b.title}
-                  href={b.href}
-                  className="group border-border focus-visible:ring-ring relative flex flex-col gap-4 overflow-hidden rounded-2xl border p-5 transition-transform [--tint:14%] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none dark:[--tint:22%]"
-                  style={{
-                    backgroundColor: `color-mix(in oklab, ${b.color} var(--tint), var(--background))`,
-                  }}
+                  className="grid items-center gap-x-8 gap-y-4 border-l-4 py-6 pl-5 md:grid-cols-[minmax(0,1fr)_14rem_11rem]"
+                  style={{ borderLeftColor: b.color }}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 h-1.5"
-                    style={{ background: b.color }}
-                  />
-                  <h3
-                    className="numeral text-5xl leading-none font-extrabold"
-                    style={{ color: b.color }}
-                  >
-                    {b.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">{b.line}</p>
-                  <div className="mt-auto pt-2">{b.graphic}</div>
-                  <span className="text-sm font-medium underline-offset-4 group-hover:underline">
-                    Open the {b.title} board
-                  </span>
-                </Link>
+                  <div className="flex flex-col gap-2">
+                    <h3
+                      className="numeral text-5xl leading-none font-extrabold sm:text-6xl"
+                      style={{ color: b.color }}
+                    >
+                      {b.title}
+                    </h3>
+                    <p className="text-muted-foreground max-w-md text-sm">{b.line}</p>
+                  </div>
+                  <div>{b.graphic}</div>
+                  <div className="flex flex-col items-start gap-2 text-sm">
+                    <Link
+                      href={b.href}
+                      className="text-foreground font-semibold underline underline-offset-4"
+                    >
+                      Open the {b.title} board
+                    </Link>
+                    <Link
+                      href={b.learn.href}
+                      className="text-muted-foreground hover:text-foreground underline underline-offset-4"
+                    >
+                      {b.learn.label}
+                    </Link>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 
@@ -337,16 +339,9 @@ export default function LandingPage() {
                 <li key={t.href}>
                   <Link
                     href={t.href}
-                    className="group border-border focus-visible:ring-ring relative flex h-full flex-col gap-1 overflow-hidden rounded-2xl border p-4 pt-5 transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
-                    style={{
-                      backgroundColor: `color-mix(in oklab, ${t.color} 8%, var(--background))`,
-                    }}
+                    className="group focus-visible:ring-ring hover:bg-foreground/[0.05] flex h-full flex-col gap-1 border-l-4 py-2 pr-2 pl-3 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+                    style={{ borderLeftColor: t.color }}
                   >
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-x-0 top-0 h-1.5"
-                      style={{ background: t.color }}
-                    />
                     <span className="font-display text-lg font-semibold underline-offset-4 group-hover:underline">
                       {t.title}
                     </span>
@@ -482,30 +477,30 @@ export default function LandingPage() {
             <h2 className="numeral mb-8 text-4xl leading-none font-extrabold sm:text-5xl">
               Up and running in a minute
             </h2>
-            <ol className="grid gap-4 md:grid-cols-3">
-              {STEPS.map((s, i) => (
-                <li
-                  key={s.title}
-                  className="border-border bg-background flex gap-4 rounded-2xl border p-5"
-                >
-                  <span
-                    className="numeral text-6xl leading-none font-extrabold"
-                    style={{
-                      color: [
-                        "var(--board-dsa)",
-                        "var(--board-contests)",
-                        "var(--board-github)",
-                      ][i],
-                    }}
+            <ol className="grid gap-8 md:grid-cols-3">
+              {STEPS.map((s, i) => {
+                const color = [
+                  "var(--board-dsa)",
+                  "var(--board-contests)",
+                  "var(--board-github)",
+                ][i];
+                return (
+                  <li
+                    key={s.title}
+                    className="flex flex-col gap-2 border-t-4 pt-4"
+                    style={{ borderTopColor: color }}
                   >
-                    {i + 1}
-                  </span>
-                  <div className="flex flex-col gap-1">
+                    <span
+                      className="numeral text-5xl leading-none font-extrabold"
+                      style={{ color }}
+                    >
+                      {i + 1}
+                    </span>
                     <h3 className="font-display text-lg font-semibold">{s.title}</h3>
                     <p className="text-muted-foreground text-sm">{s.text}</p>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ol>
           </div>
         </section>
@@ -524,23 +519,23 @@ export default function LandingPage() {
             <h3 className="font-display mt-8 mb-3 text-lg font-semibold">
               Where to find your usernames
             </h3>
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="divide-border border-border divide-y border-y">
               {USERNAMES.map((u) => (
                 <li
                   key={u.name}
-                  className="border-border flex flex-col gap-2 rounded-2xl border p-4"
+                  className="grid gap-x-6 gap-y-1 py-3 sm:grid-cols-[11rem_minmax(0,1fr)]"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-2 font-semibold">
-                      <span
-                        aria-hidden="true"
-                        className="size-2.5 rounded-full"
-                        style={{ background: u.color }}
-                      />
-                      {u.name}
+                  <span className="flex items-center gap-2 font-semibold">
+                    <span
+                      aria-hidden="true"
+                      className="size-2.5 rounded-full"
+                      style={{ background: u.color }}
+                    />
+                    {u.name}
+                    <span className="text-muted-foreground text-xs font-normal">
+                      {u.need}
                     </span>
-                    <span className="text-muted-foreground text-xs">{u.need}</span>
-                  </div>
+                  </span>
                   <p className="text-muted-foreground text-sm">{u.where}</p>
                 </li>
               ))}
@@ -553,20 +548,13 @@ export default function LandingPage() {
             <h3 className="font-display mt-8 mb-3 text-lg font-semibold">
               What the scores mean
             </h3>
-            <ul className="grid gap-4 md:grid-cols-3">
+            <ul className="grid gap-x-8 gap-y-5 md:grid-cols-3">
               {SCORES.map((sc) => (
                 <li
                   key={sc.title}
-                  className="border-border relative flex flex-col gap-1 overflow-hidden rounded-2xl border p-4 pt-5"
-                  style={{
-                    backgroundColor: `color-mix(in oklab, ${sc.color} 8%, var(--background))`,
-                  }}
+                  className="flex flex-col gap-1 border-l-4 pl-3"
+                  style={{ borderLeftColor: sc.color }}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 h-1.5"
-                    style={{ background: sc.color }}
-                  />
                   <span className="font-display text-lg font-semibold">{sc.title}</span>
                   <p className="text-muted-foreground text-sm">{sc.text}</p>
                 </li>
@@ -626,7 +614,7 @@ export default function LandingPage() {
             </p>
             <Link
               href="/login"
-              className="inline-flex h-10 items-center rounded-lg bg-white px-5 text-sm font-semibold text-[#0b0f17] transition-colors hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
+              className="inline-flex h-10 items-center rounded-lg bg-[#f1f4f8] px-5 text-sm font-semibold text-[#0b0f17] transition-colors hover:bg-[#f1f4f8]/90 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
             >
               Sign in with Google
             </Link>
