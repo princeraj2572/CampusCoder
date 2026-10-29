@@ -731,6 +731,19 @@ const development: RoadmapPage = {
       ],
     },
     {
+      heading: "An 8-week plan to ship a full-stack app",
+      steps: [
+        "Week 1: choose a small real problem, write down the five things a user can do, and sketch the screens on paper.",
+        "Week 2: design the database tables and build the sign-up and login with a hashed password or a hosted login.",
+        "Week 3: build the main create, read, update and delete flow, and test each API call with a client such as curl.",
+        "Week 4: build the main screens with real data, and handle loading, empty and error states.",
+        "Week 5: add validation, permissions (who can see or change what) and a few unit tests.",
+        "Week 6: deploy it, add environment variables safely, and fix what breaks in production.",
+        "Week 7: ask five real users to try it, watch where they get stuck, and fix the top three problems.",
+        "Week 8: write the README with a screenshot, add it to your resume with one number, and prepare a two-minute explanation.",
+      ],
+    },
+    {
       heading: "What happens when you open a web page",
       steps: [
         "The browser finds the server's address using DNS.",
