@@ -233,6 +233,76 @@ const dsa: RoadmapPage = {
       },
     },
     {
+      heading: "A 12-week DSA plan",
+      paragraphs: [
+        "Adjust the pace to your schedule, but keep the order. Finish each block before the next.",
+      ],
+      table: {
+        head: ["Weeks", "Topics", "Goal by the end"],
+        rows: [
+          [
+            "1–2",
+            "Arrays, strings, hashing, prefix sums",
+            "Solve easy problems in under 15 minutes",
+          ],
+          [
+            "3",
+            "Sorting and binary search",
+            "Binary search on answers, not only on arrays",
+          ],
+          [
+            "4",
+            "Two pointers and sliding window",
+            "Spot a window problem from the wording",
+          ],
+          [
+            "5",
+            "Linked lists, stacks, queues",
+            "Reverse a list and use a monotonic stack",
+          ],
+          [
+            "6",
+            "Recursion and backtracking",
+            "Write subsets and permutations from scratch",
+          ],
+          [
+            "7–8",
+            "Binary trees and BSTs",
+            "All four traversals, recursive and iterative",
+          ],
+          ["9", "Heaps and greedy", "Top-k problems with a heap"],
+          [
+            "10",
+            "Graphs: BFS, DFS, shortest paths",
+            "Count components and find shortest paths",
+          ],
+          [
+            "11–12",
+            "Dynamic programming and tries",
+            "Write a recurrence, then the table",
+          ],
+        ],
+      },
+    },
+    {
+      heading: "What input size tells you about the algorithm",
+      paragraphs: [
+        "Read the constraints first. They hint at the complexity the problem expects, assuming about 10^8 simple operations per second.",
+      ],
+      table: {
+        head: ["Input size n", "Aim for", "Typical technique"],
+        rows: [
+          ["Up to 10", "O(n!)", "Try every permutation"],
+          ["Up to 20", "O(2^n)", "Bitmask or backtracking"],
+          ["Up to 500", "O(n^3)", "Triple loops, Floyd–Warshall"],
+          ["Up to 5,000", "O(n^2)", "Nested loops, simple DP"],
+          ["Up to 100,000", "O(n log n)", "Sorting, heaps, binary search"],
+          ["Up to 1,000,000", "O(n)", "One pass, hashing, two pointers"],
+          ["Above 10^8", "O(log n) or O(1)", "Maths or binary search"],
+        ],
+      },
+    },
+    {
       heading: "Signs you are ready to move on",
       bullets: [
         "You can explain the approach before you start typing.",
