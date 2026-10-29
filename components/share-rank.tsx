@@ -30,7 +30,7 @@ export function ShareRank({ message }: { message: string }) {
       <button
         type="button"
         onClick={share}
-        className="inline-flex h-9 items-center rounded-lg border border-black/15 bg-white px-4 text-sm font-semibold text-[#0f1623] transition-colors hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-[#0f1623]/50 focus-visible:outline-none dark:border-white/25 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
+        className="inline-flex h-9 items-center rounded-lg border border-black/15 bg-[#f1f4f8] px-4 text-sm font-semibold text-[#0f1623] transition-colors hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-[#0f1623]/50 focus-visible:outline-none dark:border-white/25 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
       >
         Share my rank
       </button>

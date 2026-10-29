@@ -120,7 +120,7 @@ export function GoogleSignIn({ next }: { next: string }) {
         type="button"
         onClick={signIn}
         disabled={busy || (needsAgreement && !agreed)}
-        className="h-11 w-fit gap-3 border border-black/15 bg-white px-5 text-base font-medium text-[#1f1f1f] hover:bg-white/90"
+        className="h-11 w-fit gap-3 border border-black/15 bg-[#f2f2f2] px-5 text-base font-medium text-[#1f1f1f] hover:bg-[#f2f2f2]/90"
       >
         <GoogleLogo />
         {busy

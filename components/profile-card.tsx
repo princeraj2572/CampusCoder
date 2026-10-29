@@ -67,7 +67,7 @@ export function ProfileCard({
   const connected = PLATFORM_ORDER.filter((p) => byPlatform.has(p));
 
   return (
-    <section className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] sm:p-8 dark:border-white/15 dark:bg-[#252628] dark:text-[#dcdde0] dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)]">
+    <section className="relative isolate overflow-hidden rounded-3xl border border-black/10 bg-[#f1f4f8] p-6 text-[#0f1623] shadow-[0_24px_60px_-30px_rgba(15,22,35,0.35)] sm:p-8 dark:border-white/15 dark:bg-[#252628] dark:text-[#dcdde0] dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)]">
       <div className="flex flex-wrap items-start gap-5">
         <span
           aria-hidden="true"
