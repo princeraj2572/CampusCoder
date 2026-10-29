@@ -96,6 +96,7 @@ const ALL_TOPICS = "All topics";
 export function RoadmapPage({ page }: { page: Page }) {
   const href = roadmapHref(page.slug);
   const i = ROADMAP_TABS.findIndex((t) => t.href === href);
+  const prev = ROADMAP_TABS[i - 1];
   const next = ROADMAP_TABS[i + 1];
   const color =
     ROADMAP_GROUPS.find((g) => g.tabs.some((t) => t.href === href))?.color ??
@@ -159,15 +160,28 @@ export function RoadmapPage({ page }: { page: Page }) {
         </Block>
       ))}
 
-      {next && (
-        <Link
-          href={next.href}
-          className={`border-border hover:bg-foreground/[0.06] lift flex flex-col gap-0.5 rounded-lg border px-4 py-3 transition-colors ${focus}`}
-        >
-          <span className="text-muted-foreground text-sm">Next</span>
-          <span className="text-foreground font-medium">{next.title}</span>
-        </Link>
-      )}
+      <nav aria-label="Previous and next page" className="grid gap-3 sm:grid-cols-2">
+        {prev ? (
+          <Link
+            href={prev.href}
+            className={`border-border hover:bg-foreground/[0.06] lift flex flex-col gap-0.5 rounded-lg border px-4 py-3 transition-colors ${focus}`}
+          >
+            <span className="text-muted-foreground text-sm">Previous</span>
+            <span className="text-foreground font-medium">{prev.title}</span>
+          </Link>
+        ) : (
+          <span />
+        )}
+        {next && (
+          <Link
+            href={next.href}
+            className={`border-border hover:bg-foreground/[0.06] lift flex flex-col gap-0.5 rounded-lg border px-4 py-3 transition-colors sm:text-right ${focus}`}
+          >
+            <span className="text-muted-foreground text-sm">Next</span>
+            <span className="text-foreground font-medium">{next.title}</span>
+          </Link>
+        )}
+      </nav>
     </RoadmapShell>
   );
 }

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { BackToTop } from "@/components/back-to-top";
+import { RoadmapToc } from "@/components/roadmap-toc";
 import { ink } from "@/lib/boards/theme";
 import { ROADMAP_GROUPS, ROADMAP_TABS, type RoadmapTab } from "@/lib/roadmap/pages";
 
@@ -223,21 +225,14 @@ export function RoadmapShell({
             <p className="text-muted-foreground mb-2 text-xs font-semibold tracking-wider uppercase">
               On this page
             </p>
-            <ul className="border-border flex flex-col gap-0.5 border-l">
-              {toc.map((h) => (
-                <li key={h}>
-                  <a
-                    href={`#${anchor(h)}`}
-                    className={`text-muted-foreground hover:text-foreground -ml-px block border-l border-transparent py-1 pl-3 text-sm hover:border-current ${focus}`}
-                  >
-                    {h}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <RoadmapToc
+              items={toc.map((h) => ({ id: anchor(h), label: h }))}
+              focus={focus}
+            />
           </nav>
         </aside>
       </div>
+      <BackToTop />
     </main>
   );
 }
