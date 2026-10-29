@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { Climb } from "@/components/climb";
 import { LandingCta, LandingCtaFallback } from "@/components/landing-cta";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNav } from "@/components/landing-nav";
@@ -8,7 +9,6 @@ import { LiveStats } from "@/components/live-stats";
 import { ProfileCard } from "@/components/profile-card";
 import { DifficultyBar, PercentileGauge, WeeklyBars } from "@/components/row-graphic";
 import { StatCards } from "@/components/stat-cards";
-import { TierChip } from "@/components/tier-chip";
 import { buttonVariants } from "@/components/ui/button";
 import { PLATFORM_BRAND } from "@/lib/boards/theme";
 
@@ -81,16 +81,6 @@ const ROADMAP_TOPICS = [
     color: "var(--board-github)",
     text: "About 50 common questions with short answers.",
   },
-];
-
-const TIERS = [
-  { rating: 1300, from: "Under 1400", height: 56 },
-  { rating: 1400, from: "1400", height: 80 },
-  { rating: 1600, from: "1600", height: 104 },
-  { rating: 1800, from: "1800", height: 128 },
-  { rating: 2000, from: "2000", height: 152 },
-  { rating: 2200, from: "2200", height: 176 },
-  { rating: 2400, from: "2400+", height: 200 },
 ];
 
 const STEPS = [
@@ -412,59 +402,19 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Tier ladder */}
+        {/* The climb: tiers on the board, with the roadmap steps for each */}
         <section id="levels" className="border-border scroll-mt-28 border-t">
-          <div className="mx-auto grid w-full max-w-6xl items-end gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="flex flex-col gap-2 lg:self-center">
+          <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
+            <div className="mb-8 flex max-w-xl flex-col gap-2">
               <h2 className="numeral text-4xl leading-none font-extrabold sm:text-5xl">
-                Level up your name
+                The climb
               </h2>
-              <p className="text-muted-foreground max-w-md">
-                Your LeetCode contest rating gives you a colour that follows you across
-                every board. Seven steps, from Grey to Red. Which one will you stand on?
+              <p className="text-muted-foreground">
+                Your LeetCode contest rating gives you a colour on every board. Pick a
+                tier to see what it looks like, and what to learn to reach it.
               </p>
             </div>
-
-            <ol aria-label="Rating tiers" className="hidden items-end gap-2 sm:flex">
-              {TIERS.map((t) => (
-                <li key={t.rating} className="flex flex-1 flex-col items-center gap-2">
-                  <TierChip rating={t.rating} />
-                  <span
-                    className="w-full rounded-t-lg"
-                    style={{
-                      height: t.height,
-                      background: `var(--tier-${
-                        t.rating < 1400
-                          ? "grey"
-                          : t.rating < 1600
-                            ? "green"
-                            : t.rating < 1800
-                              ? "cyan"
-                              : t.rating < 2000
-                                ? "blue"
-                                : t.rating < 2200
-                                  ? "violet"
-                                  : t.rating < 2400
-                                    ? "orange"
-                                    : "red"
-                      })`,
-                    }}
-                  />
-                  <span className="numeral text-lg font-extrabold">{t.from}</span>
-                </li>
-              ))}
-            </ol>
-            <ol aria-label="Rating tiers" className="grid grid-cols-2 gap-3 sm:hidden">
-              {TIERS.map((t) => (
-                <li
-                  key={t.rating}
-                  className="border-border bg-foreground/[0.03] flex flex-col items-start gap-2 rounded-2xl border p-3"
-                >
-                  <TierChip rating={t.rating} />
-                  <span className="numeral text-2xl font-extrabold">{t.from}</span>
-                </li>
-              ))}
-            </ol>
+            <Climb />
           </div>
         </section>
 
