@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { RoadmapSteps } from "@/components/roadmap-steps";
 import { Block, RoadmapShell, focus } from "@/components/roadmap-shell";
 import { ink } from "@/lib/boards/theme";
 import { ROADMAP_GROUPS, ROADMAP_TABS, roadmapHref } from "@/lib/roadmap/pages";
 import type { RoadmapPage as Page, RoadmapSection } from "@/lib/roadmap/types";
 
-function Body({ s }: { s: RoadmapSection }) {
+function Body({ s, slug }: { s: RoadmapSection; slug: string }) {
   return (
     <div className="flex flex-col gap-4">
       {(s.paragraphs || s.steps || s.bullets) && (
@@ -12,29 +13,7 @@ function Body({ s }: { s: RoadmapSection }) {
           {s.paragraphs?.map((p) => (
             <p key={p}>{p}</p>
           ))}
-          {s.steps && (
-            <ol className="flex flex-col">
-              {s.steps.map((x, i) => (
-                <li key={x} className="relative flex gap-3 pb-4 last:pb-0">
-                  {i < s.steps!.length - 1 && (
-                    <span
-                      aria-hidden="true"
-                      className="bg-border absolute top-8 bottom-0 left-3 w-px"
-                    />
-                  )}
-                  <span
-                    aria-hidden="true"
-                    className="bg-foreground text-background relative mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
-                  >
-                    {i + 1}
-                  </span>
-                  <span className="border-border flex-1 rounded-lg border px-3 py-2">
-                    {x}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          )}
+          {s.steps && <RoadmapSteps id={`${slug}/${s.heading}`} steps={s.steps} />}
           {s.bullets && (
             <ul className="flex list-disc flex-col gap-1.5 pl-5">
               {s.bullets.map((x) => (
@@ -165,7 +144,7 @@ export function RoadmapPage({ page }: { page: Page }) {
 
       {page.sections.map((s) => (
         <Block key={s.heading} title={s.heading}>
-          <Body s={s} />
+          <Body s={s} slug={page.slug} />
         </Block>
       ))}
 
