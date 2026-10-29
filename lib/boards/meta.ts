@@ -3,7 +3,14 @@ import { num, type BoardId } from "@/lib/scoring/types";
 
 export const BOARD_META: Record<
   BoardId,
-  { title: string; valueLabel: string; blurb: string; improvedLabel: string }
+  {
+    title: string;
+    valueLabel: string;
+    blurb: string;
+    improvedLabel: string;
+    /** The roadmap page that helps a student climb this board. */
+    learn: { label: string; href: string };
+  }
 > = {
   "problem-solving": {
     title: "DSA",
@@ -11,6 +18,7 @@ export const BOARD_META: Record<
     blurb:
       "Data structures and algorithms: LeetCode problems weighted by difficulty, plus Codeforces and CodeChef solves.",
     improvedLabel: "Score gained",
+    learn: { label: "Learn DSA", href: "/roadmap/dsa" },
   },
   contests: {
     title: "Contests",
@@ -18,12 +26,14 @@ export const BOARD_META: Record<
     blurb:
       "LeetCode contest rating. Students who have not competed in a rated contest yet are listed below the ranking.",
     improvedLabel: "Rating gained",
+    learn: { label: "Practise for contests", href: "/roadmap/dsa" },
   },
   github: {
     title: "GitHub",
     valueLabel: "Contributions",
     blurb: "Public contributions over the last 12 months.",
     improvedLabel: "Contributions gained",
+    learn: { label: "Start with open source", href: "/roadmap/open-source" },
   },
 };
 

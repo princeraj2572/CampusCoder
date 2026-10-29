@@ -119,6 +119,12 @@ export default async function BoardPage({
           style={{ background: "var(--board)" }}
         />
         <p className="text-muted-foreground max-w-prose text-sm">{meta.blurb}</p>
+        <Link
+          href={meta.learn.href}
+          className="text-foreground w-fit text-sm underline underline-offset-4"
+        >
+          {meta.learn.label} on the roadmap →
+        </Link>
       </header>
 
       <div className="grid gap-5 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-8">

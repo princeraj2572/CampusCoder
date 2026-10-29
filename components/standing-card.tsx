@@ -117,6 +117,10 @@ export function StandingCard({
     );
   }
 
+  // Point at the roadmap for the first board they are not ranked on, else the one they are viewing.
+  const next =
+    BOARD_META[BOARD_IDS.find((b) => !state.ranks[b].overall) ?? current].learn;
+
   return (
     <section className={shell}>
       <h2 className="font-display text-lg font-semibold">Your standing</h2>
@@ -162,6 +166,12 @@ export function StandingCard({
           );
         })}
       </ul>
+      <Link
+        href={next.href}
+        className={buttonVariants({ variant: "outline", className: "w-full" })}
+      >
+        Next step: {next.label}
+      </Link>
       <Link
         href={`/students/${state.studentId}`}
         className="text-muted-foreground hover:text-foreground text-sm underline underline-offset-4"
